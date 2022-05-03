@@ -1,0 +1,15 @@
+@echo off
+REM PARAMETERS: INFILE OUTFILE
+rem USAGE D:\IMAPS_DATA\Interfaces\PROGRAMS\DEV_BATCH\LF2CRLF.bat T:\IMAPS_DATA\Interfaces\PROCESS\CCIS\CCS.filein T:\IMAPS_DATA\Interfaces\PROCESS\CCIS\CCIS_ACTIVITY.TXT
+
+call powershell T:\IMAPS_DATA\Interfaces\PROGRAMS\batch\LF2CRLF.ps1 -FilePath %~1 -DestFile %~2
+
+@echo CR2LF BATCH FILE COMPLETED
+@ECHO -
+
+
+
+
+
+
+

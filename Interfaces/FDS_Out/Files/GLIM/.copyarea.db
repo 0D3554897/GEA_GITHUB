@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\FDS_Out\Files\GLIM
+2
+9
+b:GLIMTAX.CSV|1|16aa30cd413|8ce|98354dea|c2081a7b35ea43dc9ec237aba16bae3c|0
+b:GLIMDTL.CSV|1|16aa30cd51d|8e9|c3aa55a8|c82d1d62b551471db98b00348d3bba81|0
+10:instructions.txt|1|16aa30cd51d|d8e|c77d0869|c02a5a046d794ac3be34a04f0062661f|0
+e:NOT CHECKED IN|2|0|0|0|d3fed0eb6e3f4d7f8a0022087b1f1dea|0
+b:fds_ftp.ini|1|16aa30cd490|41|d8071681|8352d05fe84f4b948dcebd5e58b4a74f|0
+c:glim_ftp.ini|1|16aa30cd490|41|d8071681|bccdfc3dea234aaa84693602292ba6b8|0
+b:FTP_CHK.scp|1|16aa30cd51d|1770|c6ccae6|0f06a944941d42c2b7beefee2972a967|0
+b:ccs_ftp.ini|1|16aa30cd490|61|420e2145|2931aab8d69847b8a9ca4c5f3d11b434|0
+b:GLIMHDR.CSV|1|16aa30cd5c9|697|aa32a9fd|3dc69a8c8ff3448d954de9a2b02f1854|0

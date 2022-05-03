@@ -1,0 +1,16 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Common Java Utilities\ftp_chk\libs\sqljdbc_7.4\enu
+2
+c
+1a:mssql-jdbc-7.4.1.jre12.jar|1|17035c46a33|129b38|d0d0e9ec|dfddc1323ba341ebb1256d41e6e8e1bd|0
+4:auth|2|0|0|0|90fcebaea63e465dbb477e75a6225a64|0
+15:thirdpartynotices.txt|1|17035c45bb9|3113|c7fc1fbd|b720d21ae9504b1093ee4695548f365c|0
+20:mssql-jdbc-7.4.1.jre8-shaded.jar|1|17035c48558|c63b24|91a47e24|4c8b7b427b824271a9e923b1f9c1bc30|0
+2:xa|2|0|0|0|21dd0dadb5f6445b923f4fef3d08744b|0
+1a:mssql-jdbc-7.4.1.jre11.jar|1|17035c45d69|129b2d|5c3b194d|52c9067fb53b4d9a82c114903bfe9306|0
+b:license.txt|1|17035c45b45|2266|c647dcec|98c02676d44a4bb2aedcd53fba9ba419|0
+19:mssql-jdbc-7.4.1.jre8.jar|1|17035c4628f|12753b|3047b750|e861b991c2e449aba013e927273c9667|0
+21:mssql-jdbc-7.4.1.jre12-shaded.jar|1|17035c4652d|c6616d|e5c515c9|2f9e46d829ea457bbf3b2149d6ab0b71|0
+b:release.txt|1|17035c45b8a|3c11|46ac206d|63c79b9e97204893b66ba12cce080c8e|0
+b:install.txt|1|17035c45dae|49a|11ed879e|d938e8e9bbd64a3d9cf9d74fac23b4f6|0
+21:mssql-jdbc-7.4.1.jre11-shaded.jar|1|17035c47013|c66149|b11f8f1c|57945ddaff634832a2d88ce26344e76f|0

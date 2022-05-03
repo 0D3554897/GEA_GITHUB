@@ -1,0 +1,1322 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/11/2009 7:51:49 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="FFX23DAP23"
+  DTS:CreatorName="DIV16\kmcguire"
+  DTS:Description="DTS Wizard-generated package"
+  DTS:DTSID="{A5D3EF8E-ACCA-4A78-9746-3B37EF7904B5}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1301.433"
+  DTS:LocaleID="1033"
+  DTS:MaxErrorCount="0"
+  DTS:ObjectName="BMSIW_WWER_N16_EXTRACT"
+  DTS:VersionBuild="75"
+  DTS:VersionGUID="{32638DAC-6FB2-4548-BA30-D33014666894}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3ED16A63-9AE0-4216-BB58-CD681D87BF51}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DynamicSQL">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT D.RPT_KEY,   D.EXP_KEY,   D.ACCOUNT_ID,   D.CHRG_AMT,   D.CHRG_CRNCY_CD,   D.CHRG_MIN_NUM,   D.CHRG_SUBMIN_NUM,   D.CONTROL_COUNTRY_CD,   D.CONTROL_GROUP_CD,   D.EXP_CD,   D.EXP_CHRG_DT,   D.EXP_CHRG_NM,   D.EXP_BEGIN_DT,   D.EXP_EFFECTIVE_DT,   D.EXP_END_DT,  CAST(D.CREATED_TMS as CHAR(26)) as CREATED_TMS,   S.CHRG_COUNTRY_CD,   S.CHRG_DIV_CD,   S.CHRG_FINDPT_ID,   S.CHRG_LEDGER_CD,   S.CHRG_MAJ_NUM,   S.CNUM_ID,   S.EMP_LAST_NM,   S.EMP_INITS_NM,   S.EMP_SER_NUM,   S.EXP_WEEK_END_DT,   S.INVOICE_TXT,   S.PROCESSED_DT FROM BMSIW.PROJ_EXP_DTL_V D, BMSIW.PROJ_EXP_SUM_V S</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Extract From BMSIW"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{861F63BD-8E83-468C-A809-4C67EBBB491C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Extract From BMSIW">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          engineThreads="5"
+          version="1">
+          <components>
+            <component
+              refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation;Microsoft SqlServer v9; (C) 2005 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Destination - XX_FIWLR_BMSIW_WWER_N16_PULL"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[XX_FIWLR_BMSIW_WWERN16_EXTRACT]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destinaton. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Connections[OleDbConnection]"
+                  connectionManagerID="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[IMAPSSTG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[RPT_KEY]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="RPT_KEY"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[RPT_KEY]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[RPT_KEY]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EXP_KEY]"
+                      cachedDataType="numeric"
+                      cachedName="EXP_KEY"
+                      cachedPrecision="5"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_KEY]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_KEY]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[ACCOUNT_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="ACCOUNT_ID"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[ACCOUNT_ID]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ACCOUNT_ID]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CHRG_AMT]"
+                      cachedDataType="numeric"
+                      cachedName="CHRG_AMT"
+                      cachedPrecision="15"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_AMT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_AMT]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CHRG_CRNCY_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CHRG_CRNCY_CD"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_CRNCY_CD]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_CRNCY_CD]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CHRG_MIN_NUM]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="CHRG_MIN_NUM"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_MIN_NUM]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_MIN_NUM]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CHRG_SUBMIN_NUM]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="CHRG_SUBMIN_NUM"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_SUBMIN_NUM]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_SUBMIN_NUM]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CONTROL_COUNTRY_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CONTROL_COUNTRY_CD"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CONTROL_COUNTRY_CD]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CONTROL_COUNTRY_CD]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CONTROL_GROUP_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="CONTROL_GROUP_CD"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CONTROL_GROUP_CD]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CONTROL_GROUP_CD]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EXP_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="EXP_CD"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_CD]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_CD]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EXP_CHRG_DT]"
+                      cachedDataType="dbDate"
+                      cachedName="EXP_CHRG_DT"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_CHRG_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_CHRG_DT]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EXP_CHRG_NM]"
+                      cachedDataType="wstr"
+                      cachedLength="64"
+                      cachedName="EXP_CHRG_NM"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_CHRG_NM]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_CHRG_NM]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EXP_BEGIN_DT]"
+                      cachedDataType="dbDate"
+                      cachedName="EXP_BEGIN_DT"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_BEGIN_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_BEGIN_DT]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EXP_EFFECTIVE_DT]"
+                      cachedDataType="dbDate"
+                      cachedName="EXP_EFFECTIVE_DT"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_EFFECTIVE_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_EFFECTIVE_DT]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EXP_END_DT]"
+                      cachedDataType="dbDate"
+                      cachedName="EXP_END_DT"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_END_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_END_DT]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CREATED_TMS]"
+                      cachedDataType="wstr"
+                      cachedLength="26"
+                      cachedName="CREATED_TMS"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CREATED_TMS]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CREATED_TMS]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CHRG_COUNTRY_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CHRG_COUNTRY_CD"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_COUNTRY_CD]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_COUNTRY_CD]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CHRG_DIV_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="CHRG_DIV_CD"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_DIV_CD]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_DIV_CD]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CHRG_FINDPT_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="CHRG_FINDPT_ID"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_FINDPT_ID]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_FINDPT_ID]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CHRG_LEDGER_CD]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="CHRG_LEDGER_CD"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_LEDGER_CD]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_LEDGER_CD]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CHRG_MAJ_NUM]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="CHRG_MAJ_NUM"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_MAJ_NUM]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_MAJ_NUM]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[CNUM_ID]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="CNUM_ID"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CNUM_ID]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CNUM_ID]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EMP_LAST_NM]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="EMP_LAST_NM"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EMP_LAST_NM]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_LAST_NM]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EMP_INITS_NM]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="EMP_INITS_NM"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EMP_INITS_NM]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_INITS_NM]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EMP_SER_NUM]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="EMP_SER_NUM"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EMP_SER_NUM]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_SER_NUM]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[EXP_WEEK_END_DT]"
+                      cachedDataType="dbDate"
+                      cachedName="EXP_WEEK_END_DT"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_WEEK_END_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_WEEK_END_DT]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[INVOICE_TXT]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="INVOICE_TXT"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[INVOICE_TXT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[INVOICE_TXT]" />
+                    <inputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].Columns[PROCESSED_DT]"
+                      cachedDataType="dbDate"
+                      cachedName="PROCESSED_DT"
+                      externalMetadataColumnId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[PROCESSED_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[PROCESSED_DT]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[RPT_KEY]"
+                      dataType="wstr"
+                      length="20"
+                      name="RPT_KEY" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_KEY]"
+                      dataType="numeric"
+                      name="EXP_KEY"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[ACCOUNT_ID]"
+                      dataType="wstr"
+                      length="8"
+                      name="ACCOUNT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_AMT]"
+                      dataType="numeric"
+                      name="CHRG_AMT"
+                      precision="15"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_CRNCY_CD]"
+                      dataType="wstr"
+                      length="3"
+                      name="CHRG_CRNCY_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_MIN_NUM]"
+                      dataType="wstr"
+                      length="4"
+                      name="CHRG_MIN_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_SUBMIN_NUM]"
+                      dataType="wstr"
+                      length="4"
+                      name="CHRG_SUBMIN_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CONTROL_COUNTRY_CD]"
+                      dataType="wstr"
+                      length="3"
+                      name="CONTROL_COUNTRY_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CONTROL_GROUP_CD]"
+                      dataType="wstr"
+                      length="8"
+                      name="CONTROL_GROUP_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_CD]"
+                      dataType="wstr"
+                      length="6"
+                      name="EXP_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_CHRG_DT]"
+                      dataType="dbTimeStamp"
+                      name="EXP_CHRG_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_CHRG_NM]"
+                      dataType="wstr"
+                      length="64"
+                      name="EXP_CHRG_NM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_BEGIN_DT]"
+                      dataType="dbTimeStamp"
+                      name="EXP_BEGIN_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_EFFECTIVE_DT]"
+                      dataType="dbTimeStamp"
+                      name="EXP_EFFECTIVE_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_END_DT]"
+                      dataType="dbTimeStamp"
+                      name="EXP_END_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CREATED_TMS]"
+                      dataType="wstr"
+                      length="26"
+                      name="CREATED_TMS" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_COUNTRY_CD]"
+                      dataType="wstr"
+                      length="3"
+                      name="CHRG_COUNTRY_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_DIV_CD]"
+                      dataType="wstr"
+                      length="2"
+                      name="CHRG_DIV_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_FINDPT_ID]"
+                      dataType="wstr"
+                      length="8"
+                      name="CHRG_FINDPT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_LEDGER_CD]"
+                      dataType="wstr"
+                      length="2"
+                      name="CHRG_LEDGER_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CHRG_MAJ_NUM]"
+                      dataType="wstr"
+                      length="3"
+                      name="CHRG_MAJ_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[CNUM_ID]"
+                      dataType="wstr"
+                      length="10"
+                      name="CNUM_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EMP_LAST_NM]"
+                      dataType="wstr"
+                      length="40"
+                      name="EMP_LAST_NM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EMP_INITS_NM]"
+                      dataType="wstr"
+                      length="2"
+                      name="EMP_INITS_NM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EMP_SER_NUM]"
+                      dataType="wstr"
+                      length="6"
+                      name="EMP_SER_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[EXP_WEEK_END_DT]"
+                      dataType="dbTimeStamp"
+                      name="EXP_WEEK_END_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[INVOICE_TXT]"
+                      dataType="wstr"
+                      length="200"
+                      name="INVOICE_TXT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[PROCESSED_DT]"
+                      dataType="dbTimeStamp"
+                      name="PROCESSED_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[XX_DIV16_EMPLOYEE_FL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="XX_DIV16_EMPLOYEE_FL" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[XX_DIV16_EMPLOYEE_AT_EXP_CHRG_DT_FL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="XX_DIV16_EMPLOYEE_AT_EXP_CHRG_DT_FL" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[XX_DIV16_DDOU_FL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="XX_DIV16_DDOU_FL" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[XX_DIV16_PROJ_ABBRV_CD_FL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="XX_DIV16_PROJ_ABBRV_CD_FL" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input].ExternalColumns[XX_DIV16_DDOU_PROJ_ABBRV_CD]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="XX_DIV16_DDOU_PROJ_ABBRV_CD" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract From BMSIW\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT ' ' as RPT_KEY, 0 as EXP_KEY, ' ' as ACCOUNT_ID, 0 as CHRG_AMT, ' ' as CHRG_CRNCY_CD, ' ' as CHRG_MIN_NUM, ' ' as CHRG_SUBMIN_NUM, ' ' as CONTROL_COUNTRY_CD, ' ' as CONTROL_GROUP_CD, ' ' as EXP_CD, '1900-01-01' as EXP_CHRG_DT, ' ' as EXP_CHRG_NM, '1900-01-01' as EXP_BEGIN_DT, '1900-01-01' as EXP_EFFECTIVE_DT, '1900-01-01' as EXP_END_DT, ' ' as CREATED_TMS, ' ' as CHRG_COUNTRY_CD, ' ' as CHRG_DIV_CD, ' ' as CHRG_FINDPT_ID, ' ' as CHRG_LEDGER_CD, ' ' as CHRG_MAJ_NUM, ' ' as CNUM_ID, ' ' as EMP_LAST_NM, ' ' as EMP_INITS_NM, ' ' as EMP_SER_NUM, '1900-01-01' as EXP_WEEK_END_DT, ' ' as INVOICE_TXT, '1900-01-01' as PROCESSED_DT
+FROM 
+BMSIW.PROJ_EXP_DTL_V D, BMSIW.PROJ_EXP_SUM_V S</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::DynamicSQL</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Extract From BMSIW\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{0550F63E-0C65-4914-8221-2D4CC0E4D288}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[BMSIW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[RPT_KEY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RPT_KEY]"
+                      length="20"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[RPT_KEY]"
+                      name="RPT_KEY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_KEY]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_KEY]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_KEY]"
+                      name="EXP_KEY"
+                      precision="5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ACCOUNT_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ACCOUNT_ID]"
+                      length="8"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[ACCOUNT_ID]"
+                      name="ACCOUNT_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_AMT]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_AMT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_AMT]"
+                      name="CHRG_AMT"
+                      precision="15"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_CRNCY_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_CRNCY_CD]"
+                      length="3"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_CRNCY_CD]"
+                      name="CHRG_CRNCY_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_MIN_NUM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_MIN_NUM]"
+                      length="4"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_MIN_NUM]"
+                      name="CHRG_MIN_NUM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_SUBMIN_NUM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_SUBMIN_NUM]"
+                      length="4"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_SUBMIN_NUM]"
+                      name="CHRG_SUBMIN_NUM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CONTROL_COUNTRY_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CONTROL_COUNTRY_CD]"
+                      length="3"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CONTROL_COUNTRY_CD]"
+                      name="CONTROL_COUNTRY_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CONTROL_GROUP_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CONTROL_GROUP_CD]"
+                      length="8"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CONTROL_GROUP_CD]"
+                      name="CONTROL_GROUP_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_CD]"
+                      length="6"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_CD]"
+                      name="EXP_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_CHRG_DT]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_CHRG_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_CHRG_DT]"
+                      name="EXP_CHRG_DT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_CHRG_NM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_CHRG_NM]"
+                      length="64"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_CHRG_NM]"
+                      name="EXP_CHRG_NM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_BEGIN_DT]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_BEGIN_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_BEGIN_DT]"
+                      name="EXP_BEGIN_DT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_EFFECTIVE_DT]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_EFFECTIVE_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_EFFECTIVE_DT]"
+                      name="EXP_EFFECTIVE_DT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_END_DT]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_END_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_END_DT]"
+                      name="EXP_END_DT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CREATED_TMS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CREATED_TMS]"
+                      length="26"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CREATED_TMS]"
+                      name="CREATED_TMS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_COUNTRY_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_COUNTRY_CD]"
+                      length="3"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_COUNTRY_CD]"
+                      name="CHRG_COUNTRY_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_DIV_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_DIV_CD]"
+                      length="2"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_DIV_CD]"
+                      name="CHRG_DIV_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_FINDPT_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_FINDPT_ID]"
+                      length="8"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_FINDPT_ID]"
+                      name="CHRG_FINDPT_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_LEDGER_CD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_LEDGER_CD]"
+                      length="2"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_LEDGER_CD]"
+                      name="CHRG_LEDGER_CD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_MAJ_NUM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_MAJ_NUM]"
+                      length="3"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CHRG_MAJ_NUM]"
+                      name="CHRG_MAJ_NUM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CNUM_ID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CNUM_ID]"
+                      length="10"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[CNUM_ID]"
+                      name="CNUM_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_LAST_NM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_LAST_NM]"
+                      length="40"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_LAST_NM]"
+                      name="EMP_LAST_NM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_INITS_NM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_INITS_NM]"
+                      length="2"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_INITS_NM]"
+                      name="EMP_INITS_NM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_SER_NUM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_SER_NUM]"
+                      length="6"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_SER_NUM]"
+                      name="EMP_SER_NUM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_WEEK_END_DT]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_WEEK_END_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[EXP_WEEK_END_DT]"
+                      name="EXP_WEEK_END_DT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[INVOICE_TXT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[INVOICE_TXT]"
+                      length="200"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[INVOICE_TXT]"
+                      name="INVOICE_TXT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[PROCESSED_DT]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PROCESSED_DT]"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].Columns[PROCESSED_DT]"
+                      name="PROCESSED_DT"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RPT_KEY]"
+                      dataType="wstr"
+                      length="20"
+                      name="RPT_KEY" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_KEY]"
+                      dataType="numeric"
+                      name="EXP_KEY"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ACCOUNT_ID]"
+                      dataType="wstr"
+                      length="8"
+                      name="ACCOUNT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_AMT]"
+                      dataType="numeric"
+                      name="CHRG_AMT"
+                      precision="15"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_CRNCY_CD]"
+                      dataType="wstr"
+                      length="3"
+                      name="CHRG_CRNCY_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_MIN_NUM]"
+                      dataType="wstr"
+                      length="4"
+                      name="CHRG_MIN_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_SUBMIN_NUM]"
+                      dataType="wstr"
+                      length="4"
+                      name="CHRG_SUBMIN_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CONTROL_COUNTRY_CD]"
+                      dataType="wstr"
+                      length="3"
+                      name="CONTROL_COUNTRY_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CONTROL_GROUP_CD]"
+                      dataType="wstr"
+                      length="8"
+                      name="CONTROL_GROUP_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_CD]"
+                      dataType="wstr"
+                      length="6"
+                      name="EXP_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_CHRG_DT]"
+                      dataType="dbDate"
+                      name="EXP_CHRG_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_CHRG_NM]"
+                      dataType="wstr"
+                      length="64"
+                      name="EXP_CHRG_NM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_BEGIN_DT]"
+                      dataType="dbDate"
+                      name="EXP_BEGIN_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_EFFECTIVE_DT]"
+                      dataType="dbDate"
+                      name="EXP_EFFECTIVE_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_END_DT]"
+                      dataType="dbDate"
+                      name="EXP_END_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CREATED_TMS]"
+                      dataType="wstr"
+                      length="26"
+                      name="CREATED_TMS" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_COUNTRY_CD]"
+                      dataType="wstr"
+                      length="3"
+                      name="CHRG_COUNTRY_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_DIV_CD]"
+                      dataType="wstr"
+                      length="2"
+                      name="CHRG_DIV_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_FINDPT_ID]"
+                      dataType="wstr"
+                      length="8"
+                      name="CHRG_FINDPT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_LEDGER_CD]"
+                      dataType="wstr"
+                      length="2"
+                      name="CHRG_LEDGER_CD" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CHRG_MAJ_NUM]"
+                      dataType="wstr"
+                      length="3"
+                      name="CHRG_MAJ_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CNUM_ID]"
+                      dataType="wstr"
+                      length="10"
+                      name="CNUM_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_LAST_NM]"
+                      dataType="wstr"
+                      length="40"
+                      name="EMP_LAST_NM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_INITS_NM]"
+                      dataType="wstr"
+                      length="2"
+                      name="EMP_INITS_NM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_SER_NUM]"
+                      dataType="wstr"
+                      length="6"
+                      name="EMP_SER_NUM" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EXP_WEEK_END_DT]"
+                      dataType="dbDate"
+                      name="EXP_WEEK_END_DT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[INVOICE_TXT]"
+                      dataType="wstr"
+                      length="200"
+                      name="INVOICE_TXT" />
+                    <externalMetadataColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PROCESSED_DT]"
+                      dataType="dbDate"
+                      name="PROCESSED_DT" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RPT_KEY]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RPT_KEY]"
+                      name="RPT_KEY" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_KEY]"
+                      dataType="numeric"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_KEY]"
+                      name="EXP_KEY"
+                      precision="5" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ACCOUNT_ID]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ACCOUNT_ID]"
+                      name="ACCOUNT_ID" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_AMT]"
+                      dataType="numeric"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_AMT]"
+                      name="CHRG_AMT"
+                      precision="15"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_CRNCY_CD]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_CRNCY_CD]"
+                      name="CHRG_CRNCY_CD" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_MIN_NUM]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_MIN_NUM]"
+                      name="CHRG_MIN_NUM" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_SUBMIN_NUM]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_SUBMIN_NUM]"
+                      name="CHRG_SUBMIN_NUM" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CONTROL_COUNTRY_CD]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CONTROL_COUNTRY_CD]"
+                      name="CONTROL_COUNTRY_CD" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CONTROL_GROUP_CD]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CONTROL_GROUP_CD]"
+                      name="CONTROL_GROUP_CD" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_CD]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_CD]"
+                      name="EXP_CD" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_CHRG_DT]"
+                      dataType="dbDate"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_CHRG_DT]"
+                      name="EXP_CHRG_DT" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_CHRG_NM]"
+                      dataType="wstr"
+                      length="64"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_CHRG_NM]"
+                      name="EXP_CHRG_NM" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_BEGIN_DT]"
+                      dataType="dbDate"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_BEGIN_DT]"
+                      name="EXP_BEGIN_DT" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_EFFECTIVE_DT]"
+                      dataType="dbDate"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_EFFECTIVE_DT]"
+                      name="EXP_EFFECTIVE_DT" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_END_DT]"
+                      dataType="dbDate"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_END_DT]"
+                      name="EXP_END_DT" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CREATED_TMS]"
+                      dataType="wstr"
+                      length="26"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CREATED_TMS]"
+                      name="CREATED_TMS" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_COUNTRY_CD]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_COUNTRY_CD]"
+                      name="CHRG_COUNTRY_CD" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_DIV_CD]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_DIV_CD]"
+                      name="CHRG_DIV_CD" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_FINDPT_ID]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_FINDPT_ID]"
+                      name="CHRG_FINDPT_ID" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_LEDGER_CD]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_LEDGER_CD]"
+                      name="CHRG_LEDGER_CD" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_MAJ_NUM]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CHRG_MAJ_NUM]"
+                      name="CHRG_MAJ_NUM" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CNUM_ID]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CNUM_ID]"
+                      name="CNUM_ID" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_LAST_NM]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_LAST_NM]"
+                      name="EMP_LAST_NM" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_INITS_NM]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_INITS_NM]"
+                      name="EMP_INITS_NM" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_SER_NUM]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_SER_NUM]"
+                      name="EMP_SER_NUM" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_WEEK_END_DT]"
+                      dataType="dbDate"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EXP_WEEK_END_DT]"
+                      name="EXP_WEEK_END_DT" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[INVOICE_TXT]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[INVOICE_TXT]"
+                      name="INVOICE_TXT" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PROCESSED_DT]"
+                      dataType="dbDate"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PROCESSED_DT]"
+                      name="PROCESSED_DT" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Extract From BMSIW.Paths[OLE DB Source Output]"
+              endId="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL.Inputs[Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Extract From BMSIW\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get DynamicSQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B514FC18-4109-4026-81B1-5402624B39D9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get DynamicSQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="&#xA;&#xA;select&#xA;'SELECT&#xA;    D.RPT_KEY&#xA;,   D.EXP_KEY&#xA;,   D.ACCOUNT_ID&#xA;,   D.CHRG_AMT&#xA;,   D.CHRG_CRNCY_CD&#xA;,   D.CHRG_MIN_NUM&#xA;,   D.CHRG_SUBMIN_NUM&#xA;,   D.CONTROL_COUNTRY_CD&#xA;,   D.CONTROL_GROUP_CD&#xA;,   D.EXP_CD&#xA;,   D.EXP_CHRG_DT&#xA;,   D.EXP_CHRG_NM&#xA;,   D.EXP_BEGIN_DT&#xA;,   D.EXP_EFFECTIVE_DT&#xA;,   D.EXP_END_DT&#xA;,   CAST(D.CREATED_TMS as CHAR(26)) as CREATED_TMS&#xA;,   S.CHRG_COUNTRY_CD&#xA;,   S.CHRG_DIV_CD&#xA;,   S.CHRG_FINDPT_ID&#xA;,   S.CHRG_LEDGER_CD&#xA;,   S.CHRG_MAJ_NUM&#xA;,   S.CNUM_ID&#xA;,   S.EMP_LAST_NM&#xA;,   S.EMP_INITS_NM&#xA;,   S.EMP_SER_NUM&#xA;,   S.EXP_WEEK_END_DT&#xA;,   S.INVOICE_TXT&#xA;,   S.PROCESSED_DT&#xA;FROM &#xA;BMSIW.PROJ_EXP_DTL_V D, BMSIW.PROJ_EXP_SUM_V S&#xA;WHERE &#xA;S.RPT_KEY = D.RPT_KEY&#xA;AND S.ACCOUNT_ID = D.ACCOUNT_ID&#xA;AND S.CONTROL_GROUP_CD = D.CONTROL_GROUP_CD&#xA;AND S.SRC_APPL_ID = D.SRC_APPL_ID&#xA;AND D.CREATED_TMS &gt; ''' + parameter_value + &#xA;'''   AND D.CREATED_TMS &lt; ''' +&#xA;&#xA;convert(char(10), cast(left(parameter_value,10) as datetime)+32, 120)+right(parameter_value,16)&#xA;&#xA;+ ''' '&#xA;&#xA;as output&#xA;&#xA;from xx_processing_parameters&#xA;where interface_name_cd='FIWLR'&#xA;and parameter_name = 'BMSIW_WWER_N16_PULL_TIMESTAMP'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::DynamicSQL" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{BCC6B864-FA7D-4991-A76F-AD64D1162CCE}"
+      DTS:From="Package\Get DynamicSQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Extract From BMSIW"
+      DTS:Value="2" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Extract From BMSIW"
+          TopLeft="8.51886792452831,100.330188679245" />
+        <NodeLayout
+          Size="147.2,41.6"
+          Id="Package\Get DynamicSQL"
+          TopLeft="5.5,5.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="77.8094339622642,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.230188679245"
+              Start="0,0"
+              End="0,45.730188679245">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.730188679245" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-25.304453125,17.0604068396225,50.60890625,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Extract From BMSIW">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="140.8,41.6"
+          Id="Package\Extract From BMSIW\OLE DB Source"
+          TopLeft="3.99999999999997,4.00000000000002" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL"
+          TopLeft="5.5,87.1603773584906" />
+        <EdgeLayout
+          Id="Package\Extract From BMSIW.Paths[OLE DB Source Output]"
+          TopLeft="73.95,45.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.5603773584906"
+              Start="0,0"
+              End="0,34.0603773584906">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.0603773584906" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract From BMSIW\Destination - XX_FIWLR_BMSIW_WWER_N16_PULL">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract From BMSIW\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,136 @@
+USE [msdb]
+GO
+
+/****** Object:  Job [R22_CERIS Closeout]    Script Date: 07/19/2016 10:02:43 ******/
+BEGIN TRANSACTION
+DECLARE @ReturnCode INT
+SELECT @ReturnCode = 0
+/****** Object:  JobCategory [[Uncategorized (Local)]]]    Script Date: 07/19/2016 10:02:43 ******/
+IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'[Uncategorized (Local)]' AND category_class=1)
+BEGIN
+EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'[Uncategorized (Local)]'
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+
+END
+
+DECLARE @jobId BINARY(16)
+EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'R22_CERIS Closeout', 
+		@enabled=1, 
+		@notify_level_eventlog=0, 
+		@notify_level_email=0, 
+		@notify_level_netsend=0, 
+		@notify_level_page=0, 
+		@delete_level=0, 
+		@description=N'No description available.', 
+		@category_name=N'[Uncategorized (Local)]', @job_id = @jobId OUTPUT
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+/****** Object:  Step [check timesheets]    Script Date: 07/19/2016 10:02:43 ******/
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'check timesheets', 
+		@step_id=1, 
+		@cmdexec_success_code=0, 
+		@on_success_action=3, 
+		@on_success_step_id=0, 
+		@on_fail_action=2, 
+		@on_fail_step_id=0, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'TSQL', 
+		@command=N'	DECLARE 
+		@STATUS_RECORD_NUM int,	
+		@count int
+	
+	SELECT 	top 1 @STATUS_RECORD_NUM = STATUS_RECORD_NUM
+	FROM	dbo.XX_IMAPS_INT_STATUS
+	WHERE 	INTERFACE_NAME = ''CERIS_R22''
+	ORDER BY CREATED_DATE DESC
+	
+	SELECT  @count = COUNT(1)
+	FROM 	IMAR.DELTEK.TS_LN
+	WHERE 	LEFT(NOTES, LEN(@STATUS_RECORD_NUM )+1) = cast(@STATUS_RECORD_NUM as varchar)+''-''
+
+	IF @count = 0
+	BEGIN	
+		RAISERROR (''JOB FAILURE'', 16, 1)
+	END
+', 
+		@database_name=N'IMAPSStg', 
+		@output_file_name=N'D:\apps_to_compile\csv2db\sql_job_log\CERIS_D22.log', 
+		@flags=2
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+/****** Object:  Step [update status]    Script Date: 07/19/2016 10:02:43 ******/
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'update status', 
+		@step_id=2, 
+		@cmdexec_success_code=0, 
+		@on_success_action=3, 
+		@on_success_step_id=0, 
+		@on_fail_action=2, 
+		@on_fail_step_id=0, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'TSQL', 
+		@command=N'	DECLARE @ret_code int
+	EXEC @ret_code = dbo.XX_R22_UPDATE_PROCESS_STATUS_SP
+	IF @ret_code <> 0
+	BEGIN
+		RAISERROR (''JOB FAILURE'', 16, 1)
+	END
+', 
+		@database_name=N'IMAPSStg', 
+		@output_file_name=N'D:\apps_to_compile\csv2db\sql_job_log\CERIS_D22.log', 
+		@flags=2
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+/****** Object:  Step [closeout]    Script Date: 07/19/2016 10:02:43 ******/
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'closeout', 
+		@step_id=3, 
+		@cmdexec_success_code=0, 
+		@on_success_action=3, 
+		@on_success_step_id=0, 
+		@on_fail_action=2, 
+		@on_fail_step_id=0, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'TSQL', 
+		@command=N'	DECLARE @ret_code int
+	EXEC @ret_code = dbo.XX_R22_CERIS_RUN_INTERFACE_SP
+	IF @ret_code <> 0
+	BEGIN
+		RAISERROR (''JOB FAILURE'', 16, 1)
+	END
+
+', 
+		@database_name=N'IMAPSStg', 
+		@output_file_name=N'D:\apps_to_compile\csv2db\sql_job_log\CERIS_D22.log', 
+		@flags=6
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+/****** Object:  Step [auto-adjust]    Script Date: 07/19/2016 10:02:43 ******/
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'auto-adjust', 
+		@step_id=4, 
+		@cmdexec_success_code=0, 
+		@on_success_action=1, 
+		@on_success_step_id=0, 
+		@on_fail_action=2, 
+		@on_fail_step_id=0, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'TSQL', 
+		@command=N'DECLARE @nDBErrorNum int, @sProcAction varchar(100), @ret_code int    
+EXEC @ret_code=XX_R22_DDC_CERIS_BATCHAUTOADJ_SP ''RWK'', ''N'', ''Y'', @nDBErrorNum OUT, @sProcAction OUT    
+  IF @ret_code <> 0  BEGIN    RAISERROR (''JOB FAILURE'', 16, 1)  END  
+', 
+		@database_name=N'IMAPSStg', 
+		@output_file_name=N'D:\apps_to_compile\csv2db\sql_job_log\CERIS_D22.log', 
+		@flags=2
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+EXEC @ReturnCode = msdb.dbo.sp_update_job @job_id = @jobId, @start_step_id = 1
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+EXEC @ReturnCode = msdb.dbo.sp_add_jobserver @job_id = @jobId, @server_name = N'(local)'
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+COMMIT TRANSACTION
+GOTO EndSave
+QuitWithRollback:
+    IF (@@TRANCOUNT > 0) ROLLBACK TRANSACTION
+EndSave:
+
+GO
+
+

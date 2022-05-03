@@ -1,0 +1,18 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\FDS_Out\Files
+2
+e
+14:CCS_FTP_commands.txt|1|16aa30cd200|116|6bee4bcd|cd93e5f89a1349e9aed6c410e9f5b03d|0
+3:CFF|2|0|0|0|ec64bd3064a34dccb3318894e546c819|0
+6:CCS_AR|2|0|0|0|f7a4b54a369e4800b2c32b3837cd7cd0|0
+c:jtds-1.1.jar|1|16aa30cd22f|449aa|bb9784b2|6b446a9697c243a6996444a0204852d7|0
+1a:jdbc_connection.properties|1|16aa30cd200|6e|26ae25cb|29311ce9c44e4125b3dc1d63a231a96c|0
+14:CreateFlatFiles.java|1|16aa30cd1a3|191b1|64b29367|f328964bda744a96b564d5c8b4b91d16|0
+11:FDS_CCS_build.xml|1|16aa30cd1b2|3b3|429625f7|55c2fd42fcd34c928d4e188f42154ad1|0
+14:FDS_FTP_commands.txt|1|16aa30cd210|11f|4a254e4d|2330c26d8e244c21b521ebb5800c03a3|0
+b:DTS_CMR.dts|1|16aa30cd1b2|33400|7e471745|0c33e0ea9a5542198d9c758dd2f9478a|0
+8:CMR_SSIS|2|0|0|0|3fde11ad05394d52ba338e85c3af19e5|0
+12:jeskick.iefbr14ccs|1|16aa30cd1d1|1fd|3abc6133|08b01c2729f440c9ba5931ee127976ef|0
+4:GLIM|2|0|0|0|bf36e4d2a747488e84bc95a7db090e08|0
+12:jeskick.iefbr14fds|1|16aa30cd1e1|1f6|ccdd6187|fd856656f8f14a4daa27a43ddd4be0de|0
+27:CMR Data Flow Component SQL Command.sql|1|16ea3ad762d|661|5f4a503|71cc5a80c6654f7bb7d1d2c81c81bb40|0

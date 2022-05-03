@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Common Java Utilities\cff\DO NOT DEPLOY\Interfaces\CLS
+2
+3
+15:cls_log4j2.properties|1|17f571bc15e|1ad|f41f8c77|cb74061c5a99417bb7778e4aa364010d|0
+19:cls_val_log4j2.properties|1|17f571bc264|1ad|74b8c8b|59b8e71126314a5fb6c4d528dfbd527f|0
+19:cls_ftp_log4j2.properties|1|17f571bc120|1ad|de38c92|7b3b8233bc534054958dda61b555f270|0

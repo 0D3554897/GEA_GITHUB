@@ -1,0 +1,15 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\FIWLR_In\Files\do_not_deploy
+2
+b
+26:Job Run D16_ FIWLR 1 Run Interface.sql|1|16aa30cf9bd|ccf|28d3cb8e|007520cecc3b4068aabd42f77304be2e|0
+4c:Job Run D16_ FIWLR N16 Interface ('Run D16_ FIWLR 2 Closeout' when done).sql|1|16aa30cf9bd|c38|493eb072|16d6163d978042ce868d0f68199232bc|0
+12:MAIL_DEV.dtsConfig|1|16aa30cfaf6|57f|a2e7f17e|92bd05febc4b492184f173082e5900e3|0
+47:Job Run D16_ FIWLR 1a Run Interface for Begining of Month - SPECIAL.sql|1|16aa30cf91e|15bc|4178ac88|4608931dfbe04bdbba78b069adf9b8ae|0
+21:Job Run D16_ FIWLR 2 Closeout.sql|1|16aa30cf940|1634|e93c889d|e39ae672fa0f4087b54b3ba179b75b47|0
+a:readme.txt|1|16aa30cfa2b|1ba|48019cc2|f679d9a366ec4dc2bc09b5aeb1fcb869|0
+13:FIWLR_DEV.dtsConfig|1|16aa30cfa88|3bb|a5ca4dc1|5cdba82c616b402e89e94dcee96f7ef1|0
+2a:Job Run D16_ FIWLR Miscode 1 Reprocess.sql|1|16aa30cf8ff|8db|de699e70|b0167abd750347d18063dfee6489ac89|0
+12:WWER_DEV.dtsConfig|1|16aa30cfb24|3ed|f2d25d51|de7d9e974d094293a92c6b6840d7950e|0
+29:Job Run D16_ FIWLR Miscode 2 Closeout.sql|1|16aa30cfaf6|8d9|d41b9ec3|fb865a3392324f65a15fcdd44749659a|0
+16:IMAPSSTG_DEV.dtsConfig|1|16aa30cfb24|4b5|7fbb9da7|63787a3a71c14bcabbb7df9808ab4975|0

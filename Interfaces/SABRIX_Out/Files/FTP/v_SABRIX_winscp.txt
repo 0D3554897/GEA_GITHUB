@@ -1,0 +1,16 @@
+# Execute the script using a command like:
+#C:\Progra~2\WinSCP\WinSCP.com /log="C:\writable\path\to\log\WinSCP.log" /ini=nul /script="C:\path\to\script\script.txt"
+#C:\Progra~2\WinSCP\WinSCP.com /log="D:IMAPS_DATA/NOTSHARED/CCS_02_FTP_LOG.TXT" /script="d:\apps_to_compile\cff\winscp.txt"
+
+# CONNECTIONS
+#open GLIM_DEV_SERVER on MVS owned by George Alvarez
+open ftpes://GADVMVS:1L0VESMG@STFMVS1.POK.IBM.COM:990/
+
+
+#open SABRIX_TEST_SERVER
+#open ftpes://username:1L0VESMG@mvs4.dk.IBM.COM:21/ -passive=0
+
+
+
+exit
+

@@ -1,0 +1,3 @@
+rename_22.bat is a batch file that archives the incoming workday file and also renames files for use by the various java programs. It resides in the data folder.
+savjlog_ora22.bat is a batch file that saves the output of the java program and archives it for future reference in a folder ora_log.  it resides at same level as java folder
+the remaining batch files run the java program, one to load csv files, the other to send the serial xref via email

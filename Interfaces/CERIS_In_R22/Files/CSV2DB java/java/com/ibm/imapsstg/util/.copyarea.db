@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In_R22\Files\CSV2DB java\java\com\ibm\imapsstg\util
+2
+3
+d:MailTool.java|1|16aa30d1eca|1a16|ce8344e4|3524ab5883d047858764e11ebcc12df3|0
+11:ExcelBuilder.java|1|16aa30d1e5a|556|c6c3babd|0e24738b2912491c8304c68b6ef85360|0
+9:Util.java|1|16aa30d202c|bb9|c948f3b|26220f5fc64d441eae1291a4495b4c35|0

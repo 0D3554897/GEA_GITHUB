@@ -1,0 +1,47 @@
+USE [IMAPSStg]
+GO
+/****** Object:  Table [dbo].[XX_CLS_DOWN]    Script Date: 08/24/2007 08:50:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+
+IF EXISTS (SELECT name FROM sysobjects WHERE name = 'XX_CLS_DOWN' AND type = 'U')
+DROP TABLE XX_CLS_DOWN
+
+CREATE TABLE [dbo].[XX_CLS_DOWN](
+	
+	[CLS_MAJOR] [varchar](3) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[CLS_MINOR] [varchar](4) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[CLS_SUB_MINOR] [varchar](4) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+
+	[IMAPS_ACCT] [varchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[IMAPS_PROJ_ID] [varchar](30) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[L1_PROJ_SEG_ID] [varchar](30) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+
+	[DOLLAR_AMT] [decimal](14, 2) NULL,
+	[GA_AMT] [decimal](14, 2) NULL,
+	[OVERHEAD_AMT] [decimal](14, 2) NULL,
+	
+	[CONTRACT_NUM] [varchar](30) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[IGS_PROJ] [varchar](7) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,	
+	[SERVICE_OFFERING] [varchar](5) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[CUSTOMER_NUM] [varchar](10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+
+	[MACHINE_TYPE_CD] [varchar](4) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[PRODUCT_ID] [varchar](12) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+
+	[DESCRIPTION2] [varchar](30) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[BUSINESS_AREA] [varchar](2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[MARKETING_AREA] [varchar](2) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,	
+	[MARKETING_OFFICE] [char](3) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[CONSOLIDATED_REV_BRANCH_OFFICE] [char](3) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[INDUSTRY] [char](4) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[ENTERPRISE_NUM_CD] [varchar](7) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+

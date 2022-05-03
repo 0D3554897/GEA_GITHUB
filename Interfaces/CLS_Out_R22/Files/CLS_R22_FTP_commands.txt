@@ -1,0 +1,10 @@
+OPEN servername.pok.ibm.com
+username
+password
+CD .. 
+BINARY 
+QUOTE SITE LRECL=999 RECFM=FB 
+PUT IMAR_TO_CLS.BIN imaptso.control.ledgrin
+ASCII
+PUT F156PARM.TXT imaptso.f156.parm
+QUIT

@@ -1,0 +1,1028 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/14/2017 2:43:05 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HOU28FSDD01"
+  DTS:CreatorName="DIV16\tbperova"
+  DTS:DTSID="{FCB9BD16-672B-4B37-ADED-30C35DDAE5D9}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1301.433"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="FIWLR_22_EMPL_from_WWER"
+  DTS:PackageType="5"
+  DTS:VersionBuild="138"
+  DTS:VersionGUID="{6B106685-5364-4398-B183-7C625DF51F21}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D0079D36-115F-414E-B48D-D85832CE3A97}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ALL_VOUCHERS">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT  DISTINCT     LEFT( EMP_CNUM,6) EMP_CNUM_short , CLM_NUMBER,LEFT(EMP_NAME,30) EMP_NAME_short  FROM NWEA000.RP_RP04 where  CLM_NUMBER = '1'</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6A999603-FA5C-46FF-93BD-DDB6AAAB1566}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="AreVouchersAvailable">
+      <DTS:VariableValue
+        DTS:DataType="11">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\For Loop Container"
+      DTS:AssignExpression="@INSUR = @INSUR +1"
+      DTS:CreationName="STOCK:FORLOOP"
+      DTS:Description="For Loop Container"
+      DTS:DTSID="{09C8F6F7-EABE-49E7-951D-4DC4031CAA62}"
+      DTS:EvalExpression="@AreVouchersAvailable &amp;&amp; @INSUR &lt; 5"
+      DTS:ExecutableType="STOCK:FORLOOP"
+      DTS:InitExpression="@INSUR=0"
+      DTS:LocaleID="-1"
+      DTS:MaxConcurrent="1"
+      DTS:ObjectName="For Loop Container">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{25E3DCFB-ACE0-4AAE-BA4D-D582C40FAA6E}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="INSUR">
+          <DTS:VariableValue
+            DTS:DataType="3">0</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\For Loop Container\Mark Next batch Vouchers in V1"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{842c071a-5f8d-46e6-8b2a-a982777944a3}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Mark Next batch Vouchers in V1"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}"
+              SQLTask:SqlStatementSource="declare @MarkedVouchers int &#xA;&#xA;SELECT @MarkedVouchers = count(*) from &#xA;IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;WHERE SOURCE = '005' and VENDOR_ID='SUBMIT'  &#xA;&#xA;&#xA;IF @MarkedVouchers = 0 &#xA;&#xA;UPDATE IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;SET VENDOR_ID = 'SUBMIT'&#xA;where&#xA;VOUCHER_NO in  (&#xA;SELECT distinct top  500  VOUCHER_NO from   IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;WHERE SOURCE = '005' and RTRIM(ISNULL(VENDOR_ID,''))=''  )&#xA;&#xA;&#xA;&#xA;SELECT @MarkedVouchers = count(*) from &#xA;IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;WHERE SOURCE = '005' and VENDOR_ID='SUBMIT'  &#xA;&#xA;&#xA;SELECT CASE  WHEN @MarkedVouchers &gt; 0  THEN CAST( 1 AS BIT)  ELSE&#xA;CAST( 0 AS BIT)  END AS MarkedRows"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::AreVouchersAvailable" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop Container\Prepare SQL for Next marked Vouchers"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5db86b12-c82e-43c5-a0a5-f0f063c0c2dc}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Prepare SQL for Next marked Vouchers"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="&#xA;  SELECT   'SELECT  DISTINCT&#xA;     LEFT( EMP_CNUM,6) EMP_CNUM_short , CLM_NUMBER,&#xA;LEFT(EMP_NAME,30) EMP_NAME_short&#xA;  FROM NWEA000.RP_RP04&#xA;where  CLM_NUMBER  in &#xA;(' +   CAST(STUFF&#xA;                          ((SELECT     ',''' + VOUCHER_NO + '''' &#xA;                              FROM         (  &#xA;SELECT distinct VOUCHER_NO from   IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;WHERE VENDOR_ID = 'SUBMIT'  ) x &#xA;                              FOR XML path('')), 1, 1, '')  AS VARCHAR(8000))  + ')' AS  Vouchers"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ALL_VOUCHERS" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop Container\Pull employee data from WWER"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{f0dd2d78-eb4c-4430-be73-1d53a807c8ab}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Pull employee data from WWER"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:EventHandlers>
+            <DTS:EventHandler
+              DTS:refId="Package\For Loop Container\Pull employee data from WWER.EventHandlers[OnPostExecute]"
+              DTS:CreationName="OnPostExecute"
+              DTS:DTSID="{C2E7B128-E5BF-4C1C-8B76-CAE07ABF24E6}"
+              DTS:EventID="237328752"
+              DTS:EventName="OnPostExecute"
+              DTS:LocaleID="-1">
+              <DTS:Variables>
+                <DTS:Variable
+                  DTS:CreationName=""
+                  DTS:Description="The propagate property of the event"
+                  DTS:DTSID="{9B93FF7E-CFBF-4DB9-901D-8799CAB2F511}"
+                  DTS:IncludeInDebugDump="6789"
+                  DTS:Namespace="System"
+                  DTS:ObjectName="Propagate">
+                  <DTS:VariableValue
+                    DTS:DataType="11">-1</DTS:VariableValue>
+                </DTS:Variable>
+              </DTS:Variables>
+              <DTS:Executables />
+            </DTS:EventHandler>
+          </DTS:EventHandlers>
+          <DTS:ObjectData>
+            <pipeline
+              BLOBTempStoragePath=""
+              bufferTempStoragePath=""
+              version="1">
+              <components>
+                <component
+                  refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Inputs[Data Conversion Input].Columns[EMP_CNUM]"
+                          cachedDataType="wstr"
+                          cachedLength="12"
+                          cachedName="EMP_CNUM"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_CNUM]" />
+                        <inputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Inputs[Data Conversion Input].Columns[CLM_NUMBER]"
+                          cachedDataType="wstr"
+                          cachedLength="12"
+                          cachedName="CLM_NUMBER"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[CLM_NUMBER]" />
+                        <inputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Inputs[Data Conversion Input].Columns[EMP_NAME]"
+                          cachedDataType="wstr"
+                          cachedLength="35"
+                          cachedName="EMP_NAME"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_NAME]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output].Columns[EMP_CNUM_ANSI]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="6"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output].Columns[EMP_CNUM_ANSI]"
+                          name="EMP_CNUM_ANSI"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_CNUM]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output].Columns[CLM_NUMBER_ANSI]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="12"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output].Columns[CLM_NUMBER_ANSI]"
+                          name="CLM_NUMBER_ANSI"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[CLM_NUMBER]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output].Columns[EMP_NAME_ANSI]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="30"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output].Columns[EMP_NAME_ANSI]"
+                          name="EMP_NAME_ANSI"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_NAME]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[XX_R22_FIWLR_WWER_EMPL]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[IMAPSSTG]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CLM_NUMBER_ANSI]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="12"
+                          cachedName="CLM_NUMBER_ANSI"
+                          externalMetadataColumnId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VOUCHER_NO]"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output].Columns[CLM_NUMBER_ANSI]" />
+                        <inputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EMP_CNUM_ANSI]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="EMP_CNUM_ANSI"
+                          externalMetadataColumnId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMPLOYEE_NO]"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output].Columns[EMP_CNUM_ANSI]" />
+                        <inputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EMP_NAME_ANSI]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="EMP_NAME_ANSI"
+                          externalMetadataColumnId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMPLOYEE_NAME]"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output].Columns[EMP_NAME_ANSI]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VOUCHER_NO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="13"
+                          name="VOUCHER_NO" />
+                        <externalMetadataColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMPLOYEE_NO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="EMPLOYEE_NO" />
+                        <externalMetadataColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMPLOYEE_NAME]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="EMPLOYEE_NAME" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+     LEFT( EMP_CNUM,6) EMP_CNUM , CLM_NUMBER 
+  FROM NWEA000.RP_PO10
+where  CLM_NUMBER  in 
+(  ? )</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::ALL_VOUCHERS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0",{D0079D36-115F-414E-B48D-D85832CE3A97};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="{1c45d80a-b177-4885-b5a6-2eb3eb119e64}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WWERPROD]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[CLM_NUMBER]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CLM_NUMBER]"
+                          length="12"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[CLM_NUMBER]"
+                          name="CLM_NUMBER"
+                          truncationRowDisposition="IgnoreFailure" />
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_CNUM]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_CNUM_SHORT]"
+                          length="12"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_CNUM]"
+                          name="EMP_CNUM"
+                          truncationRowDisposition="IgnoreFailure" />
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_NAME]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_NAME_SHORT]"
+                          length="35"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].Columns[EMP_NAME]"
+                          name="EMP_NAME"
+                          truncationRowDisposition="IgnoreFailure" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CLM_NUMBER]"
+                          dataType="wstr"
+                          length="12"
+                          name="CLM_NUMBER" />
+                        <externalMetadataColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_CNUM_SHORT]"
+                          dataType="wstr"
+                          length="12"
+                          name="EMP_CNUM_SHORT" />
+                        <externalMetadataColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EMP_NAME_SHORT]"
+                          dataType="wstr"
+                          length="35"
+                          name="EMP_NAME_SHORT" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_CNUM_SHORT]"
+                          dataType="wstr"
+                          length="12"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_CNUM_SHORT]"
+                          name="EMP_CNUM_SHORT" />
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CLM_NUMBER]"
+                          dataType="wstr"
+                          length="12"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CLM_NUMBER]"
+                          name="CLM_NUMBER" />
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_NAME_SHORT]"
+                          dataType="wstr"
+                          length="35"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EMP_NAME_SHORT]"
+                          name="EMP_NAME_SHORT" />
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\For Loop Container\Pull employee data from WWER.Paths[Data Conversion Output]"
+                  endId="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\For Loop Container\Pull employee data from WWER.Paths[OLE DB Source Output]"
+                  endId="Package\For Loop Container\Pull employee data from WWER\Data Conversion.Inputs[Data Conversion Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\For Loop Container\Pull employee data from WWER\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop Container\Update V1 with WWER stage"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:DelayValidation="True"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9D0FC606-F3CD-48B3-86A6-6C8CD4EBEBBF}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update V1 with WWER stage"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource=" &#xA; UPDATE a&#xA; SET a.EMPLOYEE_NO = b.EMPLOYEE_NO,&#xA; a.VENDOR_ID =  b.EMPLOYEE_NO,&#xA;a.VEND_NAME = b.EMPLOYEE_NAME,&#xA;a.EMP_LASTNAME = LEFT( b.EMPLOYEE_NAME,CHARINDEX(',',b.EMPLOYEE_NAME,1)-1),&#xA;a.EMP_FIRSTNAME =  LTRIM(SUBSTRING(b.EMPLOYEE_NAME,CHARINDEX(',',b.EMPLOYEE_NAME,1)+1,LEN(b.EMPLOYEE_NAME)))&#xA; from IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1 a inner join IMAPSstg.dbo.XX_R22_FIWLR_WWER_EMPL b&#xA; on a.VOUCHER_NO = b.VOUCHER_NO&#xA;and   VENDOR_ID = 'SUBMIT'&#xA;&#xA;&#xA;&#xA;UPDATE  IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;SET VENDOR_ID = 'NOTFND'&#xA;WHERE VENDOR_ID = 'SUBMIT'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{E4973A1C-0AE1-4BC1-B294-2B78C3F8721B}"
+          DTS:From="Package\For Loop Container\Update V1 with WWER stage"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\For Loop Container\Mark Next batch Vouchers in V1" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop Container.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{47657821-659F-4C1C-B159-8CDC3BFAF524}"
+          DTS:From="Package\For Loop Container\Prepare SQL for Next marked Vouchers"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\For Loop Container\Pull employee data from WWER" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop Container.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{201A12A5-B9C1-4E82-A3E7-26E1FF21D750}"
+          DTS:From="Package\For Loop Container\Pull employee data from WWER"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\For Loop Container\Update V1 with WWER stage" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Mark Vouchers in V1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DelayValidation="True"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9741BC4F-7C08-4E13-975A-9DC8E5A0A497}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Mark Vouchers in V1"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}"
+          SQLTask:SqlStatementSource="declare @MarkedVouchers int &#xA;&#xA;SELECT @MarkedVouchers = count(*) from &#xA;IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;WHERE SOURCE = '005' and VENDOR_ID='SUBMIT'  &#xA;&#xA;&#xA;IF @MarkedVouchers = 0 &#xA;&#xA;UPDATE IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;SET VENDOR_ID = 'SUBMIT'&#xA;where&#xA;VOUCHER_NO in  (&#xA;SELECT distinct top 500  VOUCHER_NO from   IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;WHERE SOURCE = '005' and RTRIM(ISNULL(VENDOR_ID,''))=''  )&#xA;&#xA;&#xA;SELECT @MarkedVouchers = count(*) from &#xA;IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;WHERE SOURCE = '005' and VENDOR_ID='SUBMIT'  &#xA;&#xA;&#xA;SELECT CASE  WHEN @MarkedVouchers &gt; 0  THEN CAST( 1 AS BIT)  ELSE&#xA;CAST( 0 AS BIT)  END AS MarkedRows"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::AreVouchersAvailable" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate XX_R22_FIWLR_WWER_EMPL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DelayValidation="True"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C35399B9-B03B-483B-83F0-9E2BF6281BAF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate XX_R22_FIWLR_WWER_EMPL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource=" &#xA; TRUNCATE TABLE IMAPSstg.dbo.XX_R22_FIWLR_WWER_EMPL" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update Notfound Vouchers to empty vendor"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DelayValidation="True"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{F368FC2F-B43D-47BA-ABFE-5800B532A58F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update Notfound Vouchers to empty vendor"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}"
+          SQLTask:SqlStatementSource="&#xA;UPDATE&#xA;IMAPSstg.dbo.XX_R22_FIWLR_USDET_V1&#xA;SET VENDOR_ID =''&#xA;where SOURCE = '005'  AND &#xA; VENDOR_ID  = 'NOTFND'&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{45B3DB39-9D16-4180-A164-B34F2A84BC7D}"
+      DTS:From="Package\Truncate XX_R22_FIWLR_WWER_EMPL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Mark Vouchers in V1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{F38AA4A6-45DE-4026-B06E-628346998FCC}"
+      DTS:From="Package\Mark Vouchers in V1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\For Loop Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{20035797-B335-4D84-8813-571F34070B51}"
+      DTS:From="Package\For Loop Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Update Notfound Vouchers to empty vendor" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="190.4,60"
+          Id="Package\For Loop Container\Mark Next batch Vouchers in V1"
+          TopLeft="189.471698113208,364.283018867925" />
+        <NodeLayout
+          Size="209.6,56.8"
+          Id="Package\For Loop Container\Prepare SQL for Next marked Vouchers"
+          TopLeft="102.264150943396,50.0943396226415" />
+        <NodeLayout
+          Size="196.8,60.8"
+          Id="Package\For Loop Container\Pull employee data from WWER"
+          TopLeft="173.320754716981,155.603773584906" />
+        <NodeLayout
+          Size="208.8,61.6"
+          Id="Package\For Loop Container\Update V1 with WWER stage"
+          TopLeft="181.547169811321,265.716981132075" />
+        <EdgeLayout
+          Id="Package\For Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="244.339622641509,327.603773584906">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="40.4528301886792,36.6792452830189"
+              Start="0,0"
+              End="40.4528301886792,29.1792452830189">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5094339622642" />
+                  <mssgle:LineSegment
+                    End="40.4528301886792,27.5094339622642" />
+                  <mssgle:LineSegment
+                    End="40.4528301886792,29.1792452830189" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop Container.PrecedenceConstraints[Constraint 1]"
+          TopLeft="207.056603773585,107">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="64.6037735849056,48.6037735849057"
+              Start="0,0"
+              End="64.6037735849056,41.1037735849057">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.3018867924528" />
+                  <mssgle:LineSegment
+                    End="64.6037735849056,24.3018867924528" />
+                  <mssgle:LineSegment
+                    End="64.6037735849056,41.1037735849057" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop Container.PrecedenceConstraints[Constraint 2]"
+          TopLeft="271.660377358491,216.509433962264">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="14.188679245283,49.2075471698113"
+              Start="0,0"
+              End="14.188679245283,41.7075471698113">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.6037735849057" />
+                  <mssgle:LineSegment
+                    End="14.188679245283,24.6037735849057" />
+                  <mssgle:LineSegment
+                    End="14.188679245283,41.7075471698113" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43.924528301886795"
+          IsExpanded="True"
+          PanelSize="564,470.4"
+          Size="564,514.4"
+          Id="Package\For Loop Container"
+          TopLeft="5.5,147.38679245283" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Mark Vouchers in V1"
+          TopLeft="363.38679245283,40.7830188679245" />
+        <NodeLayout
+          Size="170.4,65.6"
+          Id="Package\Truncate XX_R22_FIWLR_WWER_EMPL"
+          TopLeft="59.2358490566038,5.5" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Update Notfound Vouchers to empty vendor"
+          TopLeft="222.216981132075,697.72641509434" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="229.952830188679,38.4433962264151">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="133.433962264151,24.3018867924528"
+              Start="0,0"
+              End="125.933962264151,24.3018867924528">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="66.7169811320755,0" />
+                  <mssgle:LineSegment
+                    End="66.7169811320755,24.3018867924528" />
+                  <mssgle:LineSegment
+                    End="125.933962264151,24.3018867924528" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="410.518867924528,84.7075471698113">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-122.943396226415,62.6792452830189"
+              Start="0,0"
+              End="-122.943396226415,55.1792452830189">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.3584905660377" />
+                  <mssgle:LineSegment
+                    End="-122.943396226415,31.3584905660377" />
+                  <mssgle:LineSegment
+                    End="-122.943396226415,55.1792452830189" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="287.575471698113,661.839622641509">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="2.52830188679246,35.8867924528302"
+              Start="0,0"
+              End="2.52830188679246,28.3867924528302">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.9245283018868" />
+                  <mssgle:LineSegment
+                    End="2.52830188679246,17.9245283018868" />
+                  <mssgle:LineSegment
+                    End="2.52830188679246,28.3867924528302" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\For Loop Container\Pull employee data from WWER">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="136,44"
+          Id="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination"
+          TopLeft="5.5,218.141509433962" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\For Loop Container\Pull employee data from WWER\Data Conversion"
+          TopLeft="14.5188679245283,96.1415094339623" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\For Loop Container\Pull employee data from WWER\OLE DB Source"
+          TopLeft="11.5377358490566,5.5" />
+        <EdgeLayout
+          Id="Package\For Loop Container\Pull employee data from WWER.Paths[OLE DB Source Output]"
+          TopLeft="79.4245283018868,49.4245283018868">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="2.98113207547169,46.7169811320755"
+              Start="0,0"
+              End="2.98113207547169,39.2169811320755">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.3584905660377" />
+                  <mssgle:LineSegment
+                    End="2.98113207547169,23.3584905660377" />
+                  <mssgle:LineSegment
+                    End="2.98113207547169,39.2169811320755" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop Container\Pull employee data from WWER.Paths[Data Conversion Output]"
+          TopLeft="82.4056603773585,140.066037735849">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-9.01886792452831,78.0754716981132"
+              Start="0,0"
+              End="-9.01886792452831,70.5754716981132">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.0188679245283" />
+                  <mssgle:LineSegment
+                    End="-9.01886792452831,39.0188679245283" />
+                  <mssgle:LineSegment
+                    End="-9.01886792452831,70.5754716981132" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\For Loop Container\Pull employee data from WWER\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<project name="CERIS_LOAD_JAVA" basedir="." default="usage">
+
+  <property name="base.dir"       value="${basedir}"/>
+  <property name="base.classes"   value="${base.dir}/classes"/>  
+  <property name="base.lib"       value="${base.dir}/libs"/>         
+  
+  <target name="clean">
+    <delete verbose="false">
+      <fileset dir="${base.classes}">
+        <include name="**/*.*"/>
+      </fileset>
+    </delete>     
+  </target>
+  
+
+  <target name="localbuild">
+    <subant target="">
+      <fileset dir="." includes="*/build.xml" excludes="./build.xml" />
+    </subant>
+  </target> 
+
+  <target name="usage">
+    <echo>
+      This build file is used to build the CERIS_LOAD_JAVA program.
+      Please enter "clean localbuild" as the ANT arguments 
+      in order for your invocation of this build file to result in a fresh build.
+   </echo>    
+  </target>
+    
+</project>

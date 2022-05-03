@@ -1,0 +1,15 @@
+activation.jar
+commons-cli-1.0.jar
+commons-email-1.1.jar
+commons-net-1.4.1.jar
+cup_11a.jar
+goodfiles.txt
+hold
+log4j-api.jar
+log4j-core.jar
+mail.jar
+ojdbc6.jar
+opencsv-1.8.jar
+poi.jar
+sqljdbc42.jar
+_LOG4J_DEPLOY_NOTES.TXT

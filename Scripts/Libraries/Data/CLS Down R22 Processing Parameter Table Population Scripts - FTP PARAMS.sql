@@ -1,0 +1,48 @@
+use imapsstg
+
+declare @int_name_id int 
+select @int_name_id = LOOKUP_ID
+from dbo.XX_LOOKUP_DETAIL 
+where APPLICATION_CODE = 'CLS_R22'
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS 
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE) 
+  VALUES(@int_name_id,  'CLS_R22', 'FTP_SERVER', 'stfmvs1.pok.ibm.com', system_user, GETDATE()) 
+go 
+
+
+declare @int_name_id int 
+select @int_name_id = LOOKUP_ID
+from dbo.XX_LOOKUP_DETAIL 
+where APPLICATION_CODE = 'CLS_R22'
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS 
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE) 
+  VALUES(@int_name_id,  'CLS_R22', 'FTP_USER', 'imaptso', system_user, GETDATE()) 
+go 
+
+declare @int_name_id int 
+select @int_name_id = LOOKUP_ID
+from dbo.XX_LOOKUP_DETAIL 
+where APPLICATION_CODE = 'CLS_R22'
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS 
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE) 
+  VALUES(@int_name_id,  'CLS_R22', 'FTP_PASS', 'walk5you', system_user, GETDATE()) 
+go 
+
+declare @int_name_id int 
+select @int_name_id = LOOKUP_ID
+from dbo.XX_LOOKUP_DETAIL 
+where APPLICATION_CODE = 'CLS_R22'
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS 
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE) 
+  VALUES(@int_name_id,  'CLS_R22', 'FTP_DEST_999FILE', 'imaptso.control.ledgrin', system_user, GETDATE()) 
+go 
+
+declare @int_name_id int 
+select @int_name_id = LOOKUP_ID
+from dbo.XX_LOOKUP_DETAIL 
+where APPLICATION_CODE = 'CLS_R22'
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS 
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE) 
+  VALUES(@int_name_id,  'CLS_R22', 'FTP_DEST_PARMFILE', 'imaptso.f156.parm', system_user, GETDATE()) 
+go 
+

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="IMAPSSTG"
+  DTS:DTSID="{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=DSWWINDAP49,1435;User ID=tbperova;Initial Catalog=IMAPSStg;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;Application Name=SSIS-Package-{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}HOU28FSDD01.houston.ibm.com.IMAPSStg;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAEEWIASrqgUe8f+BQZl5VpQAAAAACAAAAAAADZgAAwAAAABAAAADUoFSykmaBxeqMavKqBmOUAAAAAASAAACgAAAAEAAAAATpoCusJAol0kUscNHWfPmAAAAAwvVbRyswZFcqb61Quho7waEfagytbiHLNbj1gpxv4c6+BYVSpPfswD0yXW58O8TxmQKBmCSDRweuQBFkA9TJP6XTYPnpe2k5GSe5zV3ZHdwFwIx4bwRj/8FbJ+nsYcPZflwHloYuwRkuP7+vna/qZn6TZISIn3C+tzCopMsrkPIUAAAAXZY/qhGcg+5ldlaNHypgwmAOHFs=</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

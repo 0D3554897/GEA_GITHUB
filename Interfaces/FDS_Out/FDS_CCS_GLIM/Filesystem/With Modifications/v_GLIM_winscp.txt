@@ -1,0 +1,3 @@
+open ftpes://user:password@server:990/
+exit
+

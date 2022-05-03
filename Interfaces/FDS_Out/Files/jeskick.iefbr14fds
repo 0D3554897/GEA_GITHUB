@@ -1,0 +1,7 @@
+********************************* Top of Data ************************
+//FTP000J JOB FINC0FDS,'DUMMY',NOTIFY=PSACTG3,                        
+//        MSGLEVEL=1,MSGCLASS=W,USER=PSACTG3                          
+//JOBOUT OUTPUT FORMS=J000,CLASS=O,JESDS=ALL,DEFAULT=YES              
+//$00    EXEC PGM=IEFBR14,COND=(0,NE)                                 
+//DUMMY    DD DUMMY                                                   
+******************************** Bottom of Data **********************

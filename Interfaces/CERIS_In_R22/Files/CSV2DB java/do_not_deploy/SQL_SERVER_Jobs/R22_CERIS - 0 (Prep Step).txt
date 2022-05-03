@@ -1,0 +1,91 @@
+USE [msdb]
+GO
+
+/****** Object:  Job [R22_CERIS - 0 (Prep Step)]    Script Date: 07/19/2016 09:56:29 ******/
+BEGIN TRANSACTION
+DECLARE @ReturnCode INT
+SELECT @ReturnCode = 0
+/****** Object:  JobCategory [[Uncategorized (Local)]]]    Script Date: 07/19/2016 09:56:29 ******/
+IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'[Uncategorized (Local)]' AND category_class=1)
+BEGIN
+EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'[Uncategorized (Local)]'
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+
+END
+
+DECLARE @jobId BINARY(16)
+EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'R22_CERIS - 0 (Prep Step)', 
+		@enabled=1, 
+		@notify_level_eventlog=0, 
+		@notify_level_email=0, 
+		@notify_level_netsend=0, 
+		@notify_level_page=0, 
+		@delete_level=0, 
+		@description=N'Runs the SQL Server SP that sets up the conditions for a CERIS run. At the successful end of this step, the XX_IMAPS_INT_STATUS.STATUS_CODE value = PREPARED.  
+
+No control point activity is recorded, in keeping with the previous process of loading a file from CERIS into a staging table but not monitoring control points until the data was available in a local table for processing.
+
+Control point activity will commence with R22_CERIS - 4 (Run Interface SP), as is consistent with previously "ASCA-blessed"', 
+		@category_name=N'[Uncategorized (Local)]', 
+		@owner_login_name=N'DIV16\gealvare', @job_id = @jobId OUTPUT
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+/****** Object:  Step [Delete the log file (CERIS_R22.log)]    Script Date: 07/19/2016 09:56:29 ******/
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Delete the log file (CERIS_R22.log)', 
+		@step_id=1, 
+		@cmdexec_success_code=0, 
+		@on_success_action=3, 
+		@on_success_step_id=0, 
+		@on_fail_action=2, 
+		@on_fail_step_id=0, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'CmdExec', 
+		@command=N'del /f /q d:\apps_to_compile\csv2db\sql_job_log\CERIS_D22.log', 
+		@flags=0
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+/****** Object:  Step [Run XX_R22_CERIS_LOAD_STEP1_SP]    Script Date: 07/19/2016 09:56:29 ******/
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Run XX_R22_CERIS_LOAD_STEP1_SP', 
+		@step_id=2, 
+		@cmdexec_success_code=0, 
+		@on_success_action=1, 
+		@on_success_step_id=0, 
+		@on_fail_action=2, 
+		@on_fail_step_id=0, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'TSQL', 
+		@command=N'DECLARE @ret_code int
+EXEC @ret_code = XX_R22_CERIS_LOAD_STEP1_SP
+
+', 
+		@database_name=N'IMAPSStg', 
+		@output_file_name=N'D:\apps_to_compile\csv2db\sql_job_log\CERIS_D22.log', 
+		@flags=0
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+EXEC @ReturnCode = msdb.dbo.sp_update_job @job_id = @jobId, @start_step_id = 1
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=N'test', 
+		@enabled=0, 
+		@freq_type=1, 
+		@freq_interval=0, 
+		@freq_subday_type=0, 
+		@freq_subday_interval=0, 
+		@freq_relative_interval=0, 
+		@freq_recurrence_factor=0, 
+		@active_start_date=20160627, 
+		@active_end_date=99991231, 
+		@active_start_time=113641, 
+		@active_end_time=235959, 
+		@schedule_uid=N'0f7dd1b9-8fca-49e0-98ae-9a7fe2d70dca'
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+EXEC @ReturnCode = msdb.dbo.sp_add_jobserver @job_id = @jobId, @server_name = N'(local)'
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+COMMIT TRANSACTION
+GOTO EndSave
+QuitWithRollback:
+    IF (@@TRANCOUNT > 0) ROLLBACK TRANSACTION
+EndSave:
+
+GO
+
+

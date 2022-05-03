@@ -1,0 +1,8 @@
+<?xml version="1.0"?><DTSConfiguration><DTSConfigurationHeading><DTSConfigurationFileInfo GeneratedBy="DIV16\tbperova" GeneratedFromPackageName="FIWLR_EMPL_from_WWER" GeneratedFromPackageID="{A7837CDB-3AF7-49CC-8618-1059CF6A0861}" GeneratedDate="4/24/2017 2:43:00 PM"/></DTSConfigurationHeading>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[IMAPSSTG_OLEDB_Conn].Properties[ConnectionString]" ValueType="String"><ConfiguredValue>Data Source=HOU28FSDD01.houston.ibm.com;User ID=UserName;Initial Catalog=IMAPSStg;Provider=SQLNCLI10.1;Persist Security Info=True;Auto Translate=False;Application Name=SSIS-Package-{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}HOU28FSDD01.houston.ibm.com.IMAPSStg;</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[IMAPSSTG_OLEDB_Conn].Properties[Password]" ValueType="String"><ConfiguredValue>*******</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[IMAPSSTG_OLEDB_Conn].Properties[UserName]" ValueType="String"><ConfiguredValue>UserName</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[WWERPROD].Properties[ConnectionString]" ValueType="String"><ConfiguredValue>Data Source=WWERPROD;User ID=UserName;Provider=IBMDADB2.DB2COPY1;Persist Security Info=True;</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[WWERPROD].Properties[Password]" ValueType="String"><ConfiguredValue>******</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[WWERPROD].Properties[UserName]" ValueType="String"><ConfiguredValue>UserName</ConfiguredValue></Configuration>
+</DTSConfiguration>

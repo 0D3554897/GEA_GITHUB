@@ -1,0 +1,64 @@
+USE [IMAPSStg]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+IF EXISTS (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_R22_FIWLR_MAPPING_OVERRIDE]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   DROP TABLE [dbo].[XX_R22_FIWLR_MAPPING_OVERRIDE]
+GO
+CREATE TABLE [dbo].[XX_R22_FIWLR_MAPPING_OVERRIDE](
+
+	[SOURCE] [varchar](3) NOT NULL,
+	[DEPARTMENT] [varchar](3) NULL,
+	[PROJ] [varchar](3) NULL,
+
+	[ORG_ABBR_CD] [varchar](10) NULL,
+	[PROJ_ABBR_CD] [varchar](10) NULL,
+	[ACCT_ID] [varchar](15) NULL,
+
+	[CREATION_DATE] [datetime] NOT NULL DEFAULT getdate(),
+	[CREATED_BY] [varchar](35) NOT NULL DEFAULT suser_sname(),
+        [DIVISION] [varchar](2) NULL
+
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+
+/*
+During FILWR interface processing, any data records that have 
+Source = 583 and Dept = CST and Proj = POI, (must meet all 3 criteria), 
+should have the following changes made to these fields, 
+SET Dept(Org_CD) = HSF, Proj(Proj_CD) = LHSF and the account(ACCT_ID) = 82-08-21.
+
+CR8580 with addition of division 24 logic become different between it and 
+existing divisions
+*/
+insert into XX_R22_FIWLR_MAPPING_OVERRIDE
+(SOURCE, DEPARTMENT, PROJ,  ORG_ABBR_CD, PROJ_ABBR_CD, ACCT_ID, CREATION_DATE ,CREATED_BY, DIVISION)
+values('583','CST','POI',  'HSF', 'LHSF', '82-08-21', GETDATE(), ORIGINAL_LOGIN(),'22')
+
+insert into XX_R22_FIWLR_MAPPING_OVERRIDE
+(SOURCE, DEPARTMENT, PROJ,  ORG_ABBR_CD, PROJ_ABBR_CD, ACCT_ID, CREATION_DATE ,CREATED_BY, DIVISION)
+values('583','CST','POI',  'HSF', 'LHSF', '82-08-21', GETDATE(), ORIGINAL_LOGIN(),'YA')
+
+insert into XX_R22_FIWLR_MAPPING_OVERRIDE
+(SOURCE, DEPARTMENT, PROJ,  ORG_ABBR_CD, PROJ_ABBR_CD, ACCT_ID, CREATION_DATE ,CREATED_BY, DIVISION)
+values('583','CST','POI',  'HSF', 'LHSF', '82-08-21', GETDATE(), ORIGINAL_LOGIN(),'YB')
+
+insert into XX_R22_FIWLR_MAPPING_OVERRIDE
+(SOURCE, DEPARTMENT, PROJ,  ORG_ABBR_CD, PROJ_ABBR_CD, ACCT_ID, CREATION_DATE ,CREATED_BY, DIVISION)
+values('583','CST','POI',  'HSF', 'LHSF', '82-08-21', GETDATE(), ORIGINAL_LOGIN(),'SR')
+
+/*
+insert into XX_R22_FIWLR_MAPPING_OVERRIDE
+(SOURCE, DEPARTMENT, PROJ,  ORG_ABBR_CD, PROJ_ABBR_CD, ACCT_ID, CREATION_DATE ,CREATED_BY, DIVISION)
+values('583','CST','POI',  'NA8', 'LNA8', '82-08-21', GETDATE(), ORIGINAL_LOGIN(),'24')
+
+insert into XX_R22_FIWLR_MAPPING_OVERRIDE
+(SOURCE, DEPARTMENT, PROJ,  ORG_ABBR_CD, PROJ_ABBR_CD, ACCT_ID, CREATION_DATE ,CREATED_BY,DIVISION)
+values('583','CST','POI',  '401', 'L401', '82-08-21', GETDATE(), ORIGINAL_LOGIN(),'QR')
+*/

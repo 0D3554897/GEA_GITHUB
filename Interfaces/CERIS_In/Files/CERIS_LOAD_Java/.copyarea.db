@@ -1,0 +1,11 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In\Files\CERIS_LOAD_Java
+2
+7
+4:java|2|0|0|0|34eed813325144cd8c1ec357477480f5|0
+7:classes|2|0|0|0|8a96a48cc11b4119abf64d4d0e5ef4f1|0
+9:build.bat|1|16aa30ca190|b0|23c39f8|f634004fb2dc466bbd107bb2a20629ee|0
+12:runtime.properties|1|16aa30ca2a6|1144|d0551b97|9d111d9d90a842aab3a3079f4c8ef4dc|0
+c:run_java.bat|1|16aa30ca1cf|225|15b3b366|80d735ca756a4f5280786cd18db0adf4|0
+9:build.xml|1|16aa30ca21d|39d|5f9510ab|d38768baeea74117a55c7bd4b51775ed|0
+4:libs|2|0|0|0|ac3a3cf1d1c8488b89604159771176db|0

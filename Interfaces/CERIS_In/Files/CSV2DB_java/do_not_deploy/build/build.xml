@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+
+
+<project name="Java (csv2db)" basedir="." default="csv2db">
+
+  
+
+	<property name="proj.src"      value="${basedir}/java"/>
+  
+	<property name="proj.classes"  value="${basedir}/classes"/>  
+  
+	<property name="proj.lib"      value="${basedir}/libs"/>  
+  
+	
+
+	<target name="clean">
+  
+		<delete verbose="true">
+    
+			<fileset dir="${proj.classes}">
+      
+				<include name="**/*.class"/>
+    
+			</fileset>
+  
+		</delete>	
+
+	</target>	
+	
+ 
+
+	<target name="csv2db"> 
+
+ 
+		<mkdir dir="${basedir}/classes"/>  
+       
+   
+		<javac srcdir="${proj.src}" includes="**/*.java"
+ destdir="${proj.classes}"
+ debug="on"
+ source="1.6">
+    
+		<classpath>
+      
+			<fileset dir="${proj.lib}">
+        
+				<include name="*.jar"/>
+      
+			</fileset>
+    
+			</classpath>             
+  
+		</javac>   
+              
+ 
+	</target> 
+     
+
+</project>

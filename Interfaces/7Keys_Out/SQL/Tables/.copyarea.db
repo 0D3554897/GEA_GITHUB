@@ -1,0 +1,17 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\7Keys_Out\SQL\Tables
+2
+d
+24:Data Requirement for Feature 478.sql|1|16aa30c99aa|d50|87fbca5d|d3de460d520d47028625ee9e47caa4d1|0
+19:XX_7KEYS_OUT_HDR_TEMP.sql|1|16aa30c9a18|f6e|553b44f6|1f4d86ab44494c0d801b2f27d2dc2803|0
+1b:FTP-related System Data.sql|1|16aa30c99c9|81e|724e6122|4772afa0cea8493786a90a6e5eb09ce2|0
+14:XX_7KEYS_OUT_HDR.sql|1|16aa30c9a08|bd2|5ba3a727|4528aec668074c86969bee815de21998|0
+1e:Defect 610 Data Correction.sql|1|16aa30c996c|285|eaf1bc7a|dabfaf5c021b4ae48b4155396efa35fc|0
+1e:03-13-06 DB Object Changes.sql|1|16aa30c99aa|1ab7|6c6baf72|7baee241ea2949ab9ac6f695e4abedb4|0
+1e:Defect 631 Data Correction.sql|1|16aa30c99aa|5cc|1c87c586|1c5d6566ef5040b4ad475a6a7a46f83e|0
+c:OneFilev.bat|1|16aa30c99e9|61|c9bd1fd2|b4781783ddc94e2eac1b46450f67d0e0|0
+14:XX_7KEYS_RUN_LOG.sql|1|16aa30c9a27|7f8|a59a25d0|af1816a869ac4c48ab8352fbc77eed7a|0
+1c:XX_7KEYS_OUT_DETAIL_TEMP.sql|1|16aa30c9a18|22fe|41642faf|d8118905df9844de9bbffd21dd82860c|0
+17:XX_7KEYS_OUT_DETAIL.sql|1|16aa30c9a08|23a0|d771f7f4|0def8c7bcb6340378fbc6c6e6139c79d|0
+1f:7KEYS_tbl_compilation_order.txt|1|16aa30c9881|102|2fc25005|c53d5a41aff4428f9c3eb3b948021e20|0
+1c:Defect 976 Table Changes.sql|1|16aa30c99aa|2bf9|e2fb9604|90d31a6f8a544ffa9049c4fff60e4432|0

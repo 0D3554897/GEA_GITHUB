@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<project name="Java (CERIS Encrypter)" basedir="." default="encrypt_java">
+
+  <property name="proj.src"      value="${basedir}/src"/>
+  <property name="proj.classes"  value="${basedir}/classes"/>  
+  <property name="proj.lib"      value="${basedir}/libs"/>  
+  
+<target name="clean">
+  <delete verbose="true">
+    <fileset dir="${proj.classes}">
+      <include name="**/*.class"/>
+    </fileset>
+  </delete>	
+</target>	
+	
+ <target name="encrypt_java"> 
+
+  <mkdir dir="${basedir}/classes"/>  
+       
+   <javac srcdir="${proj.src}" includes="**/*.java"
+         destdir="${proj.classes}"
+         debug="on"
+         source="1.4">
+    <classpath>
+      <fileset dir="${proj.lib}">
+        <include name="*.jar"/>
+      </fileset>
+    </classpath>             
+  </javac>   
+              
+ </target> 
+     
+</project>

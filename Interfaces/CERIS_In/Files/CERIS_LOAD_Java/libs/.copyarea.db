@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In\Files\CERIS_LOAD_Java\libs
+2
+5
+b:sqljdbc.jar|1|16aa30ca478|38a0d|25a17b95|c815c7ff99044972bfa96c4117c27f2b|0
+15:commons-net-1.4.1.jar|1|16aa30ca2b3|2c238|fadc1d2|adfd0e1984034abab89399f5defd9736|0
+12:commons-io-1.4.jar|1|16aa30ca3ec|1a9f3|e57625c0|832c02ddf4564cdfb419934bc6dc173d|0
+19:commons-logging-1.1.1.jar|1|16aa30ca34f|eda9|f6ddac9|2a1e73cb24cc47099d637ae276fa591b|0
+f:log4j-1.2.9.jar|1|16aa30ca43a|4eb16|fb365100|53d82b9955ad4f4d9fe5679f77db87a1|0

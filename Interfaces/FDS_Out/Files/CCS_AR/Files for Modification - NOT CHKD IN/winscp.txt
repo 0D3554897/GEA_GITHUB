@@ -1,0 +1,14 @@
+open ftpes://PTCCS04:sep18sep@SBRYS61.POK.IBM.COM:990/
+
+
+# Execute the script using a command like:
+# "C:\Program Files (x86)\WinSCP\WinSCP.exe" /log="C:\writable\path\to\log\WinSCP.log" /ini=nul /script="C:\path\to\script\script.txt"
+
+#open CCS_DEV_SERVER
+
+call site lrecl=900 blksize=27900 recfm=fb cy pri=10
+put -transfer=binary D:\IMAPS_DATA\Interfaces\PROCESS\fds_ccs\ccs_02_out.fil '"CCS.G.FMA0IMA(+1)"'
+exit
+
+# command line to execute
+#C:\Progra~2\WinSCP\WinSCP.com /log="D:IMAPS_DATA/NOTSHARED/CCS_02_FTP_LOG.TXT" /script="d:\apps_to_compile\cff\winscp.txt"

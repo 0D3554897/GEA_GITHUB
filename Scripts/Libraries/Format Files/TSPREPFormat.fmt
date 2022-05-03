@@ -1,0 +1,29 @@
+8.0
+27
+1       SQLCHAR       0       10      ","                        1     TS_DT                  SQL_Latin1_General_CP1_CI_AS
+2       SQLCHAR       0       12      ","                        2     EMPL_ID                SQL_Latin1_General_CP1_CI_AS
+3       SQLCHAR       0       2       ","                        3     S_TS_TYPE_CD           SQL_Latin1_General_CP1_CI_AS
+4       SQLCHAR       0       2       ","                        4     WORK_STATE_CD          SQL_Latin1_General_CP1_CI_AS
+5       SQLCHAR       0       6       ","                        5     FY_CD                  SQL_Latin1_General_CP1_CI_AS
+6       SQLCHAR       0       2       ","                        6     PD_NO                  SQL_Latin1_General_CP1_CI_AS
+7       SQLCHAR       0       2       ","                        7     SUB_PD_NO              SQL_Latin1_General_CP1_CI_AS
+8       SQLCHAR       0       10      ","                        8     CORRECTING_REF_DT      SQL_Latin1_General_CP1_CI_AS
+9       SQLCHAR       0       3       ","                        9     PAY_TYPE               SQL_Latin1_General_CP1_CI_AS
+10      SQLCHAR       0       6       ","                        10    GENL_LAB_CAT_CD        SQL_Latin1_General_CP1_CI_AS
+11      SQLCHAR       0       1       ","                        11    S_TS_LN_TYPE_CD        SQL_Latin1_General_CP1_CI_AS
+12      SQLCHAR       0       15      ","                        12    LAB_CST_AMT            SQL_Latin1_General_CP1_CI_AS
+13      SQLCHAR       0       10      ","                        13    CHG_HRS                SQL_Latin1_General_CP1_CI_AS
+14      SQLCHAR       0       6       ","                        14    WORK_COMP_CD           SQL_Latin1_General_CP1_CI_AS
+15      SQLCHAR       0       6       ","                        15    LAB_LOC_CD             SQL_Latin1_General_CP1_CI_AS
+16      SQLCHAR       0       20      ","                        16    ORG_ID                 SQL_Latin1_General_CP1_CI_AS
+17      SQLCHAR       0       15      ","                        17    ACCT_ID                SQL_Latin1_General_CP1_CI_AS
+18      SQLCHAR       0       30      ","                        18    PROJ_ID                SQL_Latin1_General_CP1_CI_AS
+19      SQLCHAR       0       6       ","                        19    BILL_LAB_CAT_CD        SQL_Latin1_General_CP1_CI_AS
+20      SQLCHAR       0       20      ","                        20    REF_STRUC_1_ID         SQL_Latin1_General_CP1_CI_AS
+21      SQLCHAR       0       20      ","                        21    REF_STRUC_2_ID         SQL_Latin1_General_CP1_CI_AS
+22      SQLCHAR       0       6       ","                        22    ORG_ABBRV_CD           SQL_Latin1_General_CP1_CI_AS
+23      SQLCHAR       0       6       ","                        23    PROJ_ABBRV_CD          SQL_Latin1_General_CP1_CI_AS
+24      SQLCHAR       0       3       ","                        24    TS_HDR_SEQ_NO          SQL_Latin1_General_CP1_CI_AS
+25      SQLCHAR       0       10      ","                        25    EFFECT_BILL_DT         SQL_Latin1_General_CP1_CI_AS
+26      SQLCHAR       0       6       ",,,,"                        26    PROJ_ACCT_ABBRV_CD     SQL_Latin1_General_CP1_CI_AS
+27      SQLCHAR       0       254     "\r\n"                    27    NOTES                  SQL_Latin1_General_CP1_CI_AS

@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\FIWLR_In_R22\Files\do_not_deploy
+2
+9
+17:FIWLR_R22_DEV.dtsConfig|1|16aa30d36d9|6e6|5d4e6aa2|cf9d5409bd274c8a816e96e1a2d4ba85|0
+2d:Job Run R22_ FIWLR Miscodes - 1 Reprocess.sql|1|16aa30d3572|aea|35483dab|d038208bedd947869f1d4386e8e87ca1|0
+6d:Job Run R22_ FIWLR 1a Interface for Begining of Month (Update Extract Date, Run SSIS and Start Interface).sql|1|16ecdce5c24|1a0a|5c160091|005664bd633e4dc3b126151c1332bd3a|0
+21:Job Run R22_ FIWLR 2 Closeout.sql|1|16aa30d361e|10e6|b8f3eb67|7fe2bdde2ee04251a58672fe0452a7db|0
+2c:Job Run R22_ FIWLR Miscodes - 2 Closeout.sql|1|16aa30d362d|8f7|99fa590|348ad59cee6845d0a082adb5dcd07ad1|0
+16:WWER_R22_DEV.dtsConfig|1|16aa30d36aa|6ee|409b6e56|1064bdb5427444e694ecd7546e30ea12|0
+a:readme.txt|1|16aa30d363d|1a7|685b96dc|63cdfd5952c04c03956ae4cb442b668a|0
+41:Job Run R22_ FIWLR 1 Interface (Run SSIS and Start Interface).sql|1|16ecdce5b91|10d2|328d05a9|f4d8099e12184cb98bdb2b8f917bc3c7|0
+3b:Job Run R22_ FIWLR 1b Interface for Deffered (Run SSIS).sql|1|16aa30d36c9|87a|de25869e|b0f4ee66a4b14617b3d0b50d215509bb|0

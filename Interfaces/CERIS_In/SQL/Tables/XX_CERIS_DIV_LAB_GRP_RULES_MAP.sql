@@ -1,0 +1,38 @@
+USE [IMAPSStg]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+
+IF EXISTS (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_CERIS_DIV_LAB_GRP_RULES_MAP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   DROP TABLE [dbo].[XX_CERIS_DIV_LAB_GRP_RULES_MAP]
+GO
+
+CREATE TABLE [dbo].[XX_CERIS_DIV_LAB_GRP_RULES_MAP](
+
+	[DIVISION] [char](2) NOT NULL,
+	[LAB_GRP_TYPE] [char](2) NOT NULL,
+
+	[MODIFIED_BY] [varchar](35) NOT NULL DEFAULT suser_sname(),
+	[TIME_STAMP] [datetime] NOT NULL DEFAULT getdate()
+
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+
+use imapsstg
+insert into XX_CERIS_DIV_LAB_GRP_RULES_MAP
+(DIVISION, LAB_GRP_TYPE)
+select '1P','PF'
+
+insert into XX_CERIS_DIV_LAB_GRP_RULES_MAP
+(DIVISION, LAB_GRP_TYPE)
+select '1P','PN'
+
+insert into XX_CERIS_DIV_LAB_GRP_RULES_MAP
+(DIVISION, LAB_GRP_TYPE)
+select '1P','PM'

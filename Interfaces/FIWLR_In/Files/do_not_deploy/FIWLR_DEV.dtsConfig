@@ -1,0 +1,7 @@
+<?xml version="1.0"?><DTSConfiguration><DTSConfigurationHeading><DTSConfigurationFileInfo GeneratedBy="DIV16\tbperova" GeneratedFromPackageName="FIWLR" GeneratedFromPackageID="{57E5636B-F3B2-4AA8-997E-CC5D1E029E1D}" GeneratedDate="4/3/2017 11:12:36 AM"/></DTSConfigurationHeading>
+
+<Configuration ConfiguredType="Property" Path="\Package.Connections[FIWLR_ODBC_Conn].Properties[ConnectionString]" ValueType="String"><ConfiguredValue>Data Source=FIWLR;User ID=TPEROVA;Provider=IBMDADB2.DB2COPY1;Persist Security Info=False;</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[FIWLR_ODBC_Conn].Properties[Password]" ValueType="String"><ConfiguredValue>Password</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[FIWLR_ODBC_Conn].Properties[UserName]" ValueType="String"><ConfiguredValue>UserName</ConfiguredValue></Configuration>
+
+</DTSConfiguration>

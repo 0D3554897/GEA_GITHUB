@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CLS_Out\Files\do_not_deploy\sql server jobs
+2
+3
+1e:Job - Run CLSDOWN Closeout.sql|1|16aa30cce5f|9b9|d179e142|1eff731645294dd3b05e003dc9bd61d1|0
+1e:Job - Run CLSDOWN Transmit.sql|1|16aa30cce5f|cd9|11f2bba0|bda2b2031db949beb1433e63196460ee|0
+15:Job - Run CLSDOWN.sql|1|16aa30cce6e|1102|5d6905e8|27f9ad945fdd4e6892e490d738b199e6|0

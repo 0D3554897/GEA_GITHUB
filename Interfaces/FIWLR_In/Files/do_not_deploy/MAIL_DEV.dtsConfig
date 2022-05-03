@@ -1,0 +1,10 @@
+<?xml version="1.0"?><DTSConfiguration><DTSConfigurationHeading><DTSConfigurationFileInfo GeneratedBy="DIV16\tbperova" GeneratedFromPackageName="FIWLR_EMPL_from_WWER" GeneratedFromPackageID="{EC4211AB-2E70-46FE-AFE1-4DB3D80FD8C1}" GeneratedDate="5/9/2017 12:46:42 PM"/></DTSConfigurationHeading>
+
+<!-- SMTP email configuration part -->
+<Configuration ConfiguredType="Property" Path="\Package.Connections[SMTP_Conn].Properties[SmtpServer]" ValueType="String"><ConfiguredValue>us.ibm.com</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Variables[User::NotFoundEmail].Properties[Value]" ValueType="String"><ConfiguredValue>FIWLR. These Vouchers were not found in WWER NWEA000.RP_RP04 table :</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package\Send Mail about Missing Vouchers.Properties[FromLine]" ValueType="String"><ConfiguredValue>tbperova@us.ibm.com</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package\Send Mail about Missing Vouchers.Properties[Subject]" ValueType="String"><ConfiguredValue>FIWLR WWER SSIS missing vouchers</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package\Send Mail about Missing Vouchers.Properties[ToLine]" ValueType="String"><ConfiguredValue>tbperova@us.ibm.com</ConfiguredValue></Configuration>
+
+</DTSConfiguration>

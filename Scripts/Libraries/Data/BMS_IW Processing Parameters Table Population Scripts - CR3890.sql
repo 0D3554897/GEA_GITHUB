@@ -1,0 +1,32 @@
+use imapsstg
+
+
+--new parameters for
+--BMS_IW  - ftp commands and log files
+DECLARE @INTERFACE_NAME_ID integer
+
+SELECT @INTERFACE_NAME_ID = t2.LOOKUP_ID
+  FROM dbo.XX_LOOKUP_DOMAIN t1,
+       dbo.XX_LOOKUP_DETAIL t2
+ WHERE t1.DOMAIN_CONSTANT  = 'LD_INTERFACE_NAME'
+   AND t1.LOOKUP_DOMAIN_ID = t2.LOOKUP_DOMAIN_ID
+   AND t2.APPLICATION_CODE = 'BMS_IW'
+
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE)
+   VALUES(@INTERFACE_NAME_ID, 'BMS_IW', 'FTP_COMMAND_FILE', 'D:\IMAPS_Data\NotShared\BMSIW_FTP_commands.txt', SUSER_SNAME(), GETDATE())
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE)
+   VALUES(@INTERFACE_NAME_ID, 'BMS_IW', 'FTP_LOG_FILE', 'D:\IMAPS_Data\NotShared\BMSIW_FTP_log.txt', SUSER_SNAME(), GETDATE())
+
+
+
+--blank out old parameters
+update xx_processing_parameters
+set parameter_value='',
+modified_by=suser_sname(),
+modified_date=getdate()
+where interface_name_cd='BMS_IW'
+and parameter_name in ('FTP_SERVER', 'FTP_USER', 'FTP_PASS', 'FTP_DEST_FILE', 'IN_USER_PASSWORD')
+
+

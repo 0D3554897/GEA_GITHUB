@@ -1,0 +1,11 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In_R22\Files\CSV2DB java\do_not_deploy
+2
+7
+8:testdata|2|0|0|0|602155f87349425fab341baefdb2e5f4|0
+d:dev_setup.png|1|16aa30d2263|59c6|46a34c3f|6dd15630626c46ae8f25c0ffa0727ef4|0
+10:properties_files|2|0|0|0|d007514214f34e008148ed79d7cb47e6|0
+b:sql_job_log|2|0|0|0|02b5da24784848a6b76826a84c73f4ec|0
+5:build|2|0|0|0|07c4d82f149047d0bb89821dd17f1e1e|0
+b:batch_files|2|0|0|0|44c34c9373b742f8bab86fc0cac30780|0
+f:SQL_SERVER_Jobs|2|0|0|0|10c464e5dcf0441eb365a00a53351bb7|0

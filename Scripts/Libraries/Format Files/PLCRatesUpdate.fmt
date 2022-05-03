@@ -1,0 +1,8 @@
+10.0
+6
+1       SQLCHAR             0       30      "\t"   1     PROJ_ID                            SQL_Latin1_General_CP1_CI_AS
+2       SQLCHAR             0       6       "\t"   2     GENL_LAB_CAT_CD                    SQL_Latin1_General_CP1_CI_AS
+3       SQLCHAR             0       6       "\t"   3     BILL_LAB_CAT_CD                    SQL_Latin1_General_CP1_CI_AS
+4       SQLCHAR             0       22      "\t"   4     BILL_RT_AMT                        SQL_Latin1_General_CP1_CI_AS
+5       SQLCHAR             0       10      "\t"   5     START_DT                           SQL_Latin1_General_CP1_CI_AS
+6       SQLCHAR             0       10      "\r\n" 6     END_DT                             SQL_Latin1_General_CP1_CI_AS

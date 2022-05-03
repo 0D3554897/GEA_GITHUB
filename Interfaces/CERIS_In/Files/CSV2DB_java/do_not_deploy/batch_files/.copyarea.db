@@ -1,0 +1,11 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In\Files\CSV2DB_java\do_not_deploy\batch_files
+2
+7
+11:ORA16_workday.bat|1|17f322f875d|51e|5cbc8baf|d76b6766366243e3babc063da9e5d97e|0
+d:rename_16.bat|1|16aa30cba23|2e7|ee8c7b7|486820c681ff45f8845ff5f47d0935c9|0
+11:savjlog_ora16.bat|1|16aa30cb991|368|afb0f31f|25e9190b78e14323addef125fb4de1d6|0
+15:SQL16_missingxref.bat|1|17f322f88bc|543|bae4987a|afda432ebaf34f93a310dcea86e45015|0
+a:readme.txt|1|16aa30cb9b0|153|76fd7838|6a79277d24314fda88966ebb4c1258d6|0
+15:ORA16_missingxref.bat|1|17f322f87ba|541|7da5973c|59cc0c21a6054529adfbb458fe307e46|0
+11:SQL16_workday.bat|1|17f322f87bd|53d|6802960a|27d34f6739b44779a3717ff5e2ba9538|0

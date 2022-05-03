@@ -1,0 +1,146 @@
+/*
+ * Script to Create Table for PCLAIM Interface Application
+ *
+ * IMPORTANT: The script to create common tables for all IMAPS interfaces must be run before this script is run
+ * with repect to the parent-child relationship. In general, parent tables are created before child tables.
+ * Table names are prefixed with table owner name.
+ *
+ * Notes: Table owner name or schema name, [dbo], must explicitly specified.
+ */
+
+--use IMAPSStg
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_PCLAIM_FTR_IN_TMP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_PCLAIM_FTR_IN_TMP]
+GO
+
+CREATE TABLE [dbo].[XX_PCLAIM_FTR_IN_TMP] (
+	[FOOTER_IND] [char] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[TOTAL_RECORDS] [char] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[TOTAL_HOURS] [char] (12) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[TOTAL_COST] [char] (207) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_PCLAIM_IN]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_PCLAIM_IN]
+GO
+
+CREATE TABLE [dbo].[XX_PCLAIM_IN] (
+	[PCLAIM_IN_RECORD_NUM] [int] IDENTITY (1, 1) NOT NULL ,
+	[STATUS_RECORD_NUM] [int] NOT NULL ,
+	[WORK_DATE] [char] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_EMPL_NAME] [char] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PO_NUMBER] [char] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_EMPL_SERIAL_NUM] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PROJ_CODE] [char] (4) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VENDOR_ID] [char] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[DEPT_CODE] [char] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[HOURS_CHARGED] [char] (9) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[COST] [char] (12) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PLC] [char] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[BILL_RATE] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[RECORD_TYPE] [char] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_NAME] [char] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_ST_ADDRESS] [char] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[VEND_CITY] [char] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[VEND_STATE] [char] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[VEND_COUNTRY] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[CREATED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_DATE] [datetime] NOT NULL ,
+	[MODIFIED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[MODIFIED_DATE] [datetime] NULL ,
+	[FY_CD] [char] (4) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[PD_NO] [smallint] NULL ,
+	[SUB_PD_NO] [smallint] NULL ,
+	[VCHR_NO] [int] NULL ,
+	[SUB_LN_NO] [smallint] NULL ,
+	CONSTRAINT [PK_XX_PCLAIM_IN] PRIMARY KEY  CLUSTERED 
+	(
+		[PCLAIM_IN_RECORD_NUM]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_XX_PCLAIM_IN] FOREIGN KEY 
+	(
+		[STATUS_RECORD_NUM]
+	) REFERENCES [XX_IMAPS_INT_STATUS] (
+		[STATUS_RECORD_NUM]
+	) ON DELETE CASCADE  NOT FOR REPLICATION
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_PCLAIM_IN_ARCH]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_PCLAIM_IN_ARCH]
+GO
+
+CREATE TABLE [dbo].[XX_PCLAIM_IN_ARCH] (
+	[PCLAIM_IN_RECORD_NUM] [int] NOT NULL ,
+	[STATUS_RECORD_NUM] [int] NOT NULL ,
+	[WORK_DATE] [char] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_EMPL_NAME] [char] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PO_NUMBER] [char] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_EMPL_SERIAL_NUM] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PROJ_CODE] [char] (4) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VENDOR_ID] [char] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[DEPT_CODE] [char] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[HOURS_CHARGED] [char] (9) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[COST] [char] (12) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PLC] [char] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[BILL_RATE] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[RECORD_TYPE] [char] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_NAME] [char] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_ST_ADDRESS] [char] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[VEND_CITY] [char] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[VEND_STATE] [char] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[VEND_COUNTRY] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[CREATED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_DATE] [datetime] NOT NULL ,
+	[MODIFIED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[MODIFIED_DATE] [datetime] NULL ,
+	[VCHR_NO] [int] NULL ,
+	[SUB_LN_NO] [smallint] NULL ,
+	[S_STATUS_CD] [char] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	CONSTRAINT [PK_XX_PCLAIM_IN_ARCH] PRIMARY KEY  CLUSTERED 
+	(
+		[PCLAIM_IN_RECORD_NUM]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_XX_PCLAIM_IN_ARCH] FOREIGN KEY 
+	(
+		[STATUS_RECORD_NUM]
+	) REFERENCES [XX_IMAPS_INT_STATUS] (
+		[STATUS_RECORD_NUM]
+	) ON DELETE CASCADE  NOT FOR REPLICATION
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_PCLAIM_IN_TMP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_PCLAIM_IN_TMP]
+GO
+
+CREATE TABLE [dbo].[XX_PCLAIM_IN_TMP] (
+	[WORK_DATE] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_EMPL_NAME] [char] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PO_NUMBER] [char] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_EMPL_SERIAL_NUM] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PROJ_CODE] [char] (4) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VENDOR_ID] [char] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[DEPT_CODE] [char] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[HOURS_CHARGED] [char] (9) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[COST] [char] (12) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PLC] [char] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[BILL_RATE] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[RECORD_TYPE] [char] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_NAME] [char] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_ST_ADDRESS] [char] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_CITY] [char] (25) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_STATE] [char] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[VEND_COUNTRY] [char] (8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+

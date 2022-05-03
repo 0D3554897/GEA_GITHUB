@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In\Files\CSV2DB_java\do_not_deploy\testdata
+2
+9
+10:nostem_div16.csv|1|16aa30cb5e9|fa619|dc0d710f|7b9ae1ed83944924abe1e78008e6231c|0
+17:div16workday - Copy.csv|1|16aa30cb7ad|130803|74e39df5|76f9fcf0268b4b5fa5a9428502aa5219|0
+d:rename_16.bat|1|16aa30cafea|2e7|ee8c7b7|e9e3177d3450429cb82a4208de091cc8|0
+10:FSST.EXTRACT.txt|1|16aa30cb5f9|0|0|72aec6258f3b4523a52affdbf8a98f06|0
+12:16_ora_workday.csv|1|16aa30cb5ab|130226|7570449a|c0b3c60897db418f9f9315d0a4d18e8c|0
+12:16_sql_workday.csv|1|16aa30cb79d|130226|7570449a|b653fe8f6c524274a71bddcac52f1a16|0
+11:old_num_div16.csv|1|16aa30cb5ab|12f828|2e45ed43|71bde931123a4c10a8d912c551c52b37|0
+14:for fixing div16.csv|1|16aa30cb0b5|128ef2|ac0b6205|b65633f273334a70a1d98c7afecc6c5b|0
+d:old_div16.csv|1|16aa30cb618|132b16|be07aea1|d0cbe7865147498eb3700389374800ef|0

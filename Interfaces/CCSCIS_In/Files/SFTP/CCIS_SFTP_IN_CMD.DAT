@@ -1,0 +1,6 @@
+cd ..
+cd ccs
+get CCIS_OPEN_BALANCES.TXT
+get CCIS_ACTIVITY.TXT
+get CCIS_OPEN_REMARKS.TXT
+bye

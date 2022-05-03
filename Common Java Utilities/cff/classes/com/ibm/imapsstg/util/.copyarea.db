@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Common Java Utilities\cff\classes\com\ibm\imapsstg\util
+2
+4
+24:MailTool$InputStreamDataSource.class|1|16aa30d6eea|70e|92559643|a96383eff772410aa32ed6ecfc65593c|0
+12:ExcelBuilder.class|1|16aa30d6f67|75a|e1e9e49e|9fadfcc7b7364a93ad2b5d964792c20d|0
+e:MailTool.class|1|16aa30d6f38|1908|874fe0da|cecade101eae475b882b3ff0f945fbef|0
+a:Util.class|1|16aa30d6f67|d4b|eacd6085|ff05bed0e1054d079f6145f1c0d9a010|0

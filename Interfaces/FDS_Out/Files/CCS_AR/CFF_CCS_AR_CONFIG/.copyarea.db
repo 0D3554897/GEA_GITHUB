@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\FDS_Out\Files\CCS_AR\CFF_CCS_AR_CONFIG
+2
+5
+17:ccs_0216_trx.properties|1|16aa30cd86f|d4a|9833f52f|0601f92f9ef64f7e952e1e34684ce649|0
+17:ccs_0216_fil.properties|1|16aa30cd85f|6b0|b0af3990|3eb478253ba847d78f59a266cf6655a6|0
+17:ccs_0216_dtl.properties|1|16aa30cd86f|937|83e3bcfb|2a203dfbe9a14f45b73ff00a020a6402|0
+17:ccs_0216_div.properties|1|16aa30cd87e|6b9|6bcb3c22|3efb56e671dc4fe2b8d5ed5fd829c523|0
+17:ccs_0216_hdr.properties|1|16aa30cd86f|e50|f96f3675|5347e3461d5b423493e23e69c4025377|0

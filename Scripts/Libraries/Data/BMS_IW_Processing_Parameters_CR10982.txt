@@ -1,0 +1,28 @@
+use imapsstg
+go
+
+-- insert a new record for FTP command_exe, this will replace the oroginal .bat call 
+insert imapsstg.dbo.xx_processing_parameters 
+	(interface_name_id, 
+	interface_name_cd, 
+	parameter_name, 
+	parameter_value, 
+	created_by, created_date)
+values 
+	(12,
+	'BMS_IW',
+	'FTP_COMMAND_EXE',
+	'D:\IMAPS_DATA\Interfaces\PROGRAMS\BMS_IW\bms_iw_ftp.bat',
+	SUSER_SNAME(),GETDATE())
+
+go
+
+
+-- Change original value from - T:\IMAPS_Data\Props\bms_iw\BMSIW_FTP_commands.txt 
+-- Changed for CR-10982
+update imapsstg.dbo.xx_processing_parameters 
+set parameter_value= 'D:\IMAPS_DATA\Props\BMS_IW\BMS_IW_WINSCP.TXT'  
+where interface_name_cd='BMS_IW' 
+	and parameter_name='FTP_COMMAND_FILE'
+
+go

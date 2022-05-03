@@ -1,0 +1,9 @@
+-- added by KM on 10/14/05
+delete from dbo.xx_lookup_detail where LOOKUP_DOMAIN_ID = 7 AND PRESENTATION_ORDER > 5
+go
+insert into dbo.XX_LOOKUP_DETAIL values(7, 'FDS/CCS-006', 'FTP flat file to CCS', 6, SUSER_SNAME(), GETDATE(), null, null)
+go
+insert into dbo.XX_LOOKUP_DETAIL values(7, 'FDS/CCS-007', 'FTP flat file to FDS', 7, SUSER_SNAME(), GETDATE(), null, null)
+go
+insert into dbo.XX_LOOKUP_DETAIL values(7, 'FDS/CCS-008', 'Email control file', 8, SUSER_SNAME(), GETDATE(), null, null)
+go

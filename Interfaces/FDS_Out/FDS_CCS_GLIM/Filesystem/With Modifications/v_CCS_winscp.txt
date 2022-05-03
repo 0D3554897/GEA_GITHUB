@@ -1,0 +1,3 @@
+#open ftpes://CCSBIL:CCS01CCS@SBRYS32.POK.IBM.COM:990/
+exit
+

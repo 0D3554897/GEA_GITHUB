@@ -1,0 +1,78 @@
+This folder contains 4 files:
+
+FTP_SUCCESS_CHECK.EXE
+ccs_ftp.ini
+fds_ftp.ini
+glim_ftp.ni
+
+
+The executable will search a file for a particular string, and the number of occurrences of that string.
+It returns 0 if the string is found and the number of occurrences = number desired.
+If not, there are a series of error codes found in another file:
+
+/*************************
+
+INSERT INTO imapsstg.dbo.XX_INT_ERROR_MESSAGE
+   (ERROR_CODE, ERROR_TYPE, ERROR_MESSAGE, ERROR_SOURCE, CREATED_BY, CREATED_DATE)
+   VALUES(557, 40, 'Expected File Not Found. See SQL Server Job Log for Details.',
+          'Costpoint execution environment', SUSER_SNAME(), getdate())
+
+INSERT INTO imapsstg.dbo.XX_INT_ERROR_MESSAGE
+   (ERROR_CODE, ERROR_TYPE, ERROR_MESSAGE, ERROR_SOURCE, CREATED_BY, CREATED_DATE)
+   VALUES(558, 40, 'FTP_SUCCESS_CHECK.EXE - ini file not specified on command line. ',
+          'Costpoint execution environment', SUSER_SNAME(), getdate())
+
+INSERT INTO imapsstg.dbo.XX_INT_ERROR_MESSAGE
+   (ERROR_CODE, ERROR_TYPE, ERROR_MESSAGE, ERROR_SOURCE, CREATED_BY, CREATED_DATE)
+   VALUES(559, 40, 'FTP_SUCCESS_CHECK.EXE - ftp log file not specified on command line.',
+          'Costpoint execution environment', SUSER_SNAME(), getdate())
+
+INSERT INTO imapsstg.dbo.XX_INT_ERROR_MESSAGE
+   (ERROR_CODE, ERROR_TYPE, ERROR_MESSAGE, ERROR_SOURCE, CREATED_BY, CREATED_DATE)
+   VALUES(560, 40, 'FTP_SUCCESS_CHECK.EXE - ini file missing search_string parameter.',
+          'Costpoint execution environment', SUSER_SNAME(), getdate())
+
+
+INSERT INTO imapsstg.dbo.XX_INT_ERROR_MESSAGE
+   (ERROR_CODE, ERROR_TYPE, ERROR_MESSAGE, ERROR_SOURCE, CREATED_BY, CREATED_DATE)
+   VALUES(561, 40, 'FTP_SUCCESS_CHECK.EXE - ini file missing desired_cnt parameter.',
+          'Costpoint execution environment', SUSER_SNAME(), getdate())
+
+INSERT INTO imapsstg.dbo.XX_INT_ERROR_MESSAGE
+   (ERROR_CODE, ERROR_TYPE, ERROR_MESSAGE, ERROR_SOURCE, CREATED_BY, CREATED_DATE)
+   VALUES(562, 40, 'FTP_SUCCESS_CHECK.EXE - Actual Count does not equal desired count.',
+          'Costpoint execution environment', SUSER_SNAME(), getdate())
+
+***************************/
+
+
+the ini file contains the text to search for and the number of occurences expected
+the command line contains the ini file and the file to search
+
+sample execution from command line:
+D:\IMAPS_DATA\NotShared\FTP_SUCCESS_CHECK.EXE /INI=D:\IMAPS_DATA\NotShared\GLIM_FTP.INI /FILENAME=D:\IMAPS_DATA\NotShared\GLIM_FTP_LOG_17279_20180125135358.TXT
+
+place the ini files together with the executable
+record the locations using these parameters
+these files are associated with processing parameters, found in another file.
+
+/************* 
+
+insert into imapsstg.dbo.XX_PROCESSING_PARAMETERS
+values (12,'FDS/CCS','FTP_GLIM_INI_FILE','D:\IMAPS_DATA\NotShared\GLIM_FTP.INI','SUSER_SNAME()',GETDATE(),NULL,NULL,NULL)
+
+insert into imapsstg.dbo.XX_PROCESSING_PARAMETERS
+values (12,'FDS/CCS','FTP_CCS_INI_FILE','D:\IMAPS_DATA\NotShared\CCS_FTP.INI','SUSER_SNAME()',GETDATE(),NULL,NULL,NULL)
+
+insert into imapsstg.dbo.XX_PROCESSING_PARAMETERS
+values (12,'FDS/CCS','FTP_FDS_INI_FILE','D:\IMAPS_DATA\NotShared\FDS_FTP.INI','SUSER_SNAME()',GETDATE(),NULL,NULL,NULL)
+
+insert into imapsstg.dbo.XX_PROCESSING_PARAMETERS
+values (12,'UTIL','FTP_CHECK_EXE','D:\IMAPS_DATA\NotShared\FTP_SUCCESS_CHECK.EXE','SUSER_SNAME()',GETDATE(),NULL,NULL,NULL)
+
+****************************/
+
+
+
+
+

@@ -1,0 +1,18 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In\Files\CSV2DB_java\do_not_deploy\SQL Server Jobs
+2
+e
+2d:D16_CERIS2 - Step 2 - Run Java (load CSV).txt|1|16aa30cb76e|afc|f1555aec|8238b4c0507d49e99c0f046e57dfde4d|0
+34:D16_ WORKDAY 5  - Step 5 - Finalize Missing Data.txt|1|16aa30cb849|a4b|2600e23|1837e0e94ec4496cb061a069cf678dfd|0
+26:D16_CERIS3 - Step 3 - Run Validate.txt|1|16aa30cb729|8c9|9a239f40|e2373052eaa64be88651470d33d5bfe9|0
+a:readme.txt|1|16aa30cb7ad|166|b3707e1c|224cf83b381b4efcb36c1ae4c2724854|0
+13:SQL_Server_Jobs.png|1|16aa30cb729|b81|da49f65c|0b45ba53a4034effab0b0a9e9dd721fe|0
+24:D16 SQL Server Job Configuration.xls|1|16aa30cb933|9000|d7e11d74|d7c3907c6d30490baecacc3e1935ce76|0
+33:D16_CERIS5 - Step 5 - Finalize Missing Data.txt.txt|1|16aa30cb849|d22|a12eb16|f38964c3845e48f3bb854b5e5a02d8df|0
+3a:D16_ WORKDAY 6  - Step 6 - Run Closeout (wAuto-Adjust).txt|1|16aa30cb888|1a1a|c80b56cd|7bdeddc580354dd1a0fb2c17f0128879|0
+21:SQL_JOB_D16_SEND_MISSING_XREF.sql|1|16aa30cb888|841|b3687b75|490a195d35de4d62b6861e18802fe2b4|0
+27:D16_CERIS4 - Step 4 - Run Interface.txt|1|16aa30cb76e|8ca|e560a05c|927f8137451641328c09ca883008eb21|0
+22:D16_CERIS1 - Step 1 - Run Prep.txt|1|16aa30cb7bd|8f1|8959a9dc|e8cb70fe1a6f4e6fb4425e67b9faf286|0
+34:D16_CERIS5 - Step 5 - Run Closeout (Auto Adjust).txt|1|16aa30cb730|26|f4840cb5|8e44b0fa4c3e407796e7b2b4c8c1cc27|0
+34:D16_CERIS6 - Step 6 - Run Closeout (Auto Adjust).txt|1|16aa30cb7fb|138e|6912cb7c|4d0b8ae7f67a44a184ec4a1783c6e6d6|0
+1b:WORKDAY_SQL_Server_Job6.sql|1|16aa30cb7fb|c31|b8869907|2b48468d0eb74e2e91a763aeedfdf84a|0

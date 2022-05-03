@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataTransformationsUserConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Configurations>
+    <Configuration>
+      <Name>Development</Name>
+      <Options>
+        <CreateDeploymentUtility>true</CreateDeploymentUtility>
+        <UserIDs>
+          <ConfigurationSetting>
+            <Id>IMAPS Stg</Id>
+            <Name>IMAPS Stg</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAE88h60Lac0OCm+i0fw75+QAAAAAUAAAASQBNAEEAUABTACAAUwB0AGcAAAADZgAAqAAAABAAAABdbXVR03E+uCUDJw8zoo6QAAAAAASAAACgAAAAEAAAAD17ky3IbKz54CIu+XjG5HQYAAAAEFA7RqGDiCsZJBh74aLscDWuoM3T+YcgFAAAAFJh7hk1FAsVpo3FvuHsiIbQ1QPx</Value>
+          </ConfigurationSetting>
+        </UserIDs>
+        <UserPasswords>
+          <ConfigurationSetting>
+            <Id>IMAPS Stg</Id>
+            <Name>IMAPS Stg</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAE88h60Lac0OCm+i0fw75+QAAAAAUAAAASQBNAEEAUABTACAAUwB0AGcAAAADZgAAqAAAABAAAAAlPoqAi821B9y9WveWP+t4AAAAAASAAACgAAAAEAAAAPMVp1w2On33qijTFmBmCEoYAAAAUdNfC/taXBqt8Qcr5N99sqyq7DEBiiBzFAAAAE8twUO9QyZZFjVAYKZmmB0zKx6t</Value>
+          </ConfigurationSetting>
+        </UserPasswords>
+        <OfflineMode>true</OfflineMode>
+        <ProgressReporting>true</ProgressReporting>
+      </Options>
+    </Configuration>
+  </Configurations>
+</DataTransformationsUserConfiguration>

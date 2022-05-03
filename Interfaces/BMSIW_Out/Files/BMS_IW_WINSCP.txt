@@ -1,0 +1,7 @@
+## Replace bldbmsb with production path for prod
+## Replace username and password too
+open ftpes://username:password@bldbmsa.boulder.ibm.com:990/
+call SITE LRECL=80 BLKSIZE=27920 RECFM=FB CYL PRI=10 SEC=10 RET
+## Change BMSIWG for SIT, BMSIWP for Production
+put -transfer=ascii D:\IMAPS_DATA\Interfaces\PROCESS\bms_iw\BMS_IW.txt 'BMSIWP.WWUTIL.API.PUB.R00002.INPUT'
+exit 

@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CLS_Out\SQL\Jobs
+2
+5
+17:JOB_D16_ 1 CLS Down.sql|1|1715aae5326|2cbe|e3c51f7b|45675ea586b549699fd8aa8e56c84c6e|0
+18:CLSDOWN Run Closeout.sql|1|1737de2241b|10ef|9287be33|d65e3c9059ad49f28b5396b6d70391a4|0
+1b:JOB_D16_ 2 CLS Down FTP.sql|1|1715aae5333|a7e|5e550760|bedff7373547412596d7dca64f7e13cb|0
+29:CLSDOWN Accounting Period Maintenance.sql|1|1737de223c9|18b2|624f0a07|16c513f44f73444bbb8410b65ecd7b92|0
+19:CLSDOWN Run Interface.sql|1|1737de2255a|2bc9|6863e06f|3346bae373424cb4a86dcadfcaec797f|0

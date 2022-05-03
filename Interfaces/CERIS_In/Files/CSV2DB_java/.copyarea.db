@@ -1,0 +1,11 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In\Files\CSV2DB_java
+2
+7
+6:arkive|2|0|0|0|e917851e2a454252bf1fa5c085ca9811|0
+4:java|2|0|0|0|2cb9815f1fbc47199a61f0c87adb39cf|0
+7:classes|2|0|0|0|911fa5add7d14e8f834351943a09a28e|0
+d:do_not_deploy|2|0|0|0|704fd02277204704be95d4b237f12f60|0
+4:libs|2|0|0|0|138afeae0d054d4a8c9186e61c83786d|0
+a:properties|2|0|0|0|e2af04d530c24c738d4d486974984a12|0
+b:csv2db.java|1|16aa30ca5d3|d513|b2c218|c277e8407e2c43ddae1b2c7f63259549|0

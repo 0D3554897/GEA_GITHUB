@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="WWER"
+  DTS:DTSID="{1c45d80a-b177-4885-b5a6-2eb3eb119e64}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=SB1_DB2N;User ID=TPERSBY;Provider=IBMDADB2.DB2COPY1;Location=9.63.66.114:5002;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

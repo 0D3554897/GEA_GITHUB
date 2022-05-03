@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="WWERPROD"
+  DTS:DTSID="{1c45d80a-b177-4885-b5a6-2eb3eb119e64}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=SB1_DB2N;User ID=TPERSBY;Provider=IBMOLEDB.DB2COPY1;Location=9.63.66.114:5002;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAEEWIASrqgUe8f+BQZl5VpQAAAAACAAAAAAADZgAAwAAAABAAAAC0O3DApbbvIFk/Xk75tRBtAAAAAASAAACgAAAAEAAAALfxVlhE6IMBcZqwGHLgI3V4AAAAb4MSW6t0VmWRQYTxlYG6whKwdiij0fM+12AWN5cgFGuKkeJdp6yewHGPm8TJid8n9BTcJtulAWywfDEDNULEY5r7AG94AR01Q9PslwaR5DXOqpK7sKN6dvp5XPgfQ9zAba6E0lZNKbyw5MHbRMWzujYsW5wU9pbUFAAAAJDFtoEAYaHFB5TGNzm4KcQnevDx</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CLS_Out\Files\do_not_deploy\programs
+2
+6
+15:cls_log4j2.properties|1|17eea53409d|1b1|77628e8d|f9ff27bbc5b14659bfae02e2deea30f2|0
+16:clsdownparm.properties|1|1715aae4ddd|6bf|41623b63|0123a33a9dd04c619dbd5c7cdb245400|0
+12:clsdown.properties|1|171ebc42573|739|d6055e0f|0f8b6a15e62545b8b06459554390a90c|0
+19:clsdownsummary.properties|1|1715aae5135|7db|4ca285da|f78af27f087149a48f0d7e78dcc65406|0
+b:CLSDOWN.bat|1|1715aae4e27|1ff|2c4374b2|dcac929831684c7b9ad82d238a576eb5|0
+b:cls_ftp.bat|1|17054f42114|2fd|9f61ab42|b6b33eb314e140808f5be88a2cbc08d0|0

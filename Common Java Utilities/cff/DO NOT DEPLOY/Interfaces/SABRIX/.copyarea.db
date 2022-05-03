@@ -1,0 +1,11 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Common Java Utilities\cff\DO NOT DEPLOY\Interfaces\SABRIX
+2
+7
+18:sabrix_log4j2.properties|1|17f57009764|1b2|526e8cc3|bc5bddde9a99413ab55b4b898a5692c9|0
+17:sabrix16_dtl.properties|1|16aa30d70fd|f04|74716da2|cdb824e6d87341658ea5e6c14fec0f9e|0
+a:SABRIX.bat|1|16aa30d70fd|18e4|443d3c28|5ca5cfe45c5b4f31a139e987290006a6|0
+1c:sabrix_val_log4j2.properties|1|17f57009748|1b2|4a2e8cb9|1981dcef04874becb2954d1d630af845|0
+1c:sabrix_ftp_log4j2.properties|1|17f57009751|1b2|6c598cde|875b8136b44e4d3e9d01438525d821d8|0
+17:sabrix16_trx.properties|1|16aa30d70fd|65d|495a1dcb|73d48a1f6ffc4569a1637102bdc025fe|0
+17:sabrix16_hdr.properties|1|16aa30d714b|f51|ef39047|ab282625d7624987946b085ec22ff948|0

@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In_R22\Files\CSV2DB java\properties
+2
+3
+17:sql22workday.properties|1|16aa30d2c7c|2e45|83f91d89|16823b64c834496ea2679405a8c1dabb|0
+18:log4j2_csv2db.properties|1|17f56154d72|1b4|3ffa91b2|2c93c9ce7e0a42969667a9fd285d52a6|0
+18:ora22_workday.properties|1|16aa30d2d37|1d36|aa620c92|b800ae1af05b44c7aae80c44f6112a7e|0

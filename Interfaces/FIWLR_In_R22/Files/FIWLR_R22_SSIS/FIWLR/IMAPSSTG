@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="dswwindap47.div16.ibm.com.IMAPSStg.tbperova"
+  DTS:DTSID="{F9B1F133-8530-4B6F-88D9-5DE8C97D5F80}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=dswwindap47.div16.ibm.com;User ID=tbperova;Initial Catalog=IMAPSStg;Provider=SQLNCLI11.1;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAsYuIDYGlWEStQOIwuPJkUQAAAAACAAAAAAADZgAAwAAAABAAAAALhotKYCshdlryDd44jN0HAAAAAASAAACgAAAAEAAAAPe8iB4aIwrBP5OzpLquTmx4AAAAZNeUPtR8+3QDpJ+KwxAmPGJyJwca9nUu2G5y2pZdDbA4M0dr0EXfQUOvMOPXUqbiHOWjbu9SxDSYukr6Cdjik3DzoYmcmLw2JR+rVnN4U6FiicyADCsRzV5e8zhEMYAvD4hDMIwG/YgHOTtaAcIqCLPv3uT5JS0oFAAAAGzQvpRtXloOKB3Ip82vQ6u4F4bB</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

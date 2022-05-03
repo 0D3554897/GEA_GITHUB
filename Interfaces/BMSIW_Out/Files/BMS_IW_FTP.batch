@@ -1,0 +1,23 @@
+cls
+rem @echo off
+set LOG_FOLD=D:\IMAPS_DATA\Interfaces\logs\BMS_IW
+set LOG_FILE=D:\IMAPS_DATA\Interfaces\logs\BMS_IW\BMS_IW_FTP_BAT_LOG.TXT
+set scp_path=C:\Progra~2\WinSCP\WinSCP.com
+set scp_log=D:\IMAPS_DATA\NOTSHARED\BMS_IW_FTP_LOG.TXT
+set scp_script=D:\IMAPS_DATA\NOTSHARED\BMS_IW_winscp.txt
+
+@echo ****************************************************************************************** >%LOG_FILE%
+@echo         BATCH FILE >>%LOG_FILE%
+@echo ****************************************************************************************** >>%LOG_FILE%
+d:
+cd\apps_to_compile\bms_iw
+
+
+REM BMS_IW TEST using winscp
+rem C:\Progra~2\WinSCP\WinSCP.com /log="D:\IMAPS_DATA\NOTSHARED\BMS_IW_FTP_LOG.TXT" /script="d:\apps_to_compile\bms_iw\BMS_IW_winscp.txt"
+
+%scp_path% /log="%scp_log%" /script="%scp_script%"
+
+@echo ****************************************************************************************** >>%LOG_FILE%
+@echo         BATCH FILE COMPLETE >>%LOG_FILE%
+@echo ****************************************************************************************** >>%LOG_FILE%

@@ -1,0 +1,19 @@
+CREATE TABLE dbo.XX_R22_PAY_TYPE_ACCT_MAP
+(
+    PAY_TYPE      varchar(3)  NOT NULL,
+    ACCT_GRP_CD   varchar(3)  NOT NULL,
+    LAB_GRP_TYPE  varchar(3)  NOT NULL,
+    REG_ACCT_ID   varchar(15) NULL,
+    STB_ACCT_ID   varchar(15) NULL,
+    REG_ACCT_NAME varchar(30) NULL,
+    STB_ACCT_NAME varchar(30) NULL,
+    COMPANY_ID    varchar(10) NOT NULL,
+    CREATED_BY    varchar(20) NOT NULL,
+    TIME_STAMP    datetime    NOT NULL
+)
+go
+IF OBJECT_ID('dbo.XX_R22_PAY_TYPE_ACCT_MAP') IS NOT NULL
+    PRINT '<<< CREATED TABLE dbo.XX_R22_PAY_TYPE_ACCT_MAP >>>'
+ELSE
+    PRINT '<<< FAILED CREATING TABLE dbo.XX_R22_PAY_TYPE_ACCT_MAP >>>'
+go

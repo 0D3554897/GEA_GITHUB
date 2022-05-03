@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\FDS_Out\Files\CCS_AR\FTP
+2
+5
+17:CCS_02_FTP_commands.txt|1|16aa30cd8ec|127|ae055200|94f05d7a5d794296bd51ccf798295560|0
+e:CCS_02_ftp.ini|1|16aa30cd89e|4f|3e021c26|88eb8c1988b742c390d3fb6fde500d65|0
+e:ccs_winscp.txt|1|16aa30cd959|337|ea5e03b8|defc4bbdd8e8446c94304abde961bdc8|0
+b:ccs_ftp.bat|1|16aa30cd90b|41d|91bc0d4c|ff34fd89864d440c8e56b25507e4f585|0
+b:ccs_ftp.ini|1|16aa30cd90b|8c|272d2e09|e271786b27424c3eb3c2035bc58d600d|0

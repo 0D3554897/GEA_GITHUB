@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="BMSIW"
+  DTS:DTSID="{0550F63E-0C65-4914-8221-2D4CC0E4D288}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=BMSIW;User ID=TPEROVA;Provider=IBMDADB2.DB2COPY1;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoM76fTHWXESUtLbj+6aWrwAAAAACAAAAAAADZgAAwAAAABAAAABIgneqRx5nSXe1q2D7cqe4AAAAAASAAACgAAAAEAAAAPZXljz4iWZy8vdkqTj6PWB4AAAAOqXI81Xo28uNdw/Ys7+WYvvEBE/sJJONneDgf0nv0AlO1xT7WC3V7kzNaIiGnrtrk0FUwTH/ekGqApl7o9Jb5FskMKDqfVb9Q+5uRkfUhWEOA+wJycbRcJL+5FUqHpEull+QO+/6rEhUc14bxiyLdohrumrOnnlhFAAAALZkBajf9cD0AJYBsgeJ+HxFjOIQ</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

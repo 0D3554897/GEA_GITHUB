@@ -1,0 +1,11 @@
+<?xml version="1.0"?><DTSConfiguration><DTSConfigurationHeading><DTSConfigurationFileInfo GeneratedBy="DIV16\tbperova" GeneratedFromPackageName="FIWLR_EMPL_from_WWER" GeneratedFromPackageID="{EC4211AB-2E70-46FE-AFE1-4DB3D80FD8C1}" GeneratedDate="5/9/2017 12:46:42 PM"/></DTSConfigurationHeading>
+
+
+<!-- Connection manager IMAPSSTG_OLEDB_Conn -->
+<Configuration ConfiguredType="Property" Path="\Package.Connections[IMAPSSTG_OLEDB_Conn].Properties[ConnectionString]" ValueType="String"><ConfiguredValue>Data Source=HOU28FSDD01.houston.ibm.com;User ID=tbperova;Initial Catalog=IMAPSStg;Provider=SQLNCLI10.1;Persist Security Info=True;Auto Translate=False;Application Name=SSIS-Package-{0FE84FFF-FFA6-44A9-A40C-60D8338EEC7D}HOU28FSDD01.houston.ibm.com.IMAPSStg;</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[IMAPSSTG_OLEDB_Conn].Properties[Password]" ValueType="String"><ConfiguredValue>bass3parr</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[IMAPSSTG_OLEDB_Conn].Properties[UserName]" ValueType="String"><ConfiguredValue>tbperova</ConfiguredValue></Configuration>
+
+
+
+</DTSConfiguration>

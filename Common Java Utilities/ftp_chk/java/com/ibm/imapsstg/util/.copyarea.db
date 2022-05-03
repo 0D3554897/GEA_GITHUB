@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Common Java Utilities\ftp_chk\java\com\ibm\imapsstg\util
+2
+3
+15:ExcelBuilder.java.del|1|17035c45d3a|556|c6c3babd|a639fc11a0e84680a9dd1ed5f2a391b2|0
+9:Util.java|1|17035c45a7d|bbc|57a39089|b7cb454a1d1a49cba6c3ba4f89857530|0
+11:MailTool.java.del|1|17035c45d5a|1a16|ce8344e4|6200140ef4c2455c90c95b8b90fa0e2e|0

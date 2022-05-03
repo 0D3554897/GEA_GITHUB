@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "FIWLR", "FIWLR\FIWLR.dtproj", "{94183937-D92B-4ECE-B75F-F32F5430B806}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94183937-D92B-4ECE-B75F-F32F5430B806}.Development|Default.ActiveCfg = Development
+		{94183937-D92B-4ECE-B75F-F32F5430B806}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C169717C-705D-4079-B483-2ECE1BA5A4FE}
+	EndGlobalSection
+EndGlobal

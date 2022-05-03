@@ -1,0 +1,35 @@
+use imapsstg
+
+declare @interface_name_id integer
+
+select @interface_name_id = LOOKUP_ID 
+  from dbo.XX_LOOKUP_DETAIL 
+ where APPLICATION_CODE = 'CERIS' 
+
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS 
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE) 
+   VALUES(@interface_name_id, 'CERIS', 'EXTRA_TIMECARD_SCAN_start_dt', '2013-01-01', SUSER_SNAME(), GETDATE())
+go
+
+declare @interface_name_id integer
+
+select @interface_name_id = LOOKUP_ID 
+  from dbo.XX_LOOKUP_DETAIL 
+ where APPLICATION_CODE = 'CERIS' 
+
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS 
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE) 
+   VALUES(@interface_name_id, 'CERIS', 'EXTRA_TIMECARD_SCAN_end_dt', '2014-01-01', SUSER_SNAME(), GETDATE())
+go
+
+declare @interface_name_id integer
+
+select @interface_name_id = LOOKUP_ID 
+  from dbo.XX_LOOKUP_DETAIL 
+ where APPLICATION_CODE = 'CERIS' 
+
+INSERT INTO dbo.XX_PROCESSING_PARAMETERS 
+   (INTERFACE_NAME_ID, INTERFACE_NAME_CD, PARAMETER_NAME, PARAMETER_VALUE, CREATED_BY, CREATED_DATE) 
+   VALUES(@interface_name_id, 'CERIS', 'DIVISION_START_DATE_max_swivel', '180', SUSER_SNAME(), GETDATE())
+go
+

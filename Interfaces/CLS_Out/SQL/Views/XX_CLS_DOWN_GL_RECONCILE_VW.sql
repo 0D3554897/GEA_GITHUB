@@ -1,0 +1,57 @@
+USE IMAPSSTG
+DROP VIEW [dbo].[XX_CLS_DOWN_GL_RECONCILE_VW]
+GO
+SET ANSI_NULLS ON 
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+
+ 
+
+
+
+
+/* 
+Used by Control report : CLS Down GL reconciliation.imr
+              Catalog : Control Points.cat 
+	 Folder: Control Point Views\Xx Cls Down Gl Reconcile Vw
+*/
+
+CREATE View [dbo].[XX_CLS_DOWN_GL_RECONCILE_VW] AS
+SELECT   CLS.IMAPS_ACCT, acct.ACCT_NAME, CLS.CLS_MINUS_BURDEN_AMT, 
+  GL.ACCT_ID, GL.GL_AMT,  ISNULL(GL_DOU_AMT,0) AS GL_DOU_AMT, GL.[Reconcile GL]
+FROM  (
+  SELECT CLS_DOU.ACCT_ID, SUM(CLS_DOU.AMT) AS GL_AMT,
+    	(SELECT SUM(AMT)
+	FROM  [IMAPS].[DELTEK].[GL_POST_SUM] 
+	where FY_CD = (SELECT TOP 1 FY_SENT FROM   [IMAPSstg].[dbo].[XX_CLS_DOWN_VW]) 
+          AND PD_NO = (SELECT TOP 1 CAST(MONTH_SENT AS INTEGER) FROM .[IMAPSstg].[dbo].[XX_CLS_DOWN_VW]) 
+	  and LEFT(PROJ_ID, 4) = 'DDOU'
+	  AND ACCT_ID = CLS_DOU.ACCT_ID) AS GL_DOU_AMT, 
+    'Reconcile GL' AS [Reconcile GL]
+  FROM  [IMAPS].[DELTEK].[GL_POST_SUM] CLS_DOU
+  WHERE FY_CD = (SELECT TOP 1 FY_SENT FROM [IMAPSstg].[dbo].[XX_CLS_DOWN_VW]) AND
+      	PD_NO = (SELECT TOP 1 CAST(MONTH_SENT AS INTEGER) FROM [IMAPSstg].[dbo].[XX_CLS_DOWN_VW]) AND
+	Left(ACCT_ID,2) not in  ('SC','RC','PA') -- and Right(ACCT_ID,2) not in  ('RV','CV') 
+  GROUP BY CLS_DOU.ACCT_ID) GL
+  FULL OUTER  JOIN
+  (SELECT   ISNULL(IMAPS_ACCT, '10-01-10') AS IMAPS_ACCT, 
+    SUM(DOLLAR_AMT - ISNULL(OVERHEAD_AMT, 0) - ISNULL(GA_AMT, 0)) AS [CLS_MINUS_BURDEN_AMT]
+  FROM  [IMAPSstg].[dbo].[XX_CLS_DOWN_VW] 
+  where (IMAPS_ACCT is not NULL  AND	Left(IMAPS_ACCT,2) not in  ('SC','RC','PA'))-- and Right(IMAPS_ACCT,2) not in  ('RV','CV')
+	or DESCRIPTION2 LIKE 'FDS%'
+  GROUP BY  ISNULL(IMAPS_ACCT, '10-01-10')) CLS ON CLS.IMAPS_ACCT = GL.ACCT_ID 
+left outer  join [IMAPS].[DELTEK].ACCT acct ON GL.ACCT_ID =  acct.ACCT_ID
+
+
+
+
+
+ 
+
+ 
+
+GO
+ 
+

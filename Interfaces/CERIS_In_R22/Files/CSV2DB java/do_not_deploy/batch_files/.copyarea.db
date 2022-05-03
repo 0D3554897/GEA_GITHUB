@@ -1,0 +1,11 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In_R22\Files\CSV2DB java\do_not_deploy\batch_files
+2
+7
+15:SQL22_missingxref.bat|1|17f56154d08|4a2|62004844|cd03b6fad0394cc0981cca5baf82a9f0|0
+15:ORA22_missingxref.bat|1|17f56154d0f|49c|440144f5|6945efe615c342bca6523d0164e51a82|0
+11:ORA22_workday.bat|1|17f56154e41|49a|42ff43f5|3040fffa957f48a89cd2ba27ff7eb854|0
+a:readme.txt|1|16aa30d23fc|1c5|ad44a1d0|eb7be29910254819ade1da99bdd45f3e|0
+11:SQL22_workday.bat|1|17f56154d31|49c|b0324419|717287bcaa8645a69da4e43a24fc011f|0
+14:SQL22_serialxref.bat|1|17f56154d1a|4a0|66174750|5fe9a4f29dca4f349911f15013a7cfe3|0
+11:savjlog_ora22.bat|1|16aa30d247d|368|a5e2f313|dbf0cb36ee5245dc913fb2ccb9ba261b|0

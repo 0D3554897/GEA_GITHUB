@@ -1,0 +1,19 @@
+8.0
+17
+1       SQLCHAR       0       8       ""            1     WORK_DATE                SQL_Latin1_General_CP1_CI_AS
+2       SQLCHAR       0       20      ""            2     VEND_EMPL_NAME           SQL_Latin1_General_CP1_CI_AS
+3       SQLCHAR       0       10      ""            3     PO_NUMBER                SQL_Latin1_General_CP1_CI_AS
+4       SQLCHAR       0       8       ""            4     VEND_EMPL_SERIAL_NUM     SQL_Latin1_General_CP1_CI_AS
+5       SQLCHAR       0       4       ""            5     PROJ_CODE                SQL_Latin1_General_CP1_CI_AS
+6       SQLCHAR       0       10      ""            6     VENDOR_ID                SQL_Latin1_General_CP1_CI_AS
+7       SQLCHAR       0       6       ""            7     DEPT_CODE                SQL_Latin1_General_CP1_CI_AS
+8       SQLCHAR       0       9       ""            8     HOURS_CHARGED            SQL_Latin1_General_CP1_CI_AS
+9       SQLCHAR       0       12      ""            9     COST                     SQL_Latin1_General_CP1_CI_AS
+10      SQLCHAR       0       6       ""            10    PLC                      SQL_Latin1_General_CP1_CI_AS
+11      SQLCHAR       0       8       ""            11    BILL_RATE                SQL_Latin1_General_CP1_CI_AS
+12      SQLCHAR       0       1       ""            12    RECORD_TYPE              SQL_Latin1_General_CP1_CI_AS
+13      SQLCHAR       0       40      ""            13    VEND_NAME                SQL_Latin1_General_CP1_CI_AS
+14      SQLCHAR       0       40      ""            14    VEND_ST_ADDRESS          SQL_Latin1_General_CP1_CI_AS
+15      SQLCHAR       0       25      ""            15    VEND_CITY                SQL_Latin1_General_CP1_CI_AS
+16      SQLCHAR       0       15      ""            16    VEND_STATE               SQL_Latin1_General_CP1_CI_AS
+17      SQLCHAR       0       8       "\r\n"          17    VEND_COUNTRY             SQL_Latin1_General_CP1_CI_AS

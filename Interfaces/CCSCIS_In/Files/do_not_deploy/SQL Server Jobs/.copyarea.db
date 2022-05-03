@@ -1,0 +1,6 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CCSCIS_In\Files\do_not_deploy\SQL Server Jobs
+2
+2
+32:D16_AR Collection (CCIS) SQL Server job script.sql|1|171d0b8ad87|a39|a7fe1345|64c74b946a6f4340b7d884eaa94dc0d9|0
+22:D16_AR Collection Reset (CCIS).sql|1|171d0b8ad39|15cb|aa20b4f4|0988ed3075a044aaabb416b10e9bcda3|0

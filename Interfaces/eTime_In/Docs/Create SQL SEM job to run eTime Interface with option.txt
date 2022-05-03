@@ -1,0 +1,92 @@
+How to create a Microsoft SQL Sever Enterprise Manager (SEM) job to run the Current Month Posting option of the eTime Interface. 
+
+Reference Defect No. 782
+
+These instructions are provided with the assumption that the user is familiar with the basic functional navigation of SEM's main interface window.
+
+From the main SEM interface window, select menu command Action/New Job. The New Job Properties window opens.
+
+Step 1: Create the first of two SEM jobs - tentatively called Run eTime Interface w/Current Month Posting option
+
+On the General tab, type the job name and description. Accept all default values.
+(Note: SEM supplies the Source server specification upon a successful save.)
+
+Click the Steps tab. 
+
+This first job has two steps. Click the New button. The New Job Step window opens.
+
+For the first step's data entry, on the General tab, type/select the following.
+
+Step Name: GetFileName
+Type:      Transact-SQL Script (TSQL)
+Database:  IMAPSStg [the name of the database where this SEM job is to be executed]
+Command:
+
+DECLARE @out_msg varchar(245)
+
+EXEC XX_UPDATE_PROCESS_PARAM_SP
+   @in_CMD_PATH = '\\Ffx2kdap11\interfaces\programs\batch\getfilename.bat',
+   @in_SEARCH_PATH = '\\Ffx2kdap11\inbox\etime\',
+   @in_RESULT_PATH = '\\Ffx2kdap11\interfaces\process\common\Result.txt',
+   @in_FORMAT_PATH = '\\Ffx2kdap11\interfaces\format\infilenameformat.fmt',
+   @IN_SOURCE_PARM = 'IN_TS_SOURCE_FILENAME',
+   @in_INTERFACE_NAME = 'ETIME',
+   @OUT_Error_Message = @out_msg OUTPUT
+
+The user may click the Parse button to compile the TSQL command.
+(A successful parse disables the Parse button, until the TSQL command is changed.)
+
+The New Job Properties window's Advance tab usually provides the desired default data.
+
+Click OK to save. The New Job Step window is closed.
+
+The user is returned to the New Job Properties window. To edit the step data, select the desired step and click the Edit button.
+To create the next step, click the New button. The New Job Step window opens. 
+
+For the second step's data entry, type/select the following.
+
+Step Name: KickOff eTime Processing
+Type:      Transact-SQL Script (TSQL)
+Database:  IMAPSStg [the name of the database where this SEM job is to be executed]
+Command:
+
+DECLARE @ret_code integer
+
+EXEC @ret_code = dbo.XX_RUN_ETIME_INTERFACE
+   @current_month_posting_ind = 'Y'
+
+IF @ret_code <> 0
+   RAISERROR('FAILURE', 16, 1)
+
+Click the New Job Properties window's Advance tab. Provide a file name string complete with file directory path for TSQL script command options.
+
+Click OK to save. The New Job Step window is closed. The user is returned to the New Job Properties window.
+Click OK to save the job. The New Job Properties window is closed.
+
+The just-created job now appears as an entry on the SEM interface window's right pane. To edit the job's properties, right-click desired job entry
+row and select the Properies option from the popup menu. This opens the same job properties widow now with the window title "Run eTime Interface
+w/Current Month Posting option." Edit job properties using the navigation techniques that were used to create the job.
+
+Step 2: Create the second of two SEM jobs - tentatively called Run eTime Interface CloseOut w/Current Month Posting option
+
+To create the second job, use the same procedures (navigation techniques) that were used to create the first job. The second job has two steps.
+
+For the first step's data entry, type/select the following.
+
+Step Name: Costpoint Timesheet Preprocessor Completion
+Type:      Transact-SQL Script (TSQL)
+Database:  IMAPSStg [the name of the database where this SEM job is to be executed]
+Command:   EXEC dbo.XX_UPDATE_PROCESS_STATUS_SP
+
+Click OK to save.
+
+For the second step's data entry, type/select the following.
+
+Step Name: eTimesheet Final Process
+Type:      Transact-SQL Script (TSQL)
+Database:  IMAPSStg [the name of the database where this SEM job is to be executed]
+Command:   EXEC dbo.XX_RUN_ET_POSTCOSTPOINT_PROC
+
+Click OK to save.
+
+The just-created job now appears as an entry on the SEM interface window's right pane.

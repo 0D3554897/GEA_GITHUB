@@ -1,0 +1,10 @@
+GRANT SELECT ON [DELTEK].[PROJ] to imapsstg, imapsprd
+GRANT SELECT ON [DELTEK].[ORG] to imapsstg, imapsprd
+GRANT SELECT ON [DELTEK].[TS_LN_HS] to imapsstg, imapsprd
+GRANT SELECT ON [DELTEK].[EMPL] to imapsstg, imapsprd
+GRANT SELECT ON [DELTEK].[TS_PD_SCH] to imapsstg, imapsprd
+GRANT SELECT ON [DELTEK].[TS_HDR_HS] to imapsstg, imapsprd
+GRANT SELECT ON [DELTEK].[REORG_ORG_LINK] to imapsstg, imapsprd
+GRANT SELECT ON [DELTEK].[REORG_STRUC] to imapsstg, imapsprd
+GRANT SELECT ON [DELTEK].[GENL_UDEF] to imapsstg, imapsprd
+GRANT SELECT ON [DELTEK].[UDEF_VALID_VALUES] to imapsstg, imapsprd

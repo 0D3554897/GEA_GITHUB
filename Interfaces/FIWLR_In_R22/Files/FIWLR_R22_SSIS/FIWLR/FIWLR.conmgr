@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="FIWLR"
+  DTS:DTSID="{1A2DCE21-141A-4874-A0FF-F6160FADBFDC}"
+  DTS:CreationName="ADO.NET:System.Data.OleDb.OleDbConnection, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=USIBMVRDP1H;User ID=TPEROVA;Provider=IBMOLEDB.DB2COPY1;Location=stfmvs1.pok.ibm.com:5007;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAEEWIASrqgUe8f+BQZl5VpQAAAAACAAAAAAADZgAAwAAAABAAAAB48qB3SPYWR3TyyTaiy7B7AAAAAASAAACgAAAAEAAAAPknXCjqXQP8m/cL2dVLaZ6AAAAAfKq4qYFBtwEyNVpjj0tiNyvLomoRi/+gAJCzwczTrcn5lazrwoG/Fgz9mkjXJ/uU3T9LNZ/nc2fJaiTuYoLwZAfTRfln5Lk6FR0jYWUlmXePkoOQRgpNzVYD8HsfYB7lC9tI953Cyjbpq5C8g+fgphfc3pMNBrEgLarDhUOAPg0UAAAAG5+6LeHqNhb6jC31xYtqUi7UpYU=</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

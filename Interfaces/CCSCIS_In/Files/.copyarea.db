@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CCSCIS_In\Files
+2
+4
+b:LF2CRLF.ps1|1|171a9d3e0f2|89|a3072d69|d6ebb0c62c28417db5ac3df3c2fadbe3|0
+d:do_not_deploy|2|0|0|0|3c7bcd5cfe4a4489a290b4c38392f503|0
+4:SFTP|2|0|0|0|f2cb094302dc4c358f2fbe8e032ffcd1|0
+b:LF2CRLF.BAT|1|171a9d3e0ad|175|dafc6d97|4b572b16bbd84d09a5ffbf7c1c4074e3|0

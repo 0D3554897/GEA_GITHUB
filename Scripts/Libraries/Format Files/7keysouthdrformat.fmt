@@ -1,0 +1,21 @@
+8.0
+19
+1       SQLCHAR       0       10      ""                        1     ROW_NUM_TOTAL                        SQL_Latin1_General_CP1_CI_AS
+2       SQLCHAR       0       15      ""                        2     PERIOD_REVENUE_TOTAL                 SQL_Latin1_General_CP1_CI_AS
+3       SQLCHAR       0       15      ""                        3     PERIOD_COST_TOTAL                    SQL_Latin1_General_CP1_CI_AS
+4       SQLCHAR       0       15      ""                        4     QTD_REVENUE_TOTAL                    SQL_Latin1_General_CP1_CI_AS
+5       SQLCHAR       0       15      ""                        5     QTD_COST_TOTAL                       SQL_Latin1_General_CP1_CI_AS
+6       SQLCHAR       0       15      ""                        6     YTD_REVENUE_TOTAL                    SQL_Latin1_General_CP1_CI_AS
+7       SQLCHAR       0       15      ""                        7     YTD_COST_TOTAL                       SQL_Latin1_General_CP1_CI_AS
+8       SQLCHAR       0       15      ""                        8     ITD_REVENUE_TOTAL                    SQL_Latin1_General_CP1_CI_AS
+9       SQLCHAR       0       15      ""                        9     ITD_COST_TOTAL                       SQL_Latin1_General_CP1_CI_AS
+10      SQLCHAR       0       15      ""                        10    ITD_FUNDING_TOTAL                    SQL_Latin1_General_CP1_CI_AS
+11      SQLCHAR       0       15      ""                        11    UNBILLED_REVENUE_TOTAL               SQL_Latin1_General_CP1_CI_AS
+12      SQLCHAR       0       15      ""                        12    UNBILLED_REVENUE_31TO60DAYS_TOTAL    SQL_Latin1_General_CP1_CI_AS
+13      SQLCHAR       0       15      ""                        13    UNBILLED_REVENUE_61TO90DAYS_TOTAL    SQL_Latin1_General_CP1_CI_AS
+14      SQLCHAR       0       15      ""                        14    UNBILLED_REVENUE_OVER90DAYS_TOTAL    SQL_Latin1_General_CP1_CI_AS
+15      SQLCHAR       0       15      ""                        15    AGED_BILL_AMT_TOTAL                  SQL_Latin1_General_CP1_CI_AS
+16      SQLCHAR       0       15      ""                        16    AGED_RECEIVABLE_31TO60DAYS_TOTAL     SQL_Latin1_General_CP1_CI_AS
+17      SQLCHAR       0       15      ""                        17    AGED_RECEIVABLE_61TO90DAYS_TOTAL     SQL_Latin1_General_CP1_CI_AS
+18      SQLCHAR       0       15      ""                        18    AGED_RECEIVABLE_OVER90DAYS_TOTAL     SQL_Latin1_General_CP1_CI_AS
+19      SQLCHAR       0       15      "\r\n"                    19    BILLED_AMT_TOTAL                     SQL_Latin1_General_CP1_CI_AS

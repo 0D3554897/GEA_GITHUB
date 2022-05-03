@@ -1,0 +1,285 @@
+use imapsstg
+go
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
+GO
+
+/****** Object:  Stored Procedure dbo.XX_CERIS_SIMULATE_COSTPOINT_SP    Script Date: 04/05/2007 10:07:27 AM ******/
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_CERIS_SIMULATE_COSTPOINT_SP]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [dbo].[XX_CERIS_SIMULATE_COSTPOINT_SP]
+GO
+
+
+
+CREATE PROCEDURE [dbo].[XX_CERIS_SIMULATE_COSTPOINT_SP] 
+AS
+/************************************************************************************************  
+Name:       	XX_CERIS_SIMULATE_COSTPOINT_SP
+Author:     	Keith McGuire
+Created:    	04/2007  
+Purpose:    	
+
+	THIS ENTIRE STORED PROCEDURE IS FOR DR-922
+	
+	IMAPS CERIS INTERFACE HAS 2 TYPES OF TIMESHEET PROCESSING:
+	
+	1. REVERSALS (n)
+	2. CORRECTIONS (p)	
+
+	REVERSALS HAS EVERYTHING BUT THE LABOR COST AMOUNT EXPLICITLY STATED ON THE TIMESHEET
+	CORRECTIONS MUST GRAB EVERYTHING FROM EMPL_LAB_INFO
+	
+	THE LABOR COST FOR BOTH OF THESE TIMESHEETS IS BASED ON THE CURRENT YEAR RATE
+	*PRIOR YEAR CERIS REVERSALS & CORRECTIONS EXIST IN SEPARATE TABLE AND ARE NOT PROCESSED
+
+Prerequisites: 	none 
+Version: 	1.0
+
+Notes:
+
+CP600000284 04/15/2008 (BP&S Change Request No. CR1543)
+            Apply the Costpoint column COMPANY_ID to distinguish Division 16's data from those
+            of Division 22's. There are seven instances.
+
+
+            05/20/08, CR1541 - NonZero Pay Types - Standby
+	    Ralph, use this procedure if there is a discrepency
+
+
+CR4885 - IMAPS CERIS Interface Changes for Actuals - KM - 2012-10-02
+CR4885 - IMAPS CERIS Interface Changes for Actuals - KM - 2012-10-11 - D'OH - forgot D type for lookup
+************************************************************************************************/  
+BEGIN
+
+-- CP600000284_Begin
+
+DECLARE @DIV_16_COMPANY_ID varchar(10)
+
+ 
+PRINT convert(varchar, current_timestamp, 21) + ' : WORKDAY : Line 61 : XX_CERIS_SIMULATE_COSTPOINT_SP.sql '
+ 
+SELECT @DIV_16_COMPANY_ID = PARAMETER_VALUE
+  FROM dbo.XX_PROCESSING_PARAMETERS
+ WHERE PARAMETER_NAME = 'COMPANY_ID'
+   AND INTERFACE_NAME_CD = 'CERIS'
+
+-- CP600000284_End
+
+	--1	GRAB EMPL_LAB_INFO DATA 
+	--	FOR CORRECTIONS ONLY
+	UPDATE XX_CERIS_RETRO_TS_PREP
+	SET
+	GENL_LAB_CAT_CD = ELI.GENL_LAB_CAT_CD,
+	ORG_ID = ELI.ORG_ID
+	FROM
+	XX_CERIS_RETRO_TS_PREP TS
+	INNER JOIN
+	IMAPS.DELTEK.EMPL_LAB_INFO ELI
+	ON
+	(
+	ELI.EMPL_ID = TS.EMPL_ID
+	AND
+	 (
+		( TS.S_TS_TYPE_CD = 'R'
+		  AND
+		  TS.TS_DT BETWEEN ELI.EFFECT_DT AND ELI.END_DT	)
+		OR
+		( TS.S_TS_TYPE_CD in ('C','D') --<--KM
+		  AND
+		  TS.CORRECTING_REF_DT BETWEEN ELI.EFFECT_DT AND ELI.END_DT)
+	 )
+	)
+	WHERE 
+	RIGHT(RTRIM(TS.NOTES), 1) = 'p'
+
+	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER
+
+
+	--2.	PERFORM ACCOUNT AND AND LAB_CST_AMT CALCULATION
+	--	FOR CORRECTIONS ONLY	
+	UPDATE XX_CERIS_RETRO_TS_PREP
+	SET
+	ACCT_ID = LAGD.ACCT_ID
+	FROM XX_CERIS_RETRO_TS_PREP TS
+	INNER JOIN
+	IMAPS.DELTEK.LAB_ACCT_GRP_DFLT LAGD
+	ON
+	( 
+	 LAGD.LAB_GRP_TYPE = SUBSTRING(TS.ORG_ID, 10, 2)
+	 AND
+	 LAGD.ACCT_GRP_CD = (SELECT ACCT_GRP_CD FROM IMAPS.Deltek.PROJ WHERE PROJ_ABBRV_CD = TS.PROJ_ABBRV_CD AND COMPANY_ID = @DIV_16_COMPANY_ID) -- CP600000284
+	 AND
+     LAGD.COMPANY_ID = @DIV_16_COMPANY_ID -- CP600000284
+	)
+	WHERE 
+	RIGHT(RTRIM(TS.NOTES), 1) = 'p'
+
+
+	/*CR1541 - NonZero Pay Types - Standby*/
+	UPDATE XX_CERIS_RETRO_TS_PREP
+	SET
+	ACCT_ID = PTAM.STB_ACCT_ID
+	FROM XX_CERIS_RETRO_TS_PREP TS
+	INNER JOIN
+	XX_PAY_TYPE_ACCT_MAP PTAM
+	ON
+	( 
+	 PTAM.PAY_TYPE = TS.PAY_TYPE
+	 AND
+	 PTAM.LAB_GRP_TYPE = SUBSTRING(TS.ORG_ID, 10, 2)
+	 AND
+	 PTAM.ACCT_GRP_CD = (SELECT ACCT_GRP_CD FROM IMAPS.Deltek.PROJ WHERE PROJ_ABBRV_CD = TS.PROJ_ABBRV_CD AND COMPANY_ID = @DIV_16_COMPANY_ID) -- CP600000284
+	 AND
+	 PTAM.COMPANY_ID = @DIV_16_COMPANY_ID -- CP600000284
+	)
+	WHERE 
+	RIGHT(RTRIM(TS.NOTES), 1) = 'p'
+
+
+	/*CR1541 - NonZero Pay Types - Standby*/
+	UPDATE XX_CERIS_RETRO_TS_PREP
+	set acct_id = '??-??-??' 
+	WHERE 
+	RIGHT(RTRIM(NOTES), 1) = 'p'
+	AND
+	--non regular pay_type
+	(
+	 pay_type is not null
+		and
+	 pay_type in
+	 (select pay_type from xx_pay_type_acct_map)
+	)
+	and
+	--with no mapped acct_id
+	(
+	 acct_id is null
+	 or
+	 acct_id not in 
+	  (select stb_acct_id from xx_pay_type_acct_map)
+	)
+		
+
+	/*CR4885 - no longer use legacy GLC rates for labor costing*/
+	/*
+	/*CR1541 - NonZero Pay Types - Standby*/
+	UPDATE XX_CERIS_RETRO_TS_PREP
+	SET LAB_CST_AMT = 
+	CAST(    CAST( (
+		CAST(TS.CHG_HRS AS DECIMAL(14,2))
+		*
+	   	(SELECT GENL_AVG_RT_AMT
+		 FROM IMAPS.DELTEK.GENL_LAB_CAT
+	         WHERE GENL_LAB_CAT_CD = TS.GENL_LAB_CAT_CD
+                   AND COMPANY_ID = @DIV_16_COMPANY_ID) -- CP600000284
+		*
+		(SELECT PAY_TYPE_FCTR_QTY
+		 FROM IMAPS.DELTEK.PAY_TYPE			
+			/*CR1541 - NonZero Pay Types - Standby*/
+	         WHERE PAY_TYPE = TS.PAY_TYPE)
+		 ) AS DECIMAL(14,2)) AS VARCHAR
+	     )
+	FROM XX_CERIS_RETRO_TS_PREP TS
+	WHERE 
+	RIGHT(RTRIM(TS.NOTES), 1) = 'p'
+
+	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER
+	*/
+
+
+	--3.	PERFORM ORG_ID UPDATE FROM TSD
+	--	FOR CORRECTIONS ONLY
+
+	--	PREVENT 1M to 16 and 16 to 1M cross-charging
+	UPDATE XX_CERIS_RETRO_TS_PREP
+	SET ACCT_ID = NULL
+	FROM 
+	XX_CERIS_RETRO_TS_PREP TS
+	WHERE 
+	LEFT(TS.ORG_ID,2) <>  (SELECT LEFT(ORG_ID,2) FROM IMAPS.Deltek.PROJ WHERE PROJ_ABBRV_CD = TS.PROJ_ABBRV_CD AND COMPANY_ID = @DIV_16_COMPANY_ID) 
+	AND
+	RIGHT(RTRIM(TS.NOTES), 1) = 'p'
+
+ 
+PRINT convert(varchar, current_timestamp, 21) + ' : WORKDAY : Line 205 : XX_CERIS_SIMULATE_COSTPOINT_SP.sql '
+ 
+	UPDATE XX_CERIS_RETRO_TS_PREP
+	SET ORG_ID = PTD.ORG_ID
+	FROM 
+	XX_CERIS_RETRO_TS_PREP TS
+	INNER JOIN
+	IMAPS.DELTEK.PROJ_TS_DFLT PTD
+	ON
+	(PTD.PROJ_ID = (SELECT PROJ_ID FROM IMAPS.Deltek.PROJ WHERE PROJ_ABBRV_CD = TS.PROJ_ABBRV_CD AND COMPANY_ID = @DIV_16_COMPANY_ID) -- CP600000284
+	)
+	WHERE 
+	RIGHT(RTRIM(TS.NOTES), 1) = 'p'
+
+	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER
+
+
+	
+	/*CR4885 - no longer use legacy GLC rates for labor costing*/
+	/*
+	--4.	PERFORM LAB_CST_AMT RE_CALCULATION 
+	--	USING CURRENT YEAR RATE
+	--	FOR REVERSALS ONLY
+
+
+	/*CR1541 - NonZero Pay Types - Standby*/
+	UPDATE XX_CERIS_RETRO_TS_PREP
+	SET
+	LAB_CST_AMT = 
+	CAST(   CAST( (
+		CAST(TS.CHG_HRS AS DECIMAL(14,2))
+		*
+	   	(SELECT GENL_AVG_RT_AMT
+		 FROM IMAPS.DELTEK.GENL_LAB_CAT
+	         WHERE GENL_LAB_CAT_CD = TS.GENL_LAB_CAT_CD
+                   AND COMPANY_ID = @DIV_16_COMPANY_ID) -- CP600000284
+		*
+		(SELECT PAY_TYPE_FCTR_QTY
+		 FROM IMAPS.DELTEK.PAY_TYPE	
+			/*CR1541 - NonZero Pay Types - Standby*/
+	         WHERE PAY_TYPE = TS.PAY_TYPE)
+		 ) AS DECIMAL(14,2) )AS VARCHAR
+	     )
+	FROM XX_CERIS_RETRO_TS_PREP TS
+	WHERE 
+	RIGHT(RTRIM(TS.NOTES), 1) = 'n'
+
+	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER
+	*/
+
+
+	RETURN (0)
+	
+	BL_ERROR_HANDLER:
+	
+	PRINT 'ERROR UPDATING TABLE'
+	RETURN(1)
+
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GO
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
+GO
+

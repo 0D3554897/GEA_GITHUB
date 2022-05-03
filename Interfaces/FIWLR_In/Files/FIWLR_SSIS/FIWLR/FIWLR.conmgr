@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="FIWLR"
+  DTS:DTSID="{26DB36C7-6C51-4ABC-A113-4061EB837973}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=USIBMVRDP1H;User ID=TPEROVA;Provider=IBMDADB2.DB2COPY1;Location=stfmvs1.pok.ibm.com:5007;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoM76fTHWXESUtLbj+6aWrwAAAAACAAAAAAADZgAAwAAAABAAAADC1FWoZNNuOZXd8onuelDKAAAAAASAAACgAAAAEAAAAIWnwu73dluARhUUUfH2PW54AAAAvv8ZNCGOGIAxE1yowPMeM+Rbyyx7/GYZnpJTFoLE3TzXLg0EHcJNOdV3O6sol+MFXOcIxtsG6Iu4ivseULLF4Xvv1D9RSmB6csnwcKaFiHZrV9tcrR0tzUxv+ouD2nEacl4Gv6VPTlgN8lm+5es+IpBZ6aa5yljhFAAAAB9JNQHeVzpkgsRNkCFBbAsiW7bO</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

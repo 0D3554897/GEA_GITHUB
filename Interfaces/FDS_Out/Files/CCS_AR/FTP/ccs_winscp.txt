@@ -1,0 +1,18 @@
+open ftpes://CCSBIL:CCS01CCS@SBRYS32.POK.IBM.COM:990/
+
+# Execute the script using a command like:
+# "C:\Program Files (x86)\WinSCP\WinSCP.exe" /log="C:\writable\path\to\log\WinSCP.log" /ini=nul /script="C:\path\to\script\script.txt"
+
+#open CCS_DEV_SERVER
+
+call site lrecl=156 blksize=6084 recfm=fb cy primary=500 secondary=500
+put -transfer=ascii D:\IMAPS_DATA\Interfaces\PROCESS\fds_ccs\IMAPS_TO_CCS.TXT '"CCSBIL.G.FMD105RP(+1)"'
+call site FILETYPE=JES
+call site lrecl=80 recfm=FB blksize=3120
+put -transfer=ascii D:\IMAPS_DATA\Interfaces\PROCESS\fds_ccs\jeskick.iefbr14ccs
+exit
+
+# command line to execute
+#C:\Progra~2\WinSCP\WinSCP.com /log="D:IMAPS_DATA/NOTSHARED/CCS_02_FTP_LOG.TXT" /script="d:\apps_to_compile\cff\winscp.txt"
+
+#ftpes://PTCCS04:out18out@SBRYS61.POK.IBM.COM:990/  - CHANGED 11/14/2018

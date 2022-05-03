@@ -1,0 +1,32 @@
+//*
+//*  TEST SCRIPT
+//*
+//SLIFDS   JOB (PRO,BX33),'TEST',CLASS=E,MSGCLASS=4,REGION=0M,        
+//         NOTIFY=&SYSUID                                             
+//*----------------------------------------------------------         
+//* CALL OUT       :   ONCALL SUPPORT - PROVIDED SEPARATELY           
+//*----------------------------------------------------------         
+//* IMPORTANT      :                                                  
+//*----------------------------------------------------------         
+//* RESTART        : RESTART THE JOB FROM A STEP BEFORE TO ABEND      
+//*                  STEP WHICH HAS 'R' IN END OF STEP NAME.          
+//*----------------------------------------------------------         
+//$01R  EXEC   PGM=IEFBR14                                            
+//*------------------------------------------------------------------*
+
+
+//*
+//*  PROD SCRIPT
+//*
+//SLIFDS   JOB (PRO,BX11,,500),'OPCA-SABRIX',                        
+//         CLASS=E,MSGCLASS=O,REGION=0M                              
+//*---------------------------------------------------------------   
+//* CALL OUT       :   ONCALL SUPPORT - PROVIDED SEPARATELY          
+//*---------------------------------------------------------------   
+//* IMPORTANT      :                                                 
+//*---------------------------------------------------------------   
+//* RESTART        : RESTART THE JOB FROM A STEP BEFORE TO ABEND     
+//*                  STEP WHICH HAS 'R' IN END OF STEP NAME.         
+//*---------------------------------------------------------------   
+//$01R  EXEC   PGM=IEFBR14                                           
+//*---------------------------------------------------------------*  

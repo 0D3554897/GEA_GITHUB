@@ -1,0 +1,58 @@
+USE [IMAPSStg]
+GO
+
+/****** Object:  View [dbo].[XX_REV_LVL_UDEF_PROJ_VW]    Script Date: 02/14/2019 15:08:01 ******/
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[XX_REV_LVL_UDEF_PROJ_VW]'))
+DROP VIEW [dbo].[XX_REV_LVL_UDEF_PROJ_VW]
+GO
+
+USE [IMAPSStg]
+GO
+
+/****** Object:  View [dbo].[XX_REV_LVL_UDEF_PROJ_VW]    Script Date: 02/14/2019 15:08:01 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER OFF
+GO
+
+
+
+/* 
+CREATED TO QUICKLY QUERY REVENUE LEVEL PROJECTS 
+AND FULL REPORTING LEVEL PROJECT
+*/
+
+CREATE VIEW [dbo].[XX_REV_LVL_UDEF_PROJ_VW]
+AS
+
+		SELECT 
+			--LEFT(PJ.PROJ_ID,4) as sb_contract,
+			PG.UDEF_TXT,
+			PG.GENL_ID,
+			--PJ.PROJ_ID AS proj_rev_lvl, 
+			dflt.PROJ_ID as full_project
+			/*****
+			ISNULL(CONVERT(CHAR(10),PJ.PROJ_START_DT,120), '?') AS proj_start_dt, 
+			ISNULL(CONVERT(CHAR(10),PJ.PROJ_END_DT,120), '?') AS proj_end_dt, 
+			PJ.PROJ_NAME AS proj_name
+			*****/
+		FROM 
+			(SELECT GENL_ID, UDEF_TXT, S_TABLE_ID, UDEF_LBL_KEY
+			 FROM IMAPS.DELTEK.GENL_UDEF
+			 WHERE S_TABLE_ID = 'PJ' and UDEF_LBL_KEY=60) as PG 
+			 inner join IMAPS.DELTEK.PROJ as PJ 
+  				on PG.GENL_ID =  PJ.PROJ_ID
+  			 inner join IMAPS.DELTEK.PROJ as DFLT
+  				on PG.UDEF_TXT = DFLT.PROJ_ABBRV_CD
+  				WHERE PG.S_TABLE_ID = 'PJ' 
+  					and PG.UDEF_LBL_KEY=60
+					AND PJ.COMPANY_ID=1
+					--AND righT(PJ.PROJ_ID,4)='JL1D'   
+		--ORDER BY FULL_PROJECT
+
+
+
+GO
+
+

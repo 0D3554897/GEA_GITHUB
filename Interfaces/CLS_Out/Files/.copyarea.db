@@ -1,0 +1,11 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CLS_Out\Files
+2
+7
+14:CLS_FTP_commands.txt|1|16aa30ccdf1|c1|13b38d0|da1c75a117e8433f96c6e2ba98405abe|0
+d:do_not_deploy|2|0|0|0|528c36e5fae8478ebb44318bdb051b15|0
+1e:XX_CLS_DOWN_MAPPING_UPDATE.dts|1|16aa30ccded|38000|d938d683|d4e3f3c8dc534cbe8d6d8a6189c93a5b|0
+14:Create_999_File.java|1|16aa30cce5f|c7eb|ebcfd9b1|4637dca95b3444b5a5cf0affcceb1772|0
+1a:jdbc_connection.properties|1|16aa30ccd23|70|726825e2|6c0efc32716841ff93d48107da4f8eae|0
+d:CLS_build.xml|1|16aa30ccd23|3af|4a762500|62d4b83e12dd41519f3800efb045e1d3|0
+18:CLSDOWN_user_mapping.xls|1|16aa30ccdd4|6600|df54295a|5e1b55a704194768a571031ac7ae953b|0

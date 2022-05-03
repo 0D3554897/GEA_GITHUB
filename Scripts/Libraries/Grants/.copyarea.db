@@ -1,0 +1,38 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Scripts\Libraries\Grants
+2
+22
+37:GRANT script for IMAPS Staging DB Objects - FDS_CCS.sql|1|16aa30d65d1|658|7644f143|d5c0c2e8dec74e7393aebe1006da1dc9|0
+25:CR5550_IMAPS_PLC_grants_for_ETIME.sql|1|16aa30d66d1|16f|429486a8|d6c07bcce2154e84b4f5c09c0e70ada4|0
+26:GRANT script for Deltek DB Objects.sql|1|16aa30d64e7|81a|68bb7e09|00cddaa76d66454eb42539d6a1a85327|0
+35:GRANT script for Deltek DB Objects - CLS Down R22.sql|1|16aa30d6664|132|aded5f91|0152c21fb8f44deeac97703b10bcc925|0
+31:GRANT script for Deltek DB Objects - PROJEMPL.sql|1|16aa30d65d1|184|4ab27627|c8ce83d70bed4d8c94daad63f71880f0|0
+30:GRANT script for Deltek DB Objects - FDS_CCS.sql|1|16aa30d64d7|146|d5af658e|541dfde181f1422693fb4be3ddc589de|0
+2d:GRANT script for Deltek DB Objects - EVMS.sql|1|16aa30d6499|364|b6da0118|83482b6d143744f7b247218ed579f37c|0
+2d:GRANT script for Deltek DB Objects - UTIL.sql|1|16aa30d64e7|254|388bb9c3|0db28d7641054955baa63b910f903bb1|0
+2d:GRANT script for IMAPS Staging DB Objects.sql|1|16aa30d65e1|12db|aabfc617|d3496037590941fe926f7028818b15f2|0
+3a:GRANT script for IMAPS Staging DB Objects - RATE_RETRO.sql|1|16aa30d65d1|4d8|3c287a47|b43631a3ccca434593e5e6856a2adb8e|0
+35:GRANT script for IMAPS Staging DB Objects - 7KEYS.sql|1|16aa30d6506|821|3e9b6e46|cf8a3a8fab6747b6992c625c858ad8fe|0
+31:GRANT script for Deltek DB Objects - YLHR_R22.sql|1|16aa30d66d1|3f|623f11c5|fb3e158ffc6249a6bbfbee0974384b44|0
+2d:GRANT script for Deltek DB Objects - CCIS.sql|1|16aa30d6489|1bd|3d8c88c5|905537a38f484564b1e46715c73df4e3|0
+39:GRANT script for IMAPS Staging DB Objects - ETIME_R22.sql|1|16aa30d6664|94d|14eacea7|6300a7d0d53d43d1922df2ab029ae8ec|0
+3b:GRANT script for IMAPS Staging DB Objects - AP_JE_Error.sql|1|16aa30d6545|606|35d3d5f9|3572cf73a2c14a468a0c7203444edcba|0
+32:GRANT script for Deltek DB Objects - FIWLR_R22.sql|1|16aa30d6654|4ca|92aa5a43|245fb16ba473453f9b6a5c656c4ac490|0
+2e:GRANT script for Deltek DB Objects - CERIS.sql|1|16aa30d6489|2b3|8b50d483|5b716740ccf94e039a5d53b88bcd881a|0
+38:GRANT script for IMAPS Staging DB Objects - CLS DOWN.sql|1|16aa30d6554|500|738b8925|3657b003ed7e43b6b150a23838b5e25f|0
+2e:GRANT script for Deltek DB Objects - FIWLR.sql|1|16aa30d64e7|4a3|ab924ce0|7ca03c2ce4904dfcbfd1da9e024b829d|0
+38:GRANT script for IMAPS Staging DB Objects - YLHR_R22.sql|1|16aa30d66e1|3bd|a59c2138|31c5cdfb18124cecb3b2708dcb2eccc9|0
+36:GRANT script for IMAPS Staging DB Objects - BMS_IW.sql|1|16aa30d6545|302|7efec7a|6c7b873ec211414c9d7109da3441fb00|0
+34:GRANT script for IMAPS Staging DB Objects - CCIS.sql|1|16aa30d6545|529|891390af|1c0f7181ff84491188e05631d6a9b1a2|0
+3c:GRANT script for IMAPS Staging DB Objects - CLS Down R22.sql|1|16aa30d66e1|56e|d09ca67e|ef90bcde59fa43809ef33769f095b8bc|0
+37:GRANT script for IMAPS Staging DB Objects - PLC_R22.sql|1|16aa30d6664|122|836b56a0|2ee576d0b5684e3e886abc71b9f69421|0
+31:GRANT script for Deltek DB Objects - CLS DOWN.sql|1|16aa30d6489|172|fc617421|5d31c59b655443339a229be3e455031e|0
+35:GRANT script for IMAPS Staging DB Objects - FIWLR.sql|1|16aa30d65e1|102a|d3babb30|029e6b30fb7549d789401c841bf993de|0
+39:GRANT script for IMAPS Staging DB Objects - CERIS_R22.sql|1|16aa30d6664|868|d70d8f99|7c34aa6dbab54e91adfa58aab8d5f003|0
+35:GRANT script for IMAPS Staging DB Objects - CERIS.sql|1|16aa30d6545|993|9f87ece0|fd712d6b33b54a2c8f457ebc4935b69e|0
+39:GRANT script for IMAPS Staging DB Objects - FIWLR_R22.sql|1|16aa30d6664|b02|38ad2b80|72ba39bfdf27407189be22866f1c331b|0
+34:GRANT script for Deltek DB Objects - AP_JE_Error.sql|1|16aa30d647a|30d|9e43e404|64225d862dcd4298adbc2e0cedad8ca8|0
+34:GRANT script for IMAPS Staging DB Objects - EVMS.sql|1|16aa30d6564|188|798076f7|c767db9c099d44ef99ef35a755ef06b3|0
+34:GRANT script for IMAPS Staging DB Objects - UTIL.sql|1|16aa30d65e1|3e6|652231ad|6b9b1f39753049a58ae381926a709686|0
+2e:GRANT script for Deltek DB Objects - 7KEYS.sql|1|16aa30d643b|662|b6c4e080|742c7ab655754c17b429e5fef4baa222|0
+33:GRANT script for Deltek DB Objects - RATE_RETRO.sql|1|16aa30d64e7|116|d29f54c3|cdcd55bea27f47cd84cb001c1ef43fdb|0

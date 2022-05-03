@@ -1,0 +1,51 @@
+delete from imapsstg.dbo.xx_processing_parameters WHERE PARAMETER_ID = 513
+
+UPDATE imapsstg.dbo.xx_processing_parameters
+SET PARAMETER_VALUE = 'D:\IMAPS_Data\Interfaces\Programs\GLIM\GLIM.BAT'
+where INTERFACE_NAME_CD = 'FDS/CCS'
+AND PARAMETER_NAME = 'GLIM_EXE'
+
+UPDATE imapsstg.dbo.xx_processing_parameters
+SET PARAMETER_VALUE = 'D:\IMAPS_Data\Interfaces\Programs\GLIM\GLIM_FTP.BAT'
+where INTERFACE_NAME_CD = 'FDS/CCS'
+AND PARAMETER_NAME = 'GLIM_FTP_CMD'
+
+UPDATE imapsstg.dbo.xx_processing_parameters
+SET PARAMETER_VALUE = 'D:\IMAPS_Data\Interfaces\PROCESS\FDS_CCS\CFF_GLIM.TXT'
+where INTERFACE_NAME_CD = 'FDS/CCS'
+AND PARAMETER_NAME = 'GLIM_CFF_LOG_FILE'
+
+UPDATE imapsstg.dbo.xx_processing_parameters
+SET PARAMETER_VALUE = 'D:\IMAPS_Data\Interfaces\PROCESS\FDS_CCS\CFF_CCS_02.TXT'
+where INTERFACE_NAME_CD = 'FDS/CCS'
+AND PARAMETER_NAME = 'CCS_02_CFF_LOG_FILE'
+
+
+
+/*****
+
+INSERT INTO imapsstg.dbo.xx_processing_parameters
+(INTERFACE_NAME_ID,INTERFACE_NAME_CD,PARAMETER_NAME,PARAMETER_VALUE,CREATED_BY, CREATED_DATE)
+VALUES(12,'FDS/CCS','GLIM_CFF_LOG_FILE', 'D:\IMAPS_Data\Interfaces\LOGS\GLIM\CFF_GLIM_LOG.TXT', SUSER_SNAME(),GETDATE())
+
+UPDATE imapsstg.dbo.xx_processing_parameters
+SET PARAMETER_VALUE = 'D:\IMAPS_DATA\PROPS\CCS_02\CCS_02_FTP_COMMANDS.txt'
+where INTERFACE_NAME_CD = 'FDS/CCS'
+AND PARAMETER_NAME = 'CCS_02_FTP_COMMAND_FILE'
+
+UPDATE imapsstg.dbo.xx_processing_parameters
+SET PARAMETER_VALUE = 'D:\IMAPS_DATA\Interfaces\LOGS\CCS_02\CCS_02_FTP_LOG.txt'
+where INTERFACE_NAME_CD = 'FDS/CCS'
+AND PARAMETER_NAME = 'CCS_02_FTP_LOG_FILE'
+
+********/
+
+UPDATE imapsstg.dbo.xx_processing_parameters
+SET PARAMETER_VALUE = 'D:\IMAPS_DATA\PROPS\GLIM\GLIM_FTP.INI'
+where INTERFACE_NAME_CD = 'FDS/CCS'
+AND PARAMETER_NAME = 'FTP_GLIM_INI_FILE'
+
+
+select * from imapsstg.dbo.xx_processing_parameters
+where INTERFACE_NAME_CD = 'FDS/CCS'
+AND CHARINDEX('GLIM', PARAMETER_NAME)>0

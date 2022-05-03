@@ -1,0 +1,11 @@
+OPEN dswwindap17.div16.ibm.com
+ftpdap17
+Aug28guA
+lcd D:\apps_to_compile\GLIM\FTP
+verbose
+ASCII 
+PUT IMAPFIW.TEST.CONTROL2.FDSCCS
+ASCII
+PUT IMAPFIW.TEST.MOD999.PARM
+LS
+QUIT

@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In_R22\Files\CSV2DB java\do_not_deploy\testdata
+2
+4
+d:rename_22.bat|1|16aa30d20e9|2e7|ef91c79f|0d6987c3e803400da01bd29f5754041a|0
+17:div22workday - Copy.csv|1|16aa30d2263|1242c|46453f26|7465aabab9314175a161975b45567dba|0
+12:22_sql_workday.csv|1|16aa30d20e9|1242c|46453f26|3a70a1a58a314816ad4f1e100f87500b|0
+12:22_ora_workday.csv|1|16aa30d2292|1242c|46453f26|577b5a665a3240529d2100baeb7536ec|0

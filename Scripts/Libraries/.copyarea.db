@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Scripts\Libraries
+2
+9
+6:Grants|2|0|0|0|a82c0cb7953b42dd84f39fad30c6fb1f|0
+e:NOT CHECKED IN|2|0|0|0|24facec058d34dacbfd7d311c02bd070|0
+4:Data|2|0|0|0|8bc4df744f664b47b2754bd63540d158|0
+18:Common Stored Procedures|2|0|0|0|632102eaccb5435ca2ca3763a2e25b60|0
+b:Batch Files|2|0|0|0|5beb6ed8502141b780689da58a986be3|0
+d:Common Tables|2|0|0|0|61f2fc4c8c464780af3b7ef9d07920e4|0
+c:Format Files|2|0|0|0|4c8c53e188264a14af2cd788d47edd13|0
+1d:IMAR Common Stored Procedures|2|0|0|0|a72c5cefd5304f23b652e639a11da8f1|0
+10:Common Functions|2|0|0|0|959a355d41d74ec6af8fdda03b231c7f|0

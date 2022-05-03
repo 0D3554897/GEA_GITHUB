@@ -1,0 +1,23 @@
+8.0
+21
+1 SQLCHAR 0 6 "" 1 Emp_Serial_Num SQL_Latin1_General_CP1_CI_AS
+2 SQLCHAR 0 4 "" 2 TS_Year SQL_Latin1_General_CP1_CI_AS
+3 SQLCHAR 0 2 "" 3 TS_Month SQL_Latin1_General_CP1_CI_AS
+4 SQLCHAR 0 2 "" 4 TS_Day SQL_Latin1_General_CP1_CI_AS
+5 SQLCHAR 0 6 "" 5 Project_Num SQL_Latin1_General_CP1_CI_AS
+6 SQLCHAR 0 6 "" 6 Sat_Reg_Time SQL_Latin1_General_CP1_CI_AS
+7 SQLCHAR 0 6 "" 7 Sat_Ovr_Time SQL_Latin1_General_CP1_CI_AS
+8 SQLCHAR 0 6 "" 8 Sun_Reg_Time SQL_Latin1_General_CP1_CI_AS
+9 SQLCHAR 0 6 "" 9 Sun_Ovr_Time SQL_Latin1_General_CP1_CI_AS
+10 SQLCHAR 0 6 "" 10 Mon_Reg_Time SQL_Latin1_General_CP1_CI_AS
+11 SQLCHAR 0 6 "" 11 Mon_Ovr_Time SQL_Latin1_General_CP1_CI_AS
+12 SQLCHAR 0 6 "" 12 Tue_Reg_Time SQL_Latin1_General_CP1_CI_AS
+13 SQLCHAR 0 6 "" 13 Tue_Ovr_Time SQL_Latin1_General_CP1_CI_AS
+14 SQLCHAR 0 6 "" 14 Wed_Reg_Time SQL_Latin1_General_CP1_CI_AS
+15 SQLCHAR 0 6 "" 15 Wed_Ovr_Time SQL_Latin1_General_CP1_CI_AS
+16 SQLCHAR 0 6 "" 16 Thu_Reg_Time SQL_Latin1_General_CP1_CI_AS
+17 SQLCHAR 0 6 "" 17 Thu_Ovr_Time SQL_Latin1_General_CP1_CI_AS
+18 SQLCHAR 0 6 "" 18 Fri_Reg_Time SQL_Latin1_General_CP1_CI_AS
+19 SQLCHAR 0 6 "" 19 Fri_Ovr_Time SQL_Latin1_General_CP1_CI_AS
+20 SQLCHAR 0 6 "" 20 PLC SQL_Latin1_General_CP1_CI_AS
+21 SQLCHAR 0 1 "\n" 21 Record_Type SQL_Latin1_General_CP1_CI_AS

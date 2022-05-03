@@ -1,0 +1,6 @@
+cd ..
+cd ccs
+get CCS.filein
+get CCS.filein2
+get CCS.filein3
+bye

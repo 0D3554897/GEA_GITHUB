@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{D183A3D8-5FD8-494B-B014-37F57B35E655}") = "BMSIW_WWER_N16_EXTRACT", "BMSIW_WWER_N16_PULL\BMSIW_WWER_N16_EXTRACT.dtproj", "{CCFFEC40-04E4-43D4-B6DF-F7BBFB956D2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCFFEC40-04E4-43D4-B6DF-F7BBFB956D2E}.Development|Default.ActiveCfg = Development
+		{CCFFEC40-04E4-43D4-B6DF-F7BBFB956D2E}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

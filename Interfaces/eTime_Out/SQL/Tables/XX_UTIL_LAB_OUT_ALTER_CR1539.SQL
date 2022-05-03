@@ -1,0 +1,7 @@
+USE IMAPSStg
+go
+ALTER TABLE dbo.XX_UTIL_LAB_OUT ADD PAY_TYPE varchar(3) NULL
+go
+
+ALTER TABLE [dbo].[XX_UTIL_LAB_OUT_ARCH] ADD [pay_type] [varchar](3) NULL
+go

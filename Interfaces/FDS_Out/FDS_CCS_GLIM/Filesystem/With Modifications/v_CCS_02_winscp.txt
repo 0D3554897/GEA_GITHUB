@@ -1,0 +1,2 @@
+#open ftpes://PTCCS04:sep18sep@SBRYS61.POK.IBM.COM:990/
+exit

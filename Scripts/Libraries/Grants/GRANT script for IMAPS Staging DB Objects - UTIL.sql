@@ -1,0 +1,15 @@
+-- TABLES
+GRANT SELECT, INSERT, UPDATE, DELETE ON [dbo].[XX_UTIL_HOURS_HR_TYPE] TO imapsprd, imapsstg
+GRANT SELECT, INSERT, UPDATE, DELETE ON [dbo].[XX_UTIL_LAB_OUT] TO imapsprd, imapsstg
+GRANT SELECT, INSERT, UPDATE, DELETE ON [dbo].[XX_UTIL_LAB_OUT_ARCH] TO imapsprd, imapsstg
+GRANT SELECT, INSERT, UPDATE, DELETE ON [dbo].[XX_UTIL_ORG_OUT] TO imapsprd, imapsstg
+GRANT SELECT, INSERT, UPDATE, DELETE ON [dbo].[XX_UTIL_ORG_OUT_ARCH] TO imapsprd, imapsstg
+GRANT SELECT, INSERT, UPDATE, DELETE ON [dbo].[XX_UTIL_OUT_LOG] TO imapsprd, imapsstg
+
+-- Stored Procedures
+GRANT EXECUTE ON [dbo].[XX_GET_HR_TYPE_UF] TO imapsprd, imapsstg
+GRANT EXECUTE ON [dbo].[XX_UTIL_ARCHIVE_SP] TO imapsprd, imapsstg
+GRANT EXECUTE ON [dbo].[XX_UTIL_DATA_TRANSFER_SP] TO imapsprd, imapsstg
+GRANT EXECUTE ON [dbo].[XX_UTIL_LOAD_STAGING_DATA_SP] TO imapsprd, imapsstg
+GRANT EXECUTE ON [dbo].[XX_UTIL_RUN_INTERFACE_SP] TO imapsprd, imapsstg
+GRANT EXECUTE ON [dbo].[XX_GET_SOW_TYP_CD_UF] TO imapsprd, imapsstg

@@ -1,0 +1,21 @@
+USE [IMAPSStg]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[XX_R22_CERIS_STD_HRS_CHANGES](
+	[STATUS_RECORD_NUM] [int]        NULL,
+	[EMPL_ID]           [varchar](6) NULL,
+	[NEW_STD_HRS]       [int]        NOT NULL,
+	[NEW_WORK_SCHD_DT]  [varchar](8) NULL,
+	[OLD_STD_HRS]       [int]        NOT NULL,
+	[OLD_WORK_SCHD_DT]  [varchar](8) NULL
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF

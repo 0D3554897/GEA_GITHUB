@@ -1,0 +1,15 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In_R22\Files\CSV2DB java\libs
+2
+b
+b:cup_11a.jar|1|16aa30d2a71|17779|a5df637e|cfee7c1908c94b85b55edf338479c2c4|0
+8:mail.jar|1|16aa30d2955|54d38|a2e156c3|ee47fdffa8c04c7e934d1f42eba23deb|0
+7:poi.jar|1|16aa30d2d57|15ccd2|1ecbac09|a0e98c2ce5dc46268e30359fbd488254|0
+c:sqljdbc4.jar|1|16aa30d2b4c|8ea0f|3599caa8|be12333457614adebfd4b72fec49eade|0
+15:commons-net-1.4.1.jar|1|16aa30d284c|2c238|fadc1d2|3a18e0113f5440e190a516aed7e6e4d5|0
+f:log4j-1.2.9.jar|1|16aa30d2c7c|4eb16|fb365100|b5b1c3d85a934dcc9a76b4bd802ab21b|0
+13:commons-cli-1.0.jar|1|16aa30d284c|75a5|ef8dac7c|2d5f59f58c9847949dc1695659582d59|0
+f:opencsv-1.8.jar|1|16aa30d28aa|220d|e430f851|4cc240192ebd437c94a5ff300b3eccb3|0
+a:ojdbc6.jar|1|16aa30d2b4c|20376a|ad7961dc|4bbfda5365e04351b682eb440ecb0899|0
+e:activation.jar|1|16aa30d2a62|d76b|faf1e302|c38951d557014155bd407ebecb8101a4|0
+15:commons-email-1.1.jar|1|16aa30d2fa6|77bb|a0ffe07b|113079c213b64558aed4f50ef73e9407|0

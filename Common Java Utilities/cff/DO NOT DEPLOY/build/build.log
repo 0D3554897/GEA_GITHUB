@@ -1,0 +1,55 @@
+Apache Ant(TM) version 1.9.6 compiled on June 29 2015
+Trying the default build file: build.xml
+Buildfile: D:\apps_to_compile\cff\build.xml
+Detected Java version: 1.6 in: D:\ibmjavasdk16\jre
+Detected OS: Windows Server 2008 R2
+parsing buildfile D:\apps_to_compile\cff\build.xml with URI = file:/D:/apps_to_compile/cff/build.xml
+Project base dir set to: D:\apps_to_compile\cff
+parsing buildfile jar:file:/D:/ant/lib/ant.jar!/org/apache/tools/ant/antlib.xml with URI = jar:file:/D:/ant/lib/ant.jar!/org/apache/tools/ant/antlib.xml from a zip file
+Build sequence for target(s) `clean' is [clean]
+Complete build sequence is [clean, cff, ]
+
+clean:
+   [delete] Deleting D:\apps_to_compile\cff\classes\com\ibm\imapsstg\cff.class
+   [delete] Deleting D:\apps_to_compile\cff\classes\com\ibm\imapsstg\util\ExcelBuilder.class
+   [delete] Deleting D:\apps_to_compile\cff\classes\com\ibm\imapsstg\util\MailTool$InputStreamDataSource.class
+   [delete] Deleting D:\apps_to_compile\cff\classes\com\ibm\imapsstg\util\MailTool.class
+   [delete] Deleting D:\apps_to_compile\cff\classes\com\ibm\imapsstg\util\Util.class
+   [delete] Deleting D:\apps_to_compile\cff\classes\crypto\AESCrypto.class
+Build sequence for target(s) `cff' is [cff]
+Complete build sequence is [cff, clean, ]
+
+cff:
+    [mkdir] Skipping D:\apps_to_compile\cff\classes because it already exists.
+    [javac] D:\apps_to_compile\cff\build.xml:42: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] com\ibm\imapsstg\cff.java added as com\ibm\imapsstg\cff.class doesn't exist.
+    [javac] com\ibm\imapsstg\util\ExcelBuilder.java added as com\ibm\imapsstg\util\ExcelBuilder.class doesn't exist.
+    [javac] com\ibm\imapsstg\util\MailTool.java added as com\ibm\imapsstg\util\MailTool.class doesn't exist.
+    [javac] com\ibm\imapsstg\util\Util.java added as com\ibm\imapsstg\util\Util.class doesn't exist.
+    [javac] crypto\AESCrypto.java added as crypto\AESCrypto.class doesn't exist.
+    [javac] Compiling 5 source files to D:\apps_to_compile\cff\classes
+    [javac] Using modern compiler
+    [javac] Compilation arguments:
+    [javac] '-d'
+    [javac] 'D:\apps_to_compile\cff\classes'
+    [javac] '-classpath'
+    [javac] 'D:\apps_to_compile\cff\classes;D:\apps_to_compile\cff\libs\activation.jar;D:\apps_to_compile\cff\libs\commons-cli-1.0.jar;D:\apps_to_compile\cff\libs\commons-email-1.1.jar;D:\apps_to_compile\cff\libs\commons-net-1.4.1.jar;D:\apps_to_compile\cff\libs\cup_11a.jar;D:\apps_to_compile\cff\libs\log4j-1.2.9.jar;D:\apps_to_compile\cff\libs\mail.jar;D:\apps_to_compile\cff\libs\ojdbc6.jar;D:\apps_to_compile\cff\libs\opencsv-1.8.jar;D:\apps_to_compile\cff\libs\poi.jar;D:\apps_to_compile\cff\libs\sqljdbc4.jar;D:\ant\lib\ant-launcher.jar;D:\apps_to_compile\cff;C:\PROGRA~1\IBM\SQLLIB\java\db2java.zip;C:\PROGRA~1\IBM\SQLLIB\java\db2jcc.jar;C:\PROGRA~1\IBM\SQLLIB\java\sqlj.zip;C:\PROGRA~1\IBM\SQLLIB\java\db2jcc_license_cu.jar;C:\PROGRA~1\IBM\SQLLIB\bin;C:\PROGRA~1\IBM\SQLLIB\java\common.jar;D:\ant\lib\ant-antlr.jar;D:\ant\lib\ant-apache-bcel.jar;D:\ant\lib\ant-apache-bsf.jar;D:\ant\lib\ant-apache-log4j.jar;D:\ant\lib\ant-apache-oro.jar;D:\ant\lib\ant-apache-regexp.jar;D:\ant\lib\ant-apache-resolver.jar;D:\ant\lib\ant-apache-xalan2.jar;D:\ant\lib\ant-commons-logging.jar;D:\ant\lib\ant-commons-net.jar;D:\ant\lib\ant-jai.jar;D:\ant\lib\ant-javamail.jar;D:\ant\lib\ant-jdepend.jar;D:\ant\lib\ant-jmf.jar;D:\ant\lib\ant-jsch.jar;D:\ant\lib\ant-junit.jar;D:\ant\lib\ant-junit4.jar;D:\ant\lib\ant-netrexx.jar;D:\ant\lib\ant-swing.jar;D:\ant\lib\ant-testutil.jar;D:\ant\lib\ant.jar;D:\ibmjavasdk16\lib\tools.jar'
+    [javac] '-sourcepath'
+    [javac] 'D:\apps_to_compile\cff\java'
+    [javac] '-g'
+    [javac] '-source'
+    [javac] '1.6'
+    [javac] 
+    [javac] The ' characters around the executable and arguments are
+    [javac] not part of the command.
+    [javac] Files to be compiled:
+    [javac]     D:\apps_to_compile\cff\java\com\ibm\imapsstg\cff.java
+    [javac]     D:\apps_to_compile\cff\java\com\ibm\imapsstg\util\ExcelBuilder.java
+    [javac]     D:\apps_to_compile\cff\java\com\ibm\imapsstg\util\MailTool.java
+    [javac]     D:\apps_to_compile\cff\java\com\ibm\imapsstg\util\Util.java
+    [javac]     D:\apps_to_compile\cff\java\crypto\AESCrypto.java
+    [javac] Note: D:\apps_to_compile\cff\java\com\ibm\imapsstg\cff.java uses unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+
+BUILD SUCCESSFUL
+Total time: 2 seconds

@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\SABRIX_Out\Files\CFF\classes\com\ibm\imapsstg\util
+2
+4
+24:MailTool$InputStreamDataSource.class|1|16aa30d51c9|70e|92559643|894a297848f64050b8ebf271e363f059|0
+12:ExcelBuilder.class|1|16aa30d529b|75a|e1e9e49e|87e0731b55ef400593b5ae7c5f21f242|0
+e:MailTool.class|1|16aa30d528b|1908|874fe0da|3993854d51694889aa1edc8dbbe64394|0
+a:Util.class|1|16aa30d52e7|d4b|eacd6085|97c2b6ab42504d6982d789781ddec190|0

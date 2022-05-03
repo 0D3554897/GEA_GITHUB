@@ -1,0 +1,8 @@
+<?xml version="1.0"?><DTSConfiguration><DTSConfigurationHeading><DTSConfigurationFileInfo GeneratedBy="DIV16\tbperova" GeneratedFromPackageName="WWER_EMPL_SEARCH" GeneratedFromPackageID="{1ECF6BB5-A210-4DAF-A5B4-8D4AE1B47EC1}" GeneratedDate="4/3/2017 2:40:56 PM"/></DTSConfigurationHeading>
+
+<!-- Connection manager WWERPROD -->
+<Configuration ConfiguredType="Property" Path="\Package.Connections[WWER_OLEDB_Conn].Properties[ConnectionString]" ValueType="String"><ConfiguredValue>Data Source=WWERPROD;User ID=TPERSBY;Provider=IBMDADB2.DB2COPY1;Persist Security Info=True;</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[WWER_OLEDB_Conn].Properties[Password]" ValueType="String"><ConfiguredValue>Password</ConfiguredValue></Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[WWER_OLEDB_Conn].Properties[UserName]" ValueType="String"><ConfiguredValue>UserName</ConfiguredValue></Configuration>
+
+</DTSConfiguration>

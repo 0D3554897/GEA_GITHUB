@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "CMR Project", "CMR Project\CMR Project.dtproj", "{407F5650-25A1-4C4A-8693-A78D86CA340B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{407F5650-25A1-4C4A-8693-A78D86CA340B}.Development|Default.ActiveCfg = Development
+		{407F5650-25A1-4C4A-8693-A78D86CA340B}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {734F16E5-058E-4508-98D2-7656D37CD39D}
+	EndGlobalSection
+EndGlobal

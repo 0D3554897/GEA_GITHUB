@@ -1,0 +1,17 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In_R22\Files\CSV2DB java\do_not_deploy\SQL_SERVER_Jobs
+2
+d
+24:R22_CERIS - 3 (Employee Mapping).txt|1|16aa30d230f|975|be10e01c|7862e3a6b7dd454b80c531eedebcb333|0
+24:R22_CERIS - 4 (Run Interface SP).txt|1|16aa30d230f|8c6|176d9eb1|c09e01264967400db06cea6f7723f44a|0
+1c:SQL_JOB_RUN_MISSING_XREF.sql|1|16aa30d243e|80d|afb96aec|673a85c19025403b815c9da6d182c12a|0
+18:R22_CERIS - 6 (Closeout)|1|16aa30d243e|12e3|81a4942e|b584ef00fa0b475c959ab575f8b81901|0
+1f:R22_CERIS - 5 (Serial XRef).txt|1|16aa30d231e|864|306d8d94|87fc61d297d8409a863482f4e275e829|0
+2b:R22_WORKDAY - 6 (Finalize Missing Data).txt|1|16aa30d23ec|a79|87df1ec3|4bb222937321493ba914f8d1be72a380|0
+27:R22_CERIS - 8 (Miscode Create File).txt|1|16aa30d230f|8e5|6d18a972|d0ad2f92480a495282cb874eb866e7b7|0
+1b:22 SQL Server Job Setup.png|1|16aa30d230f|e92|6c608ff0|48a71f1925a345d78407a98f04f9ca91|0
+24:R22_CERIS - 7 (Miscode Closeout).txt|1|16aa30d22ff|bea|6872913f|d2247e5552c84082acb5b3f7312f05fa|0
+a:readme.txt|1|16aa30d2253|166|b3707e1c|ddc34639fc7644deb02778244cbad8af|0
+21:R22_CERIS - 1 (Run CSV Loadr).txt|1|16aa30d2263|ee8|53fe976a|b5345070ef634527bd18dd82c9c4ca2c|0
+21:R22_CERIS - 2 (Validate load).txt|1|16aa30d2263|b26|c89a5d49|e21eaa7ef94f4eb4bc7bb23a20ce796c|0
+1d:R22_CERIS - 0 (Prep Step).txt|1|16aa30d22ff|ebc|6aeb8789|0818c76bef064d72aacd4dd2df1a299c|0

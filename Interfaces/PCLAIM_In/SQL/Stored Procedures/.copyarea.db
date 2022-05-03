@@ -1,0 +1,18 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\PCLAIM_In\SQL\Stored Procedures
+2
+e
+1f:PCLAIM_SP_compilation_order.txt|1|16aa30d05b7|ff|75ee4cc6|abb7a5f0eba34836a51d44257a13814e|0
+22:xx_pclaim_archive_sp.sql.contrib.1|1|16aa30d07da|4dd4|9e89a1f0|26c80dd0c3304eafaf661d7553296ea4|0
+19:XX_ADD_VENDOR_EMPL_SP.sql|1|16aa30d05b7|18e0|d86688d|f15fe0991df84adaa8cdfcd2166dfb59|0
+18:XX_PCLAIM_ARCHIVE_SP.sql|1|16aa30d072e|87c8|9fe6ac7c|9885509639b64f53bcee67ca6bf8b759|0
+c:OneFilev.bat|1|16aa30d05a7|62|e5902011|9df862edf22b487db847e37a20aaab07|0
+1e:XX_PCLAIM_RUN_INTERFACE_SP.sql|1|16aa30d072e|53fc|57a181c3|4cc1122b227a46328cd15aeb6aeaaa1e|0
+21:XX_PCLAIM_FILE_BULK_INSERT_SP.sql|1|16aa30d0653|1fb4|7d4589ec|a7a735398427453996f52c89520e9a29|0
+20:xx_pclaim_archive_sp.sql.contrib|1|16aa30d07da|3dca|62fb00aa|963f2504ce6d4ca4aab0f90cf4296279|0
+2a:xx_pclaim_load_staging_data_sp.sql.contrib|1|16aa30d079b|53ae|8217eac5|5b66a81e17424d909ba6611a47ec34dd|0
+22:XX_PCLAIM_FILL_PREPROCESSOR_SP.sql|1|1707806ed09|7315|118098f5|bc895d3e166e460ba4dec4cd63b95b43|0
+26:XX_PCLAIM_START_AP_PREPROCESSOR_SP.sql|1|16aa30d07da|106a|9a324797|80597644a217404ebcff3c0f45e8c087|0
+2c:xx_pclaim_load_staging_data_sp.sql.contrib.1|1|16aa30d07da|605e|1f1a8890|d0cb85f906ea4dce834cf496dc9ec506|0
+22:XX_PCLAIM_LOAD_STAGING_DATA_SP.sql|1|16aa30d077c|6fc2|21eefccd|e87e6221924745e7807cb1a91687ca2f|0
+14:XX_ADD_VENDOR_SP.sql|1|16aa30d072e|5d62|eacd6348|9b0390cad36f4ac08ad5fb9da4f7b8c1|0

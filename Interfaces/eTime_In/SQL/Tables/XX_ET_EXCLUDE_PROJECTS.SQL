@@ -1,0 +1,11 @@
+USE IMAPSStg
+go
+CREATE TABLE dbo.XX_ET_EXCLUDE_PROJECTS
+(
+    PROJ_ABBRV_CD varchar(25) DEFAULT null NOT NULL,
+    TIME_STAMP    datetime    DEFAULT GETDATE() NOT NULL,
+    ACTIVE_FL     varchar(1)  DEFAULT 'Y' NOT NULL
+)
+go
+
+

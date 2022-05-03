@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Common Java Utilities\cff\DO NOT DEPLOY\Interfaces\GLIM
+2
+3
+1a:glim_val_log4j2.properties|1|17f570097d8|1ae|9f0f8ceb|ad3fa6aa714849e6bb0fc54ff5d63098|0
+16:glim_log4j2.properties|1|17f570097c2|1ae|8bde8cd7|e4c07a6c7f4846099f69dccd2fd77a9a|0
+1a:glim_ftp_log4j2.properties|1|17f570098c1|1ae|a5ae8cf2|e4f4577bddbb490d9c6149fdc0163fbf|0

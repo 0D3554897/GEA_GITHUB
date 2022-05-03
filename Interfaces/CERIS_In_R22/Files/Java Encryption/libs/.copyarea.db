@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\CERIS_In_R22\Files\Java Encryption\libs
+2
+9
+b:sqljdbc.jar|1|16aa30d1c56|38a0d|25a17b95|074b19d75ebb407f932fa1637cfbd8ca|0
+7:poi.jar|1|16aa30d1d7f|15ccd2|1ecbac09|e91f6fcb5a3f40018d35eeb9932e0d18|0
+8:mail.jar|1|16aa30d1ca4|54d38|a2e156c3|c20844bcea824968aec74c97ca22c0cb|0
+15:commons-net-1.4.1.jar|1|16aa30d1c37|2c238|fadc1d2|f93dc8a9c4624798a26812f82811ff04|0
+f:log4j-1.2.9.jar|1|16aa30d1ca4|4eb16|fb365100|a4164daa347d461485b8baa96720d3fc|0
+13:commons-cli-1.0.jar|1|16aa30d1bf4|75a5|ef8dac7c|dc20fcc54d57417eae9fc0e1adff1499|0
+f:opencsv-1.8.jar|1|16aa30d1c04|220d|e430f851|cb405c71d0b244d7baaeda2795f49bd8|0
+e:activation.jar|1|16aa30d1b5e|d76b|faf1e302|e021ef62740e4629a4f8fd6690ff2522|0
+15:commons-email-1.1.jar|1|16aa30d1b9c|77bb|a0ffe07b|3d6f97fea4084c1a80bc3d5f164142a9|0

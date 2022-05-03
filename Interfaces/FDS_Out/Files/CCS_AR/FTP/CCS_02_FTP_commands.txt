@@ -1,0 +1,11 @@
+OPEN STFMVS1.POK.IBM.COM
+KAR12
+fl1k1ys4
+VERBOSE
+!rem help
+binary
+quote site lrecl=900 blksize=27900 recfm=fb cy pri=10
+!rem NEXT LINE IS FOR TEST.  USE SLIP... FOR PROD'
+!REM put CCS_02_OUT.FIL 'SLIT.PRE.FEEDER.CMFDS.INPUT.ORIG(+1)'
+put CCS_02_OUT.FIL 'kar12.imaps.ccs.test(+1)'
+quit

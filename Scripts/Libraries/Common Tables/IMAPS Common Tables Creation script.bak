@@ -1,0 +1,236 @@
+/*
+ * Script to Create Common Tables for IMAPS Interface Applications
+ *
+ * From SQL Query Analyzer, select or highlight the desired table, right-click, select "Script Object to New Window As,"
+ * select "Create."
+ *
+ * IMPORTANT: Lookup or reference tables are processed first and with repect to their parent-child relationship.
+ * In general, parent tables are created before child tables. Table names are prefixed with table owner name.
+ *
+ * Table owner name or schema name, [dbo], must explicitly specified.
+ *
+ * Notes:
+ *
+ * 08/16/2005: Changes made to XX_IMAPS_INT_STATUS
+ *
+ * Make INTERFACE_FILE_NAME nullable since an outbound interface does not need input source file. In general, whichever
+ * interface thar requires input source file, enforcement of INTERFACE_FILE_NAME to be not nullable is done in code.
+ *
+ * INTERFACE_FILE_NAME is changed from varchar(100) to sysname.
+ *
+ * 08/30/2005: Added ON DELETE CASCADE  NOT FOR REPLICATION to the those tables having FOREIGN KEY constraint:
+ * XX_LOOKUP_DETAIL, XX_PROCESSING_PARAMETERS, XX_INT_ERROR_MESSAGE, XX_IMAPS_INT_CONTROL
+ */
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_LOOKUP_DOMAIN]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_LOOKUP_DOMAIN]
+GO
+
+CREATE TABLE [dbo].[XX_LOOKUP_DOMAIN] (
+	[LOOKUP_DOMAIN_ID] [int] IDENTITY (1, 1) NOT NULL ,
+	[LOOKUP_DOMAIN_DESC] [varchar] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[DOMAIN_CONSTANT] [char] (30) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_DATE] [datetime] NOT NULL ,
+	[MODIFIED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[MODIFIED_DATE] [datetime] NULL ,
+	CONSTRAINT [PK_LOOKUP_DOMAIN] PRIMARY KEY  CLUSTERED 
+	(
+		[LOOKUP_DOMAIN_ID]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] 
+) ON [PRIMARY]
+GO
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_LOOKUP_DETAIL]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_LOOKUP_DETAIL]
+GO
+
+CREATE TABLE [dbo].[XX_LOOKUP_DETAIL] (
+	[LOOKUP_ID] [int] IDENTITY (1, 1) NOT NULL ,
+	[LOOKUP_DOMAIN_ID] [int] NOT NULL ,
+	[APPLICATION_CODE] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[LOOKUP_DESCRIPTION] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PRESENTATION_ORDER] [int] NOT NULL ,
+	[CREATED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_DATE] [datetime] NOT NULL ,
+	[MODIFIED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[MODIFIED_DATE] [datetime] NULL ,
+	CONSTRAINT [PK_LOOKUP_DETAIL] PRIMARY KEY  CLUSTERED 
+	(
+		[LOOKUP_ID]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_LOOKUP_DETAIL] FOREIGN KEY 
+	(
+		[LOOKUP_DOMAIN_ID]
+	) REFERENCES [dbo].[XX_LOOKUP_DOMAIN] (
+		[LOOKUP_DOMAIN_ID]
+	) ON DELETE CASCADE  NOT FOR REPLICATION
+) ON [PRIMARY]
+GO
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_PROCESSING_PARAMETERS]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_PROCESSING_PARAMETERS]
+GO
+
+CREATE TABLE [dbo].[XX_PROCESSING_PARAMETERS] (
+	[PARAMETER_ID] [int] IDENTITY (1, 1) NOT NULL ,
+	[INTERFACE_NAME_ID] [int] NOT NULL ,
+	[INTERFACE_NAME_CD] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PARAMETER_NAME] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[PARAMETER_VALUE] [sysname] NOT NULL ,
+	[CREATED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_DATE] [datetime] NOT NULL ,
+	[MODIFIED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL CONSTRAINT [DF__XX_PROCES__MODIF__6225902D] DEFAULT (suser_sname()),
+	[MODIFIED_DATE] [datetime] NULL CONSTRAINT [DF__XX_PROCES__MODIF__6319B466] DEFAULT (getdate()),
+	CONSTRAINT [PK_PROCESSING_PARAMETERS] PRIMARY KEY  CLUSTERED 
+	(
+		[PARAMETER_ID]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_PROCESSING_PARAMETERS_1] FOREIGN KEY 
+	(
+		[INTERFACE_NAME_ID]
+	) REFERENCES [XX_LOOKUP_DETAIL] (
+		[LOOKUP_ID]
+	) ON DELETE CASCADE  NOT FOR REPLICATION
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_INT_ERROR_MESSAGE]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_INT_ERROR_MESSAGE]
+GO
+
+CREATE TABLE [dbo].[XX_INT_ERROR_MESSAGE] (
+	[ERROR_CODE] [int] NOT NULL ,
+	[ERROR_TYPE] [int] NOT NULL ,
+	[ERROR_SEVERITY] [int] NULL ,
+	[ERROR_MESSAGE] [varchar] (255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[ERROR_SOURCE] [varchar] (35) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_DATE] [datetime] NOT NULL ,
+	[MODIFIED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[MODIFIED_DATE] [datetime] NULL ,
+	CONSTRAINT [PK_XX_INT_ERROR_MESSAGE] PRIMARY KEY  CLUSTERED 
+	(
+		[ERROR_CODE]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_XX_INT_ERROR_MSG1] FOREIGN KEY 
+	(
+		[ERROR_TYPE]
+	) REFERENCES [dbo].[XX_LOOKUP_DETAIL] (
+		[LOOKUP_ID]
+	) ON DELETE CASCADE  NOT FOR REPLICATION
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_IMAPS_INT_STATUS]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_IMAPS_INT_STATUS]
+GO
+
+CREATE TABLE [dbo].[XX_IMAPS_INT_STATUS] (
+	[STATUS_RECORD_NUM] [int] IDENTITY (1, 1) NOT NULL ,
+	[INTERFACE_NAME] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_TYPE] [char] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_SOURCE_SYSTEM] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_DEST_SYSTEM] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_FILE_NAME] [sysname] COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[INTERFACE_SOURCE_OWNER] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_DEST_OWNER] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[STATUS_CODE] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[STATUS_DESCRIPTION] [varchar] (240) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[RECORD_COUNT_TRAILER] [numeric](9, 0) NULL ,
+	[RECORD_COUNT_INITIAL] [numeric](9, 0) NULL ,
+	[RECORD_COUNT_SUCCESS] [numeric](9, 0) NULL ,
+	[RECORD_COUNT_ERROR] [numeric](9, 0) NULL ,
+        [AMOUNT_INPUT] [decimal] (14, 2) NULL ,
+        [AMOUNT_PROCESSED] [decimal] (14, 2) NULL ,
+        [AMOUNT_FAILED] [decimal] (14, 2) NULL ,
+	[CREATED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_DATE] [datetime] NOT NULL ,
+	[MODIFIED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[MODIFIED_DATE] [datetime] NULL ,
+	CONSTRAINT [PK_XX_IMAPS_INT_STATUS] PRIMARY KEY  CLUSTERED 
+	(
+		[STATUS_RECORD_NUM]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_IMAPS_INT_CONTROL]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_IMAPS_INT_CONTROL]
+GO
+
+CREATE TABLE [dbo].[XX_IMAPS_INT_CONTROL] (
+	[CONTROL_RECORD_NUM] [int] IDENTITY (1, 1) NOT NULL ,
+	[STATUS_RECORD_NUM] [int] NOT NULL ,
+	[INTERFACE_NAME] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_TYPE] [char] (1) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_SOURCE_SYSTEM] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_DEST_SYSTEM] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_FILE_NAME] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_SOURCE_OWNER] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[INTERFACE_DEST_OWNER] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CONTROL_PT_ID] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CONTROL_PT_STATUS] [varchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[CREATED_DATE] [datetime] NOT NULL ,
+	[MODIFIED_BY] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[MODIFIED_DATE] [datetime] NULL ,
+	CONSTRAINT [PK_XX_IMAPS_INT_CONTROL] PRIMARY KEY  CLUSTERED 
+	(
+		[CONTROL_RECORD_NUM]
+	) WITH  FILLFACTOR = 90  ON [PRIMARY] ,
+	CONSTRAINT [FK_XX_IMAPS_INT_CONTROL] FOREIGN KEY 
+	(
+		[STATUS_RECORD_NUM]
+	) REFERENCES [dbo].[XX_IMAPS_INT_STATUS] (
+		[STATUS_RECORD_NUM]
+	) ON DELETE CASCADE  NOT FOR REPLICATION
+) ON [PRIMARY]
+GO
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_IMAPS_MAIL_OUT]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+   drop table [dbo].[XX_IMAPS_MAIL_OUT]
+GO
+
+CREATE TABLE [dbo].[XX_IMAPS_MAIL_OUT] (
+	[MESSAGE_ID] [int] IDENTITY (1, 1) NOT NULL ,
+	[STATUS_RECORD_NUM] [int] NOT NULL ,
+	[MAIL_TO_ADDRESS] [char] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[MESSAGE_SUBJECT] [char] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[MESSAGE_TEXT] [varchar] (3000) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[ATTACMENTS] [varchar] (300) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[SEND_DT] [datetime] NULL ,
+	[CREATE_DT] [datetime] NOT NULL CONSTRAINT [DF_XX_IMAPS_MAIL_OUT_CREATED] DEFAULT (getdate()),
+
+	CONSTRAINT [FK_XX_IMAPS_MAIL_OUT_XX_IMAPS_INT_STATUS] FOREIGN KEY 
+	(
+		[STATUS_RECORD_NUM]
+	) REFERENCES [XX_IMAPS_INT_STATUS] (
+		[STATUS_RECORD_NUM]
+	) ON DELETE CASCADE  NOT FOR REPLICATION 
+) ON [PRIMARY]
+GO
+
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_PARAM_TEMP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[XX_PARAM_TEMP]
+GO
+
+if not exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[XX_PARAM_TEMP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+ BEGIN
+CREATE TABLE [dbo].[XX_PARAM_TEMP] (
+	[THE_FILE_NAME] [sysname] NOT NULL 
+) ON [PRIMARY]
+END
+
+GO

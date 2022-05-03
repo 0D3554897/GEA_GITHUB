@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<project name="CLS_ANT_TEST" default="main" basedir=".">
+
+<property name="source" value="\\Ffx23dap01\interfaces\PROGRAMS\java\src" />
+<property name="build" 	value="\\Ffx23dap01\interfaces\PROGRAMS\java\build" />
+<property name="lib" value="\\Ffx23dap01\interfaces\PROGRAMS\java\lib" />
+<property name="exe" value="\\Ffx23dap01\interfaces\PROGRAMS\java\exe" />
+
+<target name   ="main"
+	depends="compile" />
+
+<target name="compile">
+
+<javac 	srcdir="${source}"
+	destdir ="${build}"
+	includes="Create_999_File.java" />
+
+<jar destfile="${exe}\Create_999_File.jar" index="true">
+    
+    <zipfileset dir="${build}" includes="Create_999_File.class"/>    
+    <zipfileset src="${lib}\jtds-1.1.jar" />    
+
+    <manifest>
+     <attribute name="Manifest-Version" value="1.0" />
+     <attribute name="Main-Class" value="Create_999_File" />    
+    </manifest>
+    
+</jar>
+
+</target>
+
+
+</project>

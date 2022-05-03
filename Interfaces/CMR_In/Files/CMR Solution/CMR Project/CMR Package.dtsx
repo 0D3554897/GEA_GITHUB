@@ -1,0 +1,2370 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/1/2020 4:38:05 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DSWWINDAP49"
+  DTS:CreatorName="DIV16\hvtong"
+  DTS:DTSID="{980AF98B-A5B6-47F1-960C-B733F2F7F989}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1301.433"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="CMR Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{655A120C-CB82-4756-9D38-DC16D6ADC5F3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DSN2PRD.HVTFSST]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{5271737F-A45F-41D1-86EC-0942FBFF66C8}"
+      DTS:ObjectName="DSN2PRD.HVTFSST">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DSN2PRD;User ID=HVTFSST;Provider=IBMDADB2.DB2COPY1;Persist Security Info=True;Location=SBRYSZ1.POK.IBM.COM:446;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA/6vP2ZMx7UGYxql7O1nrGQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAA4l1ESsguPW9+tIe5Zv43aAAAAAASAAACgAAAAEAAAAM8ahSpO/CcGY4iZ5pCisnEYAAAA9EgAvCo1ls/aMcnXmybyhKjUsENIFH6IFAAAAK1XnPJ8d8VMPuASmDXLVJSqrhyr</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DSWWINDAP49.div16.ibm.com.IMAPSStg]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8E8B044D-B933-4282-ACF3-35FA8EA44C48}"
+      DTS:ObjectName="DSWWINDAP49.div16.ibm.com.IMAPSStg">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DSWWINDAP49.div16.ibm.com;Initial Catalog=IMAPSStg;Provider=SQLNCLI11.1;Integrated Security=SSPI;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Back up CMR Staging Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E1448C29-2014-413C-8519-3FBBFFD82C64}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Back up CMR Staging Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8E8B044D-B933-4282-ACF3-35FA8EA44C48}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="SELECT * INTO #XX_IMAPS_CMR_STG_BACKUP&#xA; FROM dbo.XX_IMAPS_CMR_STG" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Drop Backup CMR Staging Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{995D36FD-733C-49FF-92A6-FAC36F032A20}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Drop Backup CMR Staging Table"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8E8B044D-B933-4282-ACF3-35FA8EA44C48}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="DROP TABLE #XX_IMAPS_CMR_STG_BACKUP" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Refresh CMR Staging Table"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A039F198-963F-42CB-8743-6E3C7BAF71D6}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Refresh CMR Staging Table"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Refresh CMR Staging Table\CMR"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="CMR"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+CUS.I_CUST_ENTITY,
+CUS.I_CO,
+COM.I_ENT,
+BRO.A_LEVEL_1_VALUE,
+CUS.N_ABBREV,
+ADR.I_CUST_ADDR_TYPE,
+'' as T_ADDR_LINE_1,
+'' as T_ADDR_LINE_2,
+'' as T_ADDR_LINE_3,
+'' as T_ADDR_LINE_4,
+ADR.N_CITY,
+ADR.N_ST,
+ADR.C_ZIP,
+CASE LENGTH(CAST(CAST(ADR.C_SCC as integer) as varchar(15)))
+   WHEN 8 THEN CONCAT('0', LEFT(CAST(CAST(ADR.C_SCC as integer) as varchar(15)), 1))
+   WHEN 9 THEN LEFT(CAST(CAST(ADR.C_SCC as integer) as varchar(15)), 2)
+END as C_SCC_ST,
+CASE LENGTH(CAST(CAST(ADR.C_SCC as integer) as varchar(15)))
+   WHEN 8 THEN SUBSTR(CAST(CAST(ADR.C_SCC as integer) as varchar(15)), 2, 3)
+   WHEN 9 THEN SUBSTR(CAST(CAST(ADR.C_SCC as integer) as varchar(15)), 3, 3)
+END as C_SCC_CNTY,
+RIGHT(CAST(CAST(ADR.C_SCC as integer) as varchar(15)), 4) as C_SCC_CITY,
+ADR.I_MKTG_OFF,
+ADR.I_PRIMRY_SVC_OFF,
+CUS.C_ICC_TE,
+CUS.C_ICC_TAX_CLASS,
+CUS.C_ESTAB_SIC,
+SIC.I_INDUS_DEPT,
+SIC.I_INDUS_CLASS,
+CUS.C_NAP,
+CUS.I_TYPE_CUST_1,
+CUS.F_GENRL_SVC_ADMIN,
+ADR.F_OCL
+FROM
+CMRID.A11T0CUS CUS,
+CMRID.A11T0BRO BRO,
+CMRID.A11T0ADR ADR,
+CMRID.A11T0SIC SIC,
+CMRID.A11T0COM COM
+WHERE
+BRO.A_LEVEL_3_VALUE IN ('02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13')
+AND BRO.I_OFF = CUS.I_CUST_OFF_1
+AND ADR.I_CUST_ENTITY = CUS.I_CUST_ENTITY
+AND ADR.I_CUST_ADDR_TYPE IN ('1', '2')
+AND CUS.C_ESTAB_SIC = SIC.C_SIC
+AND ADR.I_CO = COM.I_CO</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Refresh CMR Staging Table\CMR.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DSN2PRD.HVTFSST]"
+                  connectionManagerRefId="Package.ConnectionManagers[DSN2PRD.HVTFSST]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CUST_ENTITY]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_CUST_ENTITY]"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CUST_ENTITY]"
+                      name="I_CUST_ENTITY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_CO]"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CO]"
+                      name="I_CO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_ENT]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_ENT]"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_ENT]"
+                      name="I_ENT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[A_LEVEL_1_VALUE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[A_LEVEL_1_VALUE]"
+                      length="2"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[A_LEVEL_1_VALUE]"
+                      name="A_LEVEL_1_VALUE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_ABBREV]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[N_ABBREV]"
+                      length="15"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_ABBREV]"
+                      name="N_ABBREV"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CUST_ADDR_TYPE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_CUST_ADDR_TYPE]"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CUST_ADDR_TYPE]"
+                      name="I_CUST_ADDR_TYPE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_1]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[T_ADDR_LINE_1]"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_1]"
+                      name="T_ADDR_LINE_1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_2]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[T_ADDR_LINE_2]"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_2]"
+                      name="T_ADDR_LINE_2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_3]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[T_ADDR_LINE_3]"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_3]"
+                      name="T_ADDR_LINE_3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_4]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[T_ADDR_LINE_4]"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_4]"
+                      name="T_ADDR_LINE_4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_CITY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[N_CITY]"
+                      length="13"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_CITY]"
+                      name="N_CITY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_ST]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[N_ST]"
+                      length="2"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_ST]"
+                      name="N_ST"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ZIP]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_ZIP]"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ZIP]"
+                      name="C_ZIP"
+                      precision="9"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_ST]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_SCC_ST]"
+                      length="16"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_ST]"
+                      name="C_SCC_ST"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_CNTY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_SCC_CNTY]"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_CNTY]"
+                      name="C_SCC_CNTY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_CITY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_SCC_CITY]"
+                      length="15"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_CITY]"
+                      name="C_SCC_CITY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_MKTG_OFF]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_MKTG_OFF]"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_MKTG_OFF]"
+                      name="I_MKTG_OFF"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_PRIMRY_SVC_OFF]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_PRIMRY_SVC_OFF]"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_PRIMRY_SVC_OFF]"
+                      name="I_PRIMRY_SVC_OFF"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ICC_TE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_ICC_TE]"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ICC_TE]"
+                      name="C_ICC_TE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ICC_TAX_CLASS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_ICC_TAX_CLASS]"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ICC_TAX_CLASS]"
+                      name="C_ICC_TAX_CLASS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ESTAB_SIC]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_ESTAB_SIC]"
+                      length="4"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ESTAB_SIC]"
+                      name="C_ESTAB_SIC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_INDUS_DEPT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_INDUS_DEPT]"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_INDUS_DEPT]"
+                      name="I_INDUS_DEPT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_INDUS_CLASS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_INDUS_CLASS]"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_INDUS_CLASS]"
+                      name="I_INDUS_CLASS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_NAP]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_NAP]"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_NAP]"
+                      name="C_NAP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_TYPE_CUST_1]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_TYPE_CUST_1]"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_TYPE_CUST_1]"
+                      name="I_TYPE_CUST_1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[F_GENRL_SVC_ADMIN]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[F_GENRL_SVC_ADMIN]"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[F_GENRL_SVC_ADMIN]"
+                      name="F_GENRL_SVC_ADMIN"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[F_OCL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[F_OCL]"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[F_OCL]"
+                      name="F_OCL"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_CUST_ENTITY]"
+                      dataType="i4"
+                      name="I_CUST_ENTITY" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_CO]"
+                      dataType="i4"
+                      name="I_CO" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_ENT]"
+                      dataType="i4"
+                      name="I_ENT" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[A_LEVEL_1_VALUE]"
+                      dataType="wstr"
+                      length="2"
+                      name="A_LEVEL_1_VALUE" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[N_ABBREV]"
+                      dataType="wstr"
+                      length="15"
+                      name="N_ABBREV" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_CUST_ADDR_TYPE]"
+                      dataType="wstr"
+                      length="1"
+                      name="I_CUST_ADDR_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[T_ADDR_LINE_1]"
+                      dataType="wstr"
+                      name="T_ADDR_LINE_1" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[T_ADDR_LINE_2]"
+                      dataType="wstr"
+                      name="T_ADDR_LINE_2" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[T_ADDR_LINE_3]"
+                      dataType="wstr"
+                      name="T_ADDR_LINE_3" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[T_ADDR_LINE_4]"
+                      dataType="wstr"
+                      name="T_ADDR_LINE_4" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[N_CITY]"
+                      dataType="wstr"
+                      length="13"
+                      name="N_CITY" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[N_ST]"
+                      dataType="wstr"
+                      length="2"
+                      name="N_ST" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_ZIP]"
+                      dataType="numeric"
+                      name="C_ZIP"
+                      precision="9" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_SCC_ST]"
+                      dataType="wstr"
+                      length="16"
+                      name="C_SCC_ST" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_SCC_CNTY]"
+                      dataType="wstr"
+                      length="3"
+                      name="C_SCC_CNTY" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_SCC_CITY]"
+                      dataType="wstr"
+                      length="15"
+                      name="C_SCC_CITY" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_MKTG_OFF]"
+                      dataType="wstr"
+                      length="3"
+                      name="I_MKTG_OFF" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_PRIMRY_SVC_OFF]"
+                      dataType="wstr"
+                      length="3"
+                      name="I_PRIMRY_SVC_OFF" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_ICC_TE]"
+                      dataType="wstr"
+                      length="1"
+                      name="C_ICC_TE" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_ICC_TAX_CLASS]"
+                      dataType="wstr"
+                      length="3"
+                      name="C_ICC_TAX_CLASS" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_ESTAB_SIC]"
+                      dataType="wstr"
+                      length="4"
+                      name="C_ESTAB_SIC" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_INDUS_DEPT]"
+                      dataType="wstr"
+                      length="1"
+                      name="I_INDUS_DEPT" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_INDUS_CLASS]"
+                      dataType="wstr"
+                      length="1"
+                      name="I_INDUS_CLASS" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[C_NAP]"
+                      dataType="wstr"
+                      length="3"
+                      name="C_NAP" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[I_TYPE_CUST_1]"
+                      dataType="wstr"
+                      length="1"
+                      name="I_TYPE_CUST_1" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[F_GENRL_SVC_ADMIN]"
+                      dataType="wstr"
+                      length="1"
+                      name="F_GENRL_SVC_ADMIN" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].ExternalColumns[F_OCL]"
+                      dataType="wstr"
+                      length="1"
+                      name="F_OCL" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_CUST_ENTITY]"
+                      dataType="i4"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_CUST_ENTITY]"
+                      name="I_CUST_ENTITY" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_CO]"
+                      dataType="i4"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_CO]"
+                      name="I_CO" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_ENT]"
+                      dataType="i4"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_ENT]"
+                      name="I_ENT" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[A_LEVEL_1_VALUE]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[A_LEVEL_1_VALUE]"
+                      name="A_LEVEL_1_VALUE" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[N_ABBREV]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[N_ABBREV]"
+                      name="N_ABBREV" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_CUST_ADDR_TYPE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_CUST_ADDR_TYPE]"
+                      name="I_CUST_ADDR_TYPE" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[T_ADDR_LINE_1]"
+                      dataType="wstr"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[T_ADDR_LINE_1]"
+                      name="T_ADDR_LINE_1" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[T_ADDR_LINE_2]"
+                      dataType="wstr"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[T_ADDR_LINE_2]"
+                      name="T_ADDR_LINE_2" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[T_ADDR_LINE_3]"
+                      dataType="wstr"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[T_ADDR_LINE_3]"
+                      name="T_ADDR_LINE_3" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[T_ADDR_LINE_4]"
+                      dataType="wstr"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[T_ADDR_LINE_4]"
+                      name="T_ADDR_LINE_4" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[N_CITY]"
+                      dataType="wstr"
+                      length="13"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[N_CITY]"
+                      name="N_CITY" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[N_ST]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[N_ST]"
+                      name="N_ST" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_ZIP]"
+                      dataType="numeric"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_ZIP]"
+                      name="C_ZIP"
+                      precision="9" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_SCC_ST]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_SCC_ST]"
+                      name="C_SCC_ST" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_SCC_CNTY]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_SCC_CNTY]"
+                      name="C_SCC_CNTY" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_SCC_CITY]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_SCC_CITY]"
+                      name="C_SCC_CITY" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_MKTG_OFF]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_MKTG_OFF]"
+                      name="I_MKTG_OFF" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_PRIMRY_SVC_OFF]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_PRIMRY_SVC_OFF]"
+                      name="I_PRIMRY_SVC_OFF" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_ICC_TE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_ICC_TE]"
+                      name="C_ICC_TE" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_ICC_TAX_CLASS]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_ICC_TAX_CLASS]"
+                      name="C_ICC_TAX_CLASS" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_ESTAB_SIC]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_ESTAB_SIC]"
+                      name="C_ESTAB_SIC" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_INDUS_DEPT]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_INDUS_DEPT]"
+                      name="I_INDUS_DEPT" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_INDUS_CLASS]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_INDUS_CLASS]"
+                      name="I_INDUS_CLASS" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_NAP]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[C_NAP]"
+                      name="C_NAP" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_TYPE_CUST_1]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[I_TYPE_CUST_1]"
+                      name="I_TYPE_CUST_1" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[F_GENRL_SVC_ADMIN]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[F_GENRL_SVC_ADMIN]"
+                      name="F_GENRL_SVC_ADMIN" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[F_OCL]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[F_OCL]"
+                      name="F_OCL" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Refresh CMR Staging Table\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[I_CUST_ENTITY]"
+                      cachedDataType="i4"
+                      cachedName="I_CUST_ENTITY"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CUST_ENTITY]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[I_CO]"
+                      cachedDataType="i4"
+                      cachedName="I_CO"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CO]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[I_ENT]"
+                      cachedDataType="i4"
+                      cachedName="I_ENT"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_ENT]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[A_LEVEL_1_VALUE]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="A_LEVEL_1_VALUE"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[A_LEVEL_1_VALUE]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[N_ABBREV]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="N_ABBREV"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_ABBREV]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[I_CUST_ADDR_TYPE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="I_CUST_ADDR_TYPE"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CUST_ADDR_TYPE]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[T_ADDR_LINE_1]"
+                      cachedDataType="wstr"
+                      cachedName="T_ADDR_LINE_1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_1]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[T_ADDR_LINE_2]"
+                      cachedDataType="wstr"
+                      cachedName="T_ADDR_LINE_2"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_2]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[T_ADDR_LINE_3]"
+                      cachedDataType="wstr"
+                      cachedName="T_ADDR_LINE_3"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_3]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[T_ADDR_LINE_4]"
+                      cachedDataType="wstr"
+                      cachedName="T_ADDR_LINE_4"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_4]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[N_CITY]"
+                      cachedDataType="wstr"
+                      cachedLength="13"
+                      cachedName="N_CITY"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_CITY]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[N_ST]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="N_ST"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_ST]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[C_ZIP]"
+                      cachedDataType="numeric"
+                      cachedName="C_ZIP"
+                      cachedPrecision="9"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ZIP]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[C_SCC_ST]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="C_SCC_ST"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_ST]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[C_SCC_CNTY]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="C_SCC_CNTY"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_CNTY]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[C_SCC_CITY]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="C_SCC_CITY"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_CITY]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[I_MKTG_OFF]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="I_MKTG_OFF"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_MKTG_OFF]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[I_PRIMRY_SVC_OFF]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="I_PRIMRY_SVC_OFF"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_PRIMRY_SVC_OFF]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[C_ICC_TE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="C_ICC_TE"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ICC_TE]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[C_ICC_TAX_CLASS]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="C_ICC_TAX_CLASS"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ICC_TAX_CLASS]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[C_ESTAB_SIC]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="C_ESTAB_SIC"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ESTAB_SIC]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[I_INDUS_DEPT]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="I_INDUS_DEPT"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_INDUS_DEPT]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[I_INDUS_CLASS]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="I_INDUS_CLASS"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_INDUS_CLASS]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[C_NAP]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="C_NAP"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_NAP]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[I_TYPE_CUST_1]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="I_TYPE_CUST_1"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_TYPE_CUST_1]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[F_GENRL_SVC_ADMIN]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="F_GENRL_SVC_ADMIN"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[F_GENRL_SVC_ADMIN]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input].Columns[F_OCL]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="F_OCL"
+                      lineageId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[F_OCL]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_CUST_ENTITY]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_CUST_ENTITY]"
+                      name="Copy of I_CUST_ENTITY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CUST_ENTITY]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_CO]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_CO]"
+                      name="Copy of I_CO"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CO]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_ENT]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_ENT]"
+                      name="Copy of I_ENT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_ENT]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of A_LEVEL_1_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of A_LEVEL_1_VALUE]"
+                      name="Copy of A_LEVEL_1_VALUE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[A_LEVEL_1_VALUE]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of N_ABBREV]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of N_ABBREV]"
+                      name="Copy of N_ABBREV"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_ABBREV]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_CUST_ADDR_TYPE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_CUST_ADDR_TYPE]"
+                      name="Copy of I_CUST_ADDR_TYPE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_CUST_ADDR_TYPE]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="24"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_1]"
+                      name="Copy of T_ADDR_LINE_1"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_1]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="24"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_2]"
+                      name="Copy of T_ADDR_LINE_2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_2]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="24"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_3]"
+                      name="Copy of T_ADDR_LINE_3"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_3]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_4]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="24"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_4]"
+                      name="Copy of T_ADDR_LINE_4"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[T_ADDR_LINE_4]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of N_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="13"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of N_CITY]"
+                      name="Copy of N_CITY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_CITY]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of N_ST]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of N_ST]"
+                      name="Copy of N_ST"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[N_ST]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ZIP]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ZIP]"
+                      name="Copy of C_ZIP"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ZIP]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_SCC_ST]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_SCC_ST]"
+                      name="Copy of C_SCC_ST"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_ST]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_SCC_CNTY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_SCC_CNTY]"
+                      name="Copy of C_SCC_CNTY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_CNTY]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_SCC_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="4"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_SCC_CITY]"
+                      name="Copy of C_SCC_CITY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_SCC_CITY]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_MKTG_OFF]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_MKTG_OFF]"
+                      name="Copy of I_MKTG_OFF"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_MKTG_OFF]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_PRIMRY_SVC_OFF]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_PRIMRY_SVC_OFF]"
+                      name="Copy of I_PRIMRY_SVC_OFF"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_PRIMRY_SVC_OFF]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ICC_TE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ICC_TE]"
+                      name="Copy of C_ICC_TE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ICC_TE]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ICC_TAX_CLASS]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ICC_TAX_CLASS]"
+                      name="Copy of C_ICC_TAX_CLASS"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ICC_TAX_CLASS]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ESTAB_SIC]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="4"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ESTAB_SIC]"
+                      name="Copy of C_ESTAB_SIC"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_ESTAB_SIC]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_INDUS_DEPT]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_INDUS_DEPT]"
+                      name="Copy of I_INDUS_DEPT"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_INDUS_DEPT]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_INDUS_CLASS]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_INDUS_CLASS]"
+                      name="Copy of I_INDUS_CLASS"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_INDUS_CLASS]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_NAP]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_NAP]"
+                      name="Copy of C_NAP"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[C_NAP]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_TYPE_CUST_1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_TYPE_CUST_1]"
+                      name="Copy of I_TYPE_CUST_1"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[I_TYPE_CUST_1]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of F_GENRL_SVC_ADMIN]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of F_GENRL_SVC_ADMIN]"
+                      name="Copy of F_GENRL_SVC_ADMIN"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[F_GENRL_SVC_ADMIN]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of F_OCL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of F_OCL]"
+                      name="Copy of F_OCL"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output].Columns[F_OCL]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Refresh CMR Staging Table\IMAPSStg"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="IMAPSStg"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[XX_IMAPS_CMR_STG]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Refresh CMR Staging Table\IMAPSStg.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DSWWINDAP49.div16.ibm.com.IMAPSStg]"
+                  connectionManagerRefId="Package.ConnectionManagers[DSWWINDAP49.div16.ibm.com.IMAPSStg]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of I_CUST_ENTITY]"
+                      cachedDataType="i4"
+                      cachedName="Copy of I_CUST_ENTITY"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_CUST_ENTITY]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_CUST_ENTITY]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of I_CO]"
+                      cachedDataType="i4"
+                      cachedName="Copy of I_CO"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_CO]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_CO]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of I_ENT]"
+                      cachedDataType="i4"
+                      cachedName="Copy of I_ENT"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_ENT]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_ENT]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of N_ABBREV]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="Copy of N_ABBREV"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[N_ABBREV]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of N_ABBREV]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of I_CUST_ADDR_TYPE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Copy of I_CUST_ADDR_TYPE"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_CUST_ADDR_TYPE]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_CUST_ADDR_TYPE]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of T_ADDR_LINE_1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="Copy of T_ADDR_LINE_1"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[T_ADDR_LINE_1]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_1]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of T_ADDR_LINE_2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="Copy of T_ADDR_LINE_2"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[T_ADDR_LINE_2]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_2]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of T_ADDR_LINE_3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="Copy of T_ADDR_LINE_3"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[T_ADDR_LINE_3]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_3]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of T_ADDR_LINE_4]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="Copy of T_ADDR_LINE_4"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[T_ADDR_LINE_4]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of T_ADDR_LINE_4]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of N_CITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="13"
+                      cachedName="Copy of N_CITY"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[N_CITY]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of N_CITY]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of N_ST]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="Copy of N_ST"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[N_ST]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of N_ST]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of C_ZIP]"
+                      cachedDataType="i4"
+                      cachedName="Copy of C_ZIP"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_ZIP]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ZIP]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of C_SCC_ST]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="Copy of C_SCC_ST"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_SCC_ST]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_SCC_ST]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of C_SCC_CNTY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="Copy of C_SCC_CNTY"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_SCC_CNTY]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_SCC_CNTY]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of C_SCC_CITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="Copy of C_SCC_CITY"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_SCC_CITY]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_SCC_CITY]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of I_MKTG_OFF]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="Copy of I_MKTG_OFF"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_MKTG_OFF]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_MKTG_OFF]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of A_LEVEL_1_VALUE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="Copy of A_LEVEL_1_VALUE"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[A_LEVEL_1_VALUE]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of A_LEVEL_1_VALUE]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of I_PRIMRY_SVC_OFF]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="Copy of I_PRIMRY_SVC_OFF"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_PRIMRY_SVC_OFF]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_PRIMRY_SVC_OFF]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of C_ICC_TE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Copy of C_ICC_TE"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_ICC_TE]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ICC_TE]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of C_ICC_TAX_CLASS]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="Copy of C_ICC_TAX_CLASS"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_ICC_TAX_CLASS]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ICC_TAX_CLASS]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of C_ESTAB_SIC]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="Copy of C_ESTAB_SIC"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_ESTAB_SIC]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_ESTAB_SIC]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of I_INDUS_DEPT]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Copy of I_INDUS_DEPT"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_INDUS_DEPT]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_INDUS_DEPT]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of I_INDUS_CLASS]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Copy of I_INDUS_CLASS"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_INDUS_CLASS]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_INDUS_CLASS]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of C_NAP]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="Copy of C_NAP"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_NAP]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of C_NAP]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of I_TYPE_CUST_1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Copy of I_TYPE_CUST_1"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_TYPE_CUST_1]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of I_TYPE_CUST_1]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of F_GENRL_SVC_ADMIN]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Copy of F_GENRL_SVC_ADMIN"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[F_GENRL_SVC_ADMIN]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of F_GENRL_SVC_ADMIN]" />
+                    <inputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].Columns[Copy of F_OCL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="Copy of F_OCL"
+                      externalMetadataColumnId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[F_OCL]"
+                      lineageId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of F_OCL]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_CUST_ENTITY]"
+                      dataType="i4"
+                      name="I_CUST_ENTITY" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_CO]"
+                      dataType="i4"
+                      name="I_CO" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_ENT]"
+                      dataType="i4"
+                      name="I_ENT" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[N_ABBREV]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="N_ABBREV" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_CUST_ADDR_TYPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="I_CUST_ADDR_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[T_ADDR_LINE_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="T_ADDR_LINE_1" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[T_ADDR_LINE_2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="T_ADDR_LINE_2" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[T_ADDR_LINE_3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="T_ADDR_LINE_3" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[T_ADDR_LINE_4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="T_ADDR_LINE_4" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[N_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      name="N_CITY" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[N_ST]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="N_ST" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_ZIP]"
+                      dataType="i4"
+                      name="C_ZIP" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_SCC_ST]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="C_SCC_ST" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_SCC_CNTY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="C_SCC_CNTY" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_SCC_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="C_SCC_CITY" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_MKTG_OFF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="I_MKTG_OFF" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[A_LEVEL_1_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="A_LEVEL_1_VALUE" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_PRIMRY_SVC_OFF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="I_PRIMRY_SVC_OFF" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_ICC_TE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="C_ICC_TE" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_ICC_TAX_CLASS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="C_ICC_TAX_CLASS" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_ESTAB_SIC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="C_ESTAB_SIC" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_INDUS_DEPT]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="I_INDUS_DEPT" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_INDUS_CLASS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="I_INDUS_CLASS" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[C_NAP]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="C_NAP" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[I_TYPE_CUST_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="I_TYPE_CUST_1" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[F_GENRL_SVC_ADMIN]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="F_GENRL_SVC_ADMIN" />
+                    <externalMetadataColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input].ExternalColumns[F_OCL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="F_OCL" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Refresh CMR Staging Table\IMAPSStg.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Refresh CMR Staging Table\IMAPSStg.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Refresh CMR Staging Table\IMAPSStg.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Refresh CMR Staging Table\IMAPSStg.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Refresh CMR Staging Table.Paths[Data Conversion Output]"
+              endId="Package\Refresh CMR Staging Table\IMAPSStg.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Refresh CMR Staging Table\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Refresh CMR Staging Table.Paths[OLE DB Source Output]"
+              endId="Package\Refresh CMR Staging Table\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\Refresh CMR Staging Table\CMR.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Restore CMR Staging Table From Backup"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C735E9B0-7E7C-4291-B536-C99BB9BD5CAD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Restore CMR Staging Table From Backup"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8E8B044D-B933-4282-ACF3-35FA8EA44C48}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="INSERT INTO dbo.XX_IMAPS_CMR_STG&#xA; SELECT * FROM #XX_IMAPS_CMR_STG_BACKUP&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate CMR Staging Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{98E9A41F-8F34-467C-AC90-528C75E83938}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate CMR Staging Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8E8B044D-B933-4282-ACF3-35FA8EA44C48}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.XX_IMAPS_CMR_STG" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{26124D9C-7BCF-4CF2-A7B2-92661EBB84EC}"
+      DTS:From="Package\Back up CMR Staging Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Truncate CMR Staging Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{7335ECC3-66C5-45B3-8E57-94B77C6D4613}"
+      DTS:From="Package\Truncate CMR Staging Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Refresh CMR Staging Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{22AAD352-4798-4C98-B7DC-BB3213D07173}"
+      DTS:From="Package\Refresh CMR Staging Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Drop Backup CMR Staging Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{055E0751-C89B-49B5-9781-988573E5BA3E}"
+      DTS:From="Package\Restore CMR Staging Table From Backup"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Drop Backup CMR Staging Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{33179B97-6D73-4162-ACB4-36F1A0B231CC}"
+      DTS:From="Package\Refresh CMR Staging Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Restore CMR Staging Table From Backup"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\Back up CMR Staging Table"
+          TopLeft="84.6666666666667,44.6666666666667" />
+        <NodeLayout
+          Size="188,42.6666666666667"
+          Id="Package\Drop Backup CMR Staging Table"
+          TopLeft="84.6666666666667,330" />
+        <NodeLayout
+          Size="170.666666666667,42.6666666666667"
+          Id="Package\Refresh CMR Staging Table"
+          TopLeft="86,229.333333333333" />
+        <NodeLayout
+          Size="217.333333333334,42.6666666666667"
+          Id="Package\Restore CMR Staging Table From Backup"
+          TopLeft="388.666666666667,330" />
+        <NodeLayout
+          Size="174.666666666667,42.6666666666667"
+          Id="Package\Truncate CMR Staging Table"
+          TopLeft="82.6666666666667,134" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="170.333333333333,87.3333333333334">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.6666666666666"
+              Start="0,0"
+              End="0,39.1666666666666">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.1666666666666" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="170.666666666667,176.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.6666666666666"
+              Start="0,0"
+              End="0,45.1666666666666">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.1666666666666" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="175,272">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.0000000000001"
+              Start="0,0"
+              End="0,50.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="388.666666666667,351.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-116,0"
+              Start="0,0"
+              End="-108.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-108.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="212.444444444444,272">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="284.888888888889,58.0000000000001"
+              Start="0,0"
+              End="284.888888888889,50.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.5232198142415" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.5232198142415"
+                    Point2="0,23.5232198142415"
+                    Point3="4,23.5232198142415" />
+                  <mssgle:LineSegment
+                    End="280.888888888889,23.5232198142415" />
+                  <mssgle:CubicBezierSegment
+                    Point1="280.888888888889,23.5232198142415"
+                    Point2="284.888888888889,23.5232198142415"
+                    Point3="284.888888888889,27.5232198142415" />
+                  <mssgle:LineSegment
+                    End="284.888888888889,50.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="127.203096788194,28.5232198142415,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Refresh CMR Staging Table">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="113.333333333334,42.6666666666667"
+          Id="Package\Refresh CMR Staging Table\IMAPSStg"
+          TopLeft="471.333333333333,111.333333333334" />
+        <NodeLayout
+          Size="96,42.6666666666667"
+          Id="Package\Refresh CMR Staging Table\CMR"
+          TopLeft="62,110.666666666667" />
+        <NodeLayout
+          Size="134,42.6666666666667"
+          Id="Package\Refresh CMR Staging Table\Data Conversion"
+          TopLeft="244,109.333333333333" />
+        <EdgeLayout
+          Id="Package\Refresh CMR Staging Table.Paths[OLE DB Source Output]"
+          TopLeft="158,131.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="86.0000000000003,0"
+              Start="0,0"
+              End="78.5000000000003,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="78.5000000000003,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Refresh CMR Staging Table.Paths[Data Conversion Output]"
+          TopLeft="378,131.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="93.3333333333327,0"
+              Start="0,0"
+              End="85.8333333333327,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="85.8333333333327,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Refresh CMR Staging Table\IMAPSStg">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Refresh CMR Staging Table\CMR">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,15 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\FIWLR_In_R22\Files
+2
+b
+1d:FIWLR_R22_account_mapping.dts|1|16aa30d32d2|25e00|7a0601d8|4519a1ec8ba0436f941d68d8e91dd05f|0
+22:FIWLR_R22_vchr_account_mapping.xls|1|16aa30d333f|3600|8d7bbce0|5c5779eecea745d8b5cde0af33e96e35|0
+1d:FIWLR_R22_account_mapping.xls|1|16aa30d333f|4c000|8091647a|eb56c77cda7546fd86c91d73ad1ca6dd|0
+1a:FIWLR_R22_leru_mapping.dts|1|16aa30d3320|14e00|b12aab1c|585da375270a429da317f32e82e4492a|0
+d:do_not_deploy|2|0|0|0|812b0c044e1b4427b7d326f8aa0ef050|0
+e:FIWLR_R22_SSIS|2|0|0|0|b3ed9d2ae7224a0694322a9ba4fde971|0
+1d:FIWLR_R22_RUNDATE_ACCTCAL.dts|1|16aa30d32d2|19000|6962ab8f|e0a88ff5692742acafaf348958dd09d9|0
+1a:FIWLR_R22_leru_mapping.xls|1|16aa30d3320|11800|385b851a|7246bdb5cc8c4cb892af0f2044949418|0
+21:FIWLR_R22_RUN_DATE_ACCTNG_CAL.xls|1|16aa30d32e2|8800|72cceb75|ec4eb37eb2f3400bb7bdc8a3f8bcf3ac|0
+22:FIWLR_R22_vchr_account_mapping.dts|1|16aa30d3330|1cc00|17a648c0|57e83f881be34b52ab69cceaaf3d1497|0
+19:XX_R22_FIWLR_INIT_PKG.dts|1|16aa30d33ad|d9a00|ab00b919|ee13aff57a7b4a2b89f7c296a23351f6|0

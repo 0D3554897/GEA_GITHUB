@@ -1,0 +1,22 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Interfaces\SABRIX_Out\Files\CFF\libs
+2
+12
+17:sunjce_provider.jar.xxx|1|16aa30d487c|20bd8|3af1c0bd|543eeab37cbe4f14bfa0fd30a9b84e01|0
+f:opencsv-1.8.jar|1|16aa30d48f9|220d|e430f851|8f3e6f9ba3ae4f8fa5315dea03b4274a|0
+e:activation.jar|1|16aa30d488c|d76b|faf1e302|ac2a258be24043728768f7d88c729cad|0
+15:commons-email-1.1.jar|1|16aa30d4c36|77bb|a0ffe07b|a1118cb31b174c88ab70dbf472aa7f0f|0
+b:cup_11a.jar|1|16aa30d518b|17779|a5df637e|f88b132e31874387a58fb28f798c4c02|0
+1a:com.ibm.ws.runtime.jar.xxx|1|16aa30d8cf4|27678c6|a390bf19|ba84d16357c448a394fa9766faa949c3|0
+14:local_policy.jar.xxx|1|16aa30d48da|a3d|367c58d4|7422b5ddc5bf4d478008d24e64e723fa|0
+7:poi.jar|1|16aa30d4a04|15ccd2|1ecbac09|5b3a7f32af80495e9aeaffe7dfe612d5|0
+8:mail.jar|1|16aa30d4d9f|54d38|a2e156c3|f017f0ee61bf4f81b5876f24e585e620|0
+c:sqljdbc4.jar|1|16aa30d5238|8ea0f|3599caa8|49b51d9284754bf296d7688cd1ecb6fd|0
+e:newpoi.jar.xxx|1|16aa30d4f90|1c8533|a58ae37f|af25c2b3c139497b9dac49bf989e1be1|0
+15:commons-net-1.4.1.jar|1|16aa30d4d80|2c238|fadc1d2|f87ccaf0e8a64bac9905f2f76b6d1891|0
+e:artpoi.jar.xxx|1|16aa30d4f13|15ccd2|1ecbac09|8c53ff521ade41dc9e7e06941b9eb987|0
+f:log4j-1.2.9.jar|1|16aa30d51c9|4eb16|fb365100|06a0fbc30ac94bd9ab79328ed616f919|0
+13:commons-cli-1.0.jar|1|16aa30d4744|75a5|ef8dac7c|d41dce585aa24d148c9477f6a844ffc0|0
+10:jce1_2_2.jar.xxx|1|16aa30d50de|12475|6330345b|687b94dc316240e3b5ca478583ddb68c|0
+a:ojdbc6.jar|1|16aa30d55d5|20376a|ad7961dc|96e242ac390d49eeb0b97dfcd10f9e76|0
+18:US_export_policy.jar.xxx|1|16aa30d486d|a46|1b616243|9ce8852a59e540c7bf10e4a61f06dff9|0

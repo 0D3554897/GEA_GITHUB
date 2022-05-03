@@ -1,0 +1,23 @@
+#open GLIM_DEV_SERVER on MVS owned by George Alvarez
+open ftpes://GADVMVS:GAMVS123@STFMVS1.POK.IBM.COM:990/
+
+# Execute the script using a command like:
+#C:\Progra~2\WinSCP\WinSCP.com /log="C:\writable\path\to\log\WinSCP.log" /ini=nul /script="C:\path\to\script\script.txt"
+#C:\Progra~2\WinSCP\WinSCP.com /log="D:IMAPS_DATA/NOTSHARED/CCS_02_FTP_LOG.TXT" /script="d:\apps_to_compile\cff\winscp.txt"
+
+
+#MVS transfer
+call site lrecl=999 blksize=29970 recfm=fb cy pri=10
+
+# note for the following put commands  
+# in the target name, the high level qualifier USERNAME is included by default. 
+# Including it will result in the wrong filename being sent, e.g. USERNAME.USERNAME.PROFILE.FILE
+
+put -transfer=binary \\HOU28FSDD01\Interfaces\PROCESS\cls_r22\IMAR_TO_CLS.BIN CLSDATAR.DATAFILE
+call site lrecl=80 blksize=3200 recfm=fb
+put -transfer=ascii \\HOU28FSDD01\Interfaces\PROCESS\cls_r22\F156PARM.TXT CLSPARMR.PARMFILE
+exit
+
+#WINDOWS not needed now
+
+

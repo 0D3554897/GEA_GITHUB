@@ -1,0 +1,121 @@
+ClearCase CopyAreaDB|4
+IMAPS_Interfaces_VOB\IMAPS_CP\Scripts\Libraries\Data
+2
+75
+32:IMAR_CP7_Parameter_Update_For_Process_Que_Name.sql|1|16aa30d60f4|d0|38724549|671f92afbd1343b8a546cabea33f134a|0
+2d:eTime-R22 Lookup Table Polulation Scripts.sql|1|16aa30d5c65|a24|a8a41e15|82e79478b68d4948bfb734bce7939fac|0
+2f:CREATE_CCIS_PROCESSING_PARAMETERS - CR11452.sql|1|171bdb9bd3c|14db|589be873|3ca703b343f448c98ae7c02e5ef1c1ed|0
+52:CERIS Research Processing Parameters Table Population Scripts remove shared id.sql|1|16aa30d5f10|e7|6d2142db|784c88f9a21442a2b54c0791ab98042f|0
+39:FDS_CCS Processing Parameters Table Population script.sql|1|16aa30d597e|12a7|fc06ea70|2bbc59a8221b47c0beb55aa4606766d3|0
+3c:IMAPS Error Msg Table Population Script - FDS-CCS CR9449.sql|1|16aa30d619e|89e|4d3986b1|232111ae82fb4b33affc446dd6bf5903|0
+2e:XX_UTIL_BENCH_CODES data population script.sql|1|16aa30d5b7b|68b|d280e6ae|5bbc93f0148642e4b053ec7a2aca5d7a|0
+38:PCLAIM Processing Parameter Table population script1.sql|1|16aa30d5aaf|610|facf9b12|f8aad4fc12974690af3eabf97f0b2757|0
+3c:FIWLR_R22 Processing Parameters Table Population Scripts.sql|1|16aa30d5cd2|1083|25cec70f|d3da9fa146bf4193973341e76602c36a|0
+37:CCIS Processing Parameters Table Population Scripts.sql|1|16aa30d5875|1bc0|b9caf310|f47f93a024304eb9b89eacaf4013df55|0
+1a:XX_R22_FIWLR_APSRC_GRP.sql|1|16aa30d5cd2|2ca|158eb84a|c2525c0241664d37aaca0553c77e9f61|0
+41:CERIS Processing Parameters Table Population Scripts - CR4885.sql|1|16aa30d5f5e|20c|2ae798e6|f9eadc444d424f569c756d8c9bd36d1a|0
+34:CCIS Processing Parameters Data Update - CR11452.sql|1|171c65791b4|4d3|91324b72|d4879ac1704a44188d904221ba389b19|0
+3c:PROJ EMPL Processing Parameters Table Population Scripts.sql|1|16aa30d5c17|be0|c8ea693d|bc1e825cbfe34a4f862f780328a90133|0
+34:FDS_CCS Lookup Tables Population Script - CR9449.sql|1|16aa30d61ae|25d|b385a131|33d248ffd7544b9c90ab11e87b8c6ca6|0
+41:CERIS Processing Parameters Table Population Scripts - CR6534.sql|1|16aa30d60e4|4d7|cd7f60cf|5c972f3d45fb4edc8c8689ae651463e2|0
+43:FDS-CCS Processing Parameters Table Population Scripts - CR9449.sql|1|16aa30d61cd|c07|c29b6367|d09649a43e0f4931bb5b3d197cfad994|0
+2b:FDS_CCS Lookup Tables Population Script.sql|1|16aa30d5901|4d6|906b6c31|d8a65a7269c9406e9d61cf39265111f3|0
+29:XX_ET_EXCLUDE_PROJECTS_Data_Load2.sql.SQL|1|16aa30d60f4|2e6|7297d85f|f338785ae556426b8eaa8e0ae9e342b0|0
+2c:CLS DOWN Lookup Table Population Scripts.sql|1|16aa30d58e2|7b7|32f253ef|a32f974db76742f8a07dcb3670160cbd|0
+2d:PROJ EMPL Lookup Table Population Scripts.sql|1|16aa30d5c17|5c4|915dcb53|5281c988534b468780d37ab83ba6dc51|0
+2e:FIWLR_R22 Lookup Tables Population Scripts.sql|1|16aa30d5cb3|a78|81812fc6|bf348058cc204e91aa54a964bc2a5b34|0
+2a:FIWLR Lookup Tables Population Scripts.sql|1|16aa30d596f|965|20d5d276|1ac49311e7834173b663fc2554b3aa2d|0
+2c:IMAPS Error Msg Table Population script2.sql|1|16aa30d5a3a|13c|d2695e41|ff7ba824df374d6caa8522f1d06dafb8|0
+33:CREATE CCIS NEW DOMAIN ID AND LOOKUPS - CR11452.sql|1|171c1ab9dc8|305|9426d277|8c349c0d4e2a48bdb21d51c49a5538af|0
+48:CLS Down R22 Processing Parameters Table Population Scripts - CR1892.sql|1|16aa30d5d5f|460|4227518b|f821dc1ccdbf4ae18622f0491b267b10|0
+45:ETIME_R22 Processing Parameters Table Population Scripts - DR4037.sql|1|16aa30d5f5e|2a4|84b1b74e|febc34ab062744cca3f0bf29f1fbbfe0|0
+34:IMAPS Error Msg Table Population Script - PCLAIM.sql|1|16aa30d59dc|2d1|409dcd39|1f6dc18d36234accae9380d7f564c320|0
+39:BMS_IW Processing Parameters Table Population Scripts.sql|1|16aa30d5875|1fc3|81600785|cad1013ef21a45f09149597d873db3d5|0
+50:CLS DOWN Processing Parameters Table Population Scripts - changes for 1M.sql.sql|1|16aa30d5ea2|3853|543b3dd8|e9702962bc574a44b15b3a5b4940fdf6|0
+2e:PLC_RATES Lookup Tables Population Scripts.sql|1|16d602436ee|6df|42e9faca|e1f21f268d1c4e69ad103d628f7acfc3|0
+38:FIWLR Processing Parameters Table Population Scripts.sql|1|16aa30d596f|a42|e312edfc|f7234b9c48534c25867a3b217b210f79|0
+49:eTime Processing Parameter Table Population script  remove  shared id.sql|1|16aa30d5eb2|135|c1c3548e|59ef2a7dfe4141509dd22ebe3dd46642|0
+1c:XX_FIWLR_SEQUENCE_RECORD.sql|1|16aa30d5b2c|117|699e46c8|0c53e55b70ab499a8225415210ef463b|0
+33:XX_CLS_DOWN_ACCT_SERV_MAPPING population script.sql|1|16aa30d5b3c|eb9|280bf711|9c0f4bbf3b6c4e67aee3ece0c1c2af59|0
+43:FDS_CCS Processing Parameters Table Population Scripts - CR3888.sql|1|16aa30d5f00|861|3a4683e|d309d9fa518c43248d8e166adbad44aa|0
+41:CERIS Research Processing Parameters Table Population Scripts.sql|1|16aa30d5c17|19dc|bef2661b|a377096e5da74f27b90ef28e181fc262|0
+40:CERIS Processing Parameters Table - Shared ID Removal Script.sql|1|16aa30d5ec2|17c|b6dd64e1|d7bf2c12b03d48878c1985b5532e5f73|0
+2b:XX_UTIL_HOURS_HR_TYPE Population Script.sql|1|16aa30d5b9a|620|2b9ab856|080a5cb204f44a898361637c44a6eb84|0
+3c:7KEYS_PSP Processing Parameters Table Population Scripts.sql|1|16aa30d5855|28aa|97eefe1b|31a960fcb40d49cbb7357eaf4ec203c6|0
+28:BMS_IW_Processing_Parameters_CR10982.txt|1|16bd373a2e2|2d1|c9eee6c5|43464807b8794ea7864d1090a6050f51|0
+4f:7KEYS_PSP Processing Parameters Table Population Scripts  remove  shared id.sql|1|16aa30d5e72|1c4|9f8e3efa|18374e8fae2648ae931c0a9b8143d56a|0
+39:FIWLR Processing Parameters Table Population Scripts2.sql|1|16aa30d597e|802|b8c95b6f|f9d12faaece749c7b450a9bfa0bb89b9|0
+2e:CERIS Lookup Tables Population Scripts - 2.sql|1|16aa30d58a3|3ae|c0c52f0e|63165d790d3f4ad5ae88c58f6dd17d10|0
+46:RATE_RETRO Processing Parameters Table Population Scripts - CR3728.sql|1|16aa30d5ec2|36f|7905f1ec|2cca5dd6b47a485ba7a09f062d8aab99|0
+4a:CERIS Processing Parameters Table Population Scripts - CR4885 - part 2.sql|1|16aa30d60d5|513|b88e8fd2|279ef65e25754895b13d50c56a451496|0
+2b:XX_UTIL_EDU_CODES_Table_Populate_Script.sql|1|16aa30d5e02|a12|79f7f69|aa279187bce54829ac291b775eb4686d|0
+28:CCIS Lookup Table Population Scripts.sql|1|16aa30d5884|75d|3be83191|698f5d5ae9b74bd8a0f189ed75dc4da1|0
+1d:INS_FIWLR_INCEXC_APSRC_PP.sql|1|16aa30d5a59|be5|ab502169|725af640fb0348969b367626030984dd|0
+34:eTime-R22 XX_R22_ACCT_RECLASS_Table_Load_Script2.sql|1|16aa30d5d20|463|9d1416ec|a1b81dce42464083ba2ff68bbe66f830|0
+29:IMAPS Lookup Tables Population script.sql|1|16aa30d5a49|1fdf|11448191|be031547daf94e74b237003e1d5c7144|0
+48:CCIS Processing Parameters Table Population Scripts - changes for 1M.sql|1|16aa30d5e5e|267|3e99a2d9|089b1e6469e24346a1568db4051b367f|0
+2e:RATE_RETRO Lookup Table Population Scripts.sql|1|16aa30d5abf|2e9|8606da62|846e4a009cd343db9dbcd4d59554862c|0
+2e:XX_CLS_DOWN_ACCT_MAPPING population script.sql|1|16aa30d5b1d|593d|7fa25a7c|df0cac4aacf5494cabc99ff114c4a752|0
+30:XX_UTIL_ALT_PROJ_INDU data population script.sql|1|16aa30d5b5b|531|117160f1|448455393b4848aea9fa6abc96ffa0ec|0
+55:PCLAIM Processing Parameter Table Population Script - blank out shared parameters.sql|1|16aa30d5e74|9a|a2f833b1|ce6f47fb75dc4e2fb572254c686447fc|0
+48:CLS Down R22 Processing Parameters Table Population Scripts - CR3891.sql|1|16aa30d5f10|6d1|e979005a|165ea58348494d708a7115715f0c9c7b|0
+2d:YLHR_R22 Lookup Tables Population Scripts.sql|1|16aa30d5e03|76e|d5e74351|446d6eaaad624c33b0845751a6e547e0|0
+3f:CLS Down R22 Processing Parameters Table Population Scripts.sql|1|16aa30d5d20|65f9|b68cb2e2|c0cf4a03328f4fec9167f4b07aef29bf|0
+27:XX_UTIL_NONOA_CODES_Data_Population.SQL|1|16aa30d5dbd|491|d1fc27af|67346a1205964fc6b6effa5932fdc9ae|0
+1a:IMAPS_Error_Number_210.sql|1|16aa30d5a3a|226|6c4e9e34|aaea970d9bbb472687aa8b4b79c6203c|0
+4e:eTime R22 Processing Parameters Table Population Script  remove  shared id.sql|1|16aa30d5eb2|139|221f55af|47d9ab50c67d48e8bf8ba2b056ff751c|0
+37:PCLAIM Processing Parameter Table Population script.sql|1|16aa30d5a9f|c88|e57b75c7|464fe927e8cc4d5d85c0bb439074bf9b|0
+32:RATE_RETRO Lookup Table Population Scripts - 2.sql|1|16aa30d5abf|4a5|837171fc|4d0f2a06446d446ab925a1d2d92c5e0f|0
+4b:FDS_CCS Processing Parameters Table Population Scripts - changes for 1M.sql|1|16aa30d5e69|19d3|ffd5e2d8|044ade4b77fb4308b4918b1ab8ca35b4|0
+2f:UTILITY Lookup & Processing Parameters Data.sql|1|16fc4f91aa4|3e7|9f561a68|d6a6e85a0d16453ba9065e66000fc2b0|0
+29:7KEYS Lookup Table Population Scripts.sql|1|16aa30d5855|954|a504cd24|2dc6fa017c664b969f2d093aa20b7aad|0
+3f:LCDB_EXTRACT Processing Parameters Table Population Scripts.sql|1|16aa30d6029|3c7|44331a28|ac71f25a2f76477ea78e0ebf6ce38e6e|0
+3b:YLHR_R22 Processing Parameters Table Population Scripts.sql|1|16aa30d5e03|f6e|3c6f3803|bd5eda26f71e412c98a55e447d5788de|0
+1a:IMAPS_Error_Number_535.sql|1|16aa30d5a49|17b|56ae6f74|d044620fb1d24e1e9760bcba5cb662df|0
+2e:CERIS_LOAD Lookup Table Population Scripts.sql|1|16aa30d601a|745|fb7c4e17|64403c4dddf34b468bbcc58420a2bd51|0
+3e:UTILIZATION Processing Parameters Table Population Scripts.sql|1|16aa30d5b0d|798|b90027b2|4e109944551646be8d3766727e765b0a|0
+27:XX_PAY_TYPE_ACCT_MAP_Loading Script.sql|1|16aa30d5c17|18d9e|a081639b|55a6a73515f14ae78eafe7acd934aa9a|0
+33:CERIS Research Lookup Tables Population Scripts.sql|1|16aa30d5c07|b94|67948b38|524151bd04f44b22b0ae0bc2560e6fcd|0
+36:eTime Processing Parameter Table Population script.sql|1|16aa30d5b9a|1734|beb95d2e|c68504669caa43309f8276a0fb4702c1|0
+21:year_end_XX_PAST_GENL_LAB_CAT.sql|1|16aa30d5be8|1c2|61639b77|2453e53a04ad440493c73d13f86096a6|0
+32:BMS_IW_UTIL_MAP Lookup Table Population script.SQL|1|16aa30d5ba9|b2a|52beb72|55e73940499a4ee5823ef209b496aae3|0
+2d:PLC_RATES XX_PROCESSING_PARAMETERS Script.sql|1|16d602436ec|8bf|5ad88b9d|b55f9e54c2b749d9bb7c0db71a90db49|0
+2b:COMMON_SP_COMMENT_LEVEL_PARAMETER_VALUE.sql|1|1778cdb498a|2bc|8ca5b70d|8441a4540b50418a9a0ce4d65f8eae25|0
+48:CLS Down R22 Processing Parameters Table Population Scripts - DR2253.sql|1|16aa30d5dcc|22c|b29b9637|04fceb2425324734a4c13106fda5d658|0
+38:CERIS Processing Parameters Table Population Scripts.sql|1|16aa30d58e2|18df|7aee1909|d90b90bc360d43139958a16a59787665|0
+1d:XX_FIWLR_ARCH_INIT_RECORD.sql|1|16aa30d5b3c|3c5|44f62f33|5d005cc3f49540bbabc51f16a11d13d2|0
+30:UTILIZATION Lookup Tables Population Scripts.sql|1|16aa30d5aee|4e8|2e6f78fc|401a49cd91c74c4f98f60a13eaeea13c|0
+2c:IMAPS Error Msg Table Population script1.sql|1|16aa30d5a2a|eb|310343c0|04ace27303ad45d9949d582403057c97|0
+33:eTime-R22 XX_R22_ACCT_RECLASS_Table_Load_Script.sql|1|16aa30d5cb3|296c|65dd3dd0|7dcaf18dbdd74724986ea997e747e8eb|0
+3b:FDS_CCS Processing Parameters Table Population Script 3.sql|1|16aa30d597e|168c|35b94235|da538e945981465c8d82d68f59598da1|0
+47:CLS Down Processing Parameter Table Population Scripts - FTP PARAMS.sql|1|16aa30d5d5f|731|4dc911fc|3ccaeb0b82f9499fbb6b97d2f81086ca|0
+2a:BMS_IW Lookup Table Population Scripts.sql|1|16aa30d5884|47f|659d5a52|f2f66a26385f4189b72279d971e5dfe4|0
+33:IMAPS Error Msg Table Population Script - 7KEYS.sql|1|16aa30d59cc|282|1933c1c8|9408fb924f374b3994c05bb1bbe4147f|0
+24:XX_ET_EXCLUDE_PROJECTS_Data_Load.sql|1|16aa30d6029|1ca|6ee68707|7388fb159f6543a98f492d658de574b5|0
+3b:eTime-R22  Processing Parameter Table Population script.sql|1|16aa30d5c46|24af|6481870f|5beb5eb6efce41e08440ef5ed8196760|0
+44:CLS Down Processing Parameters Table Population Scripts - CR3889.sql|1|16aa30d5ed1|602|6259c0c2|7879dfba37404f5a8b79e915e7bc2202|0
+3b:FDS_CCS Processing Parameters Table Population Script 4.sql|1|16aa30d596f|79d|c5100da2|8d9136d271f24132b45183fb1d67ad19|0
+3d:RATE_RETRO Processing Parameters Table Population Scripts.sql|1|16aa30d5acf|1772|790a63d|0b08b023c0254146b600315d9feab950|0
+4c:CLS DOWN Processing Parameters Table Population Scripts - changes for 1P.sql|1|16aa30d6104|cbd|c0036d3e|7a2b0c483bda46b3afe5e343e5872978|0
+36:IMAPS Error Msg Table Population Script - CLS DOWN.sql|1|16aa30d59dc|7a4|ff07415f|347af05a0d9643d3ade1089c343aeb7d|0
+32:IMAPS Error Msg Table Population Script - UTIL.sql|1|16aa30d59dc|8fc|e53ab04|7a5911848ebc425eb3f1356a60481721|0
+3d:CERIS_LOAD Processing Parameters Table Population Scripts.sql|1|16aa30d601a|3bf|38de17c0|d63fba35b6534e6fb34afe72493b1b62|0
+33:IMAPS_CP7_Parameter_Update_For_Process_Que_Name.sql|1|16aa30d60f4|d4|5ae146ba|12a73bc10eba45baa3ae32be2705fab5|0
+31:Processing Parameter Interface Name ID Update.sql|1|16aa30d5abf|ea|25174bbb|25e884e510f04f4997fce3a4d6fe8bc2|0
+42:BMS_IW Processing Parameters Table Population Scripts - CR3890.sql|1|16aa30d5f1f|4b1|fdff5892|6188df309baa4d1ebab2cf13747801c3|0
+45:FIWLR_R22 Processing Parameters Table Population Scripts - CR4663.sql|1|16aa30d5f5e|9e3|ef2ca837|ece51918cd1f4368a1eb1b027d87b0e0|0
+33:FDS_CCS Lookup Tables Population Script - PATCH.txt|1|16aa30d58e2|1f6|6ec591d2|360bcb2e59f0452b855a9d89301524b2|0
+32:CREATE FDS NEW DOMAIN ID AND LOOKUPS - CR11452.sql|1|171a9d3e169|edc|c3ad3480|9296c9cd3d634bba974f58a482258542|0
+2b:IMAPS Error Msg Table Population script.sql|1|16aa30d59eb|2b3c|ed9c73|102f7b02f8994dd89212f3e1cb6bb45b|0
+31:FIWLR_BMSIW_WWER_N16_EXTRACT_parameter_script.sql|1|16aa30d5dcc|24a|43279802|d7b3ad02182444c79977eb5173037db5|0
+30:LCDB_EXTRACT Lookup Table Population Scripts.sql|1|16aa30d6029|73e|99eb4809|cb22ef9d73084ea9bc4ee64972b754cc|0
+3a:FDS_CCS Processing Parameter Table Population script 2.sql|1|16aa30d5920|471|245c3bb6|f9a1973dccd7467a8e530aeb21e5c4a2|0
+3b:CLS DOWN Processing Parameters Table Population Scripts.sql|1|16aa30d58e2|4fb4|679d2add|dc7c7b6af56d4086a46774ab760a9c76|0
+4b:CLS Down R22 Processing Parameter Table Population Scripts - FTP PARAMS.sql|1|16aa30d5d5f|759|d9511ccf|278c98bc073942a492419cc526bd1808|0
+21:XX_R22_FIWLR_ARCH_INIT_RECORD.sql|1|16aa30d5cd2|3cd|69ef318e|c1410c96133745ee85d0115269f1645d|0
+2e:BMS_IW Processing Parameters Update CR-996.SQL|1|16aa30d5b9a|9d1|c5a7cfbe|550c9cea4d0344929106ac1a9f8feb74|0
+54:CCIS Processing Parameters Table Population Script - blank out shared parameters.sql|1|16aa30d5e72|b1|acc43a28|e62c75fdf04d4cd698d43ca3a8b7bb48|0
+1e:XX_SUB_PD_Insert_Data_Load.sql|1|16aa30d6039|26b5|adae0ea7|3148c098992c4752afd7a7ca0bdfbb9c|0
+33:IMAPS Error Msg Table Population Script - CERIS.sql|1|16aa30d59dc|106|c1ee5144|0fda9d4b43dd425da1d038c0dd8d382c|0
+2a:CERIS Lookup Tables Population Scripts.sql|1|16aa30d58b3|911|4916bf1c|aa41a72138114aac8a2e7d07a62001e6|0
+30:CLS Down R22 Lookup Table Population Scripts.sql|1|16aa30d5cd2|884|4e909355|f58d940c8c9d4768a9e3d4337e1166c8|0
