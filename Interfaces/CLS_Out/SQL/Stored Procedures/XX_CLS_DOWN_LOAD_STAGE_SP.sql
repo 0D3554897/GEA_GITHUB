@@ -1,15 +1,16 @@
-USE IMAPSSTG
+USE [IMAPSStg]
+GO
+
+/****** Object:  StoredProcedure [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP]    Script Date: 4/27/2022 2:44:49 PM ******/
 DROP PROCEDURE [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP]
 GO
-SET ANSI_NULLS ON 
+
+/****** Object:  StoredProcedure [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP]    Script Date: 4/27/2022 2:44:49 PM ******/
+SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
- 
-
- 
-
- 
 
 CREATE PROCEDURE [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP] ( 
 @in_STATUS_RECORD_NUM    integer, 
@@ -67,6 +68,7 @@ SET @SP_NAME = 'XX_CLS_DOWN_LOAD_STAGE_SP'
 
 PRINT '***********************************************************************************************************************'
 PRINT @SP_NAME
+PRINT '  -- 22 ACTIVITIES'
 PRINT '***********************************************************************************************************************'
 
 	SELECT @rev_acct_id = PARAMETER_VALUE FROM  XX_PROCESSING_PARAMETERS 
@@ -1220,9 +1222,25 @@ SET @DIVISION = '1M'
 
 	********/
 
+	PRINT '19.	APPLY NEW MAJORS/MINORS TO PROJECTS WITH CERTAIN OCC VALUES'
+	SET @IMAPS_error_number = 204 -- Attempt to %1 %2 failed.
+	SET @error_msg_placeholder1 = 'DELETE ZERO DOLLAR TRANSACTION'
+	SET @error_msg_placeholder2 = 'FROM XX_CLS_DOWN_THIS_MONTH_YTD'
 
-	
-	PRINT '19.	ARCHIVE YTD IMAGE'
+	UPDATE imapsstg.dbo.XX_CLS_DOWN_THIS_MONTH_YTD
+	SET 
+	CLS_MAJOR = COALESCE(IMAPSSTG.DBO.XX_BM_DIV_MMS_UF(IMAPSSTG.DBO.SB_GET_BUS_MEAS_DIV_CD_UF(imaps_proj_id) + COALESCE(LEFT(IMAPS_ACCT,1),'0'),'MAJ'),CLS_MAJOR),
+	CLS_MINOR = COALESCE(IMAPSSTG.DBO.XX_BM_DIV_MMS_UF(IMAPSSTG.DBO.SB_GET_BUS_MEAS_DIV_CD_UF(imaps_proj_id) + COALESCE(LEFT(IMAPS_ACCT,1),'0'),'MIN'),CLS_MINOR),
+	CLS_SUB_MINOR = COALESCE(IMAPSSTG.DBO.XX_BM_DIV_MMS_UF(IMAPSSTG.DBO.SB_GET_BUS_MEAS_DIV_CD_UF(imaps_proj_id) + COALESCE(LEFT(IMAPS_ACCT,1),'0'),'SUB'),CLS_SUB_MINOR)
+	WHERE IMAPSSTG.DBO.SB_GET_BUS_MEAS_DIV_CD_UF(imaps_proj_id) IN 
+		(SELECT  LEFT(PARAMETER_NAME,2) AS BMDIV
+		  FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS
+		  WHERE INTERFACE_NAME_CD = 'CLS'
+		  AND SUBSTRING(PARAMETER_NAME,3,1) IN ('3','4'))
+
+	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER	
+
+	PRINT '20.	ARCHIVE YTD IMAGE'
 	SET @IMAPS_error_number = 204 -- Attempt to %1 %2 failed.
 	SET @error_msg_placeholder1 = 'INSERT INTO XX_CLS_DOWN_YTD_ARCHIVE'
 	SET @error_msg_placeholder2 = 'FROM XX_CLS_DOWN_THIS_MONTH_YTD'
@@ -1285,9 +1303,9 @@ SET @DIVISION = '1M'
 	-- PRINT '20.	THIS STEP NO LONGER EXISTS - DR7888'
 /************* THIS IS FOR DIVISION 16 ONLY *********************/
 
-	PRINT '20. APPLY REPORTING PROJECT PROJ_ID SUBSTITUTIONS'
+	PRINT '21. APPLY REPORTING PROJECT PROJ_ID SUBSTITUTIONS'
 	
-	PRINT '20(A) UPDATE ARCHIVE TO SHOW REPORTING PROJECTS FROM UDEF LABEL KEY = 60'
+	PRINT '21(A) UPDATE ARCHIVE TO SHOW REPORTING PROJECTS FROM UDEF LABEL KEY = 60'
 	SET @IMAPS_error_number = 204 -- Attempt to %1 %2 failed.
 	SET @error_msg_placeholder1 = 'UPDATE XX_CLS_DOWN_YTD_ARCHIVE'
 	SET @error_msg_placeholder2 = 'USING XX_REV_LVL_UDEF_PROJ_VW'	
@@ -1305,7 +1323,7 @@ SET @DIVISION = '1M'
 	
 	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER	
 
-	PRINT '20(B) UPDATE ARCHIVE WHERE NO MATCHING REPORTING PROJECTS FROM UDEF LABEL KEY = 60'
+	PRINT '21(B) UPDATE ARCHIVE WHERE NO MATCHING REPORTING PROJECTS FROM UDEF LABEL KEY = 60'
 	SET @IMAPS_error_number = 204 -- Attempt to %1 %2 failed.
 	SET @error_msg_placeholder1 = 'UPDATE XX_CLS_DOWN_YTD_ARCHIVE'
 	SET @error_msg_placeholder2 = 'USING DEFAULT REPORTING PROJECT'	
@@ -1322,7 +1340,7 @@ SET @DIVISION = '1M'
 	
 	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER	
 
-	PRINT '20(C) UPDATE YTD IMAPS_PROJ_ID WITH REPORTING PROJECT SAVED IN ARCHIVE'
+	PRINT '21(C) UPDATE YTD IMAPS_PROJ_ID WITH REPORTING PROJECT SAVED IN ARCHIVE'
 	SET @IMAPS_error_number = 204 -- Attempt to %1 %2 failed.
 	SET @error_msg_placeholder1 = 'UPDATE XX_CLS_DOWN_YTD'
 	SET @error_msg_placeholder2 = 'USING REPORTING PROJECT FROM ARCHIVE'		
@@ -1347,7 +1365,7 @@ SET @DIVISION = '1M'
 
 /************* THIS IS FOR DIVISION 16 ONLY *********************/
 	
-	PRINT '21
+	PRINT '22
 .	CALCULATE DIFFERENCE BETWEEN THIS MONTH AND LAST MONTH VALUES'
 	/* VALUES THAT HAVE CHANGED SINCE THE PREVIOUS MONTH 
 	OR VALUES THAT DID NOT EXIST IN THE PREVIOUS MONTH 
@@ -1607,7 +1625,7 @@ LL(LAST.L1_PROJ_SEG_ID, 'NULL_MATCH')
 	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER
 
 
-	PRINT '22.	PERFORM PROJECT CODE DEFAULTING'
+	PRINT '23.	PERFORM PROJECT CODE DEFAULTING'
 
 	SET @IMAPS_error_number = 204 -- Attempt to %1 %2 failed.
 	SET @error_msg_placeholder1 = 'UPDATE XX_CLS_DOWN'
@@ -1627,7 +1645,7 @@ LL(LAST.L1_PROJ_SEG_ID, 'NULL_MATCH')
 
 	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER
 		
-	PRINT '22.1563'
+	PRINT '23.1563'
 	SET @IMAPS_error_number = 204 -- Attempt to %1 %2 failed.
 	SET @error_msg_placeholder1 = 'UPDATE XX_CLS_DOWN'
 	SET @error_msg_placeholder2 = 'PROJ_ABBRV_CD'
@@ -1665,7 +1683,7 @@ LL(LAST.L1_PROJ_SEG_ID, 'NULL_MATCH')
 	SELECT @IGSPROJ_FOR1M = PARAMETER_VALUE FROM  XX_PROCESSING_PARAMETERS 
 		WHERE INTERFACE_NAME_CD = 'CLS' AND PARAMETER_NAME = '1M_DFLT_IGS_PROJ'
 
-	PRINT '22.1602'
+	PRINT '23.1602'
 	SET @IMAPS_error_number = 204 -- Attempt to %1 %2 failed.
 	SET @error_msg_placeholder1 = 'UPDATE XX_CLS_DOWN'
 	SET @error_msg_placeholder2 = 'SERVICE OFFERING'
@@ -1688,11 +1706,18 @@ LL(LAST.L1_PROJ_SEG_ID, 'NULL_MATCH')
 	
 	IF @@ERROR <> 0 GOTO BL_ERROR_HANDLER
 
+PRINT '***********************************************************************************************************************'
+PRINT ' END OF ' + @SP_NAME
+PRINT '***********************************************************************************************************************'
+
+
 	/* ERROR HANDLER */
 
 	RETURN(0)
 
 	BL_ERROR_HANDLER:
+
+	PRINT 'ERROR HANDLER FOR ' +@SP_NAME
 
 	EXEC dbo.XX_ERROR_MSG_DETAIL
 	   @in_error_code           = @IMAPS_error_number,
@@ -1715,5 +1740,5 @@ END
  
 
 GO
- 
+
 
