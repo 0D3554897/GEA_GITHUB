@@ -23,7 +23,7 @@ AS
 --Modified: 04/14/2009 DR-1631 For Miscode Feedback
 --Modified: 10/15/2012 CR-4886 for partial miscode logic
 --Modified: 10/31/2012 CR-4886 for partial miscode logic-2
-
+--Modified: 05/11/2022 CR-13038 for CP8.1 upgrade issues
 BEGIN
 
 
@@ -128,7 +128,7 @@ BEGIN
 /*grab Costpoint Errors*/
 	DECLARE @ret_code int
 	SELECT @ret_code = count(1)
-	FROM IMAPS.DELTEK.X_Z_AOPUTLTS_ERROR ts
+	FROM IMAPS.DELTEK.Z_AOPUTLTS_ERROR ts
 	WHERE 
 	0 < (SELECT COUNT(1) 
 		 FROM XX_IMAPS_TS_PREP_CONFIG_ERRORS
@@ -167,7 +167,7 @@ BEGIN
 				TIME_STAMP,
 				ERR_SUSP_WARN_NO,
 				ROWVERSION
-		FROM IMAPS.DELTEK.X_Z_AOPUTLTS_ERROR
+		FROM IMAPS.DELTEK.Z_AOPUTLTS_ERROR
 
 
 		UPDATE XX_IMAPS_TS_PREP_CONFIG_ERRORS
