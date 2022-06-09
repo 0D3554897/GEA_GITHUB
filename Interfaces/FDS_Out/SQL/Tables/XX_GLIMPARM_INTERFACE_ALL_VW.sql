@@ -1,16 +1,17 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 6/6/2022 9:51:50 AM ******/
+/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 6/9/2022 2:29:22 PM ******/
 DROP VIEW [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]
 GO
 
-/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 6/6/2022 9:51:50 AM ******/
+/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 6/9/2022 2:29:22 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER OFF
 GO
+
 
 
 
@@ -113,7 +114,7 @@ FROM
       INVOICENUMBER
     from 
       (
-        SELECT ROW_NUMBER() OVER(ORDER BY major) AS ID,* from imapsstg.dbo.XX_glim_interface_all_VW
+        SELECT ROW_NUMBER() OVER(ORDER BY major) AS ID,* from imapsstg.dbo.XX_GLIM_INTERFACE_TXT_VW
            ) PARM 
       JOIN (
         SELECT 
