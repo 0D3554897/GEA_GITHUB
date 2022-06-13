@@ -340,7 +340,7 @@ SELECT
 			REPLACE(CONVERT(VARCHAR(10),GETDATE(),3),'/','') as DATEOFLEDGERENTRYMANDATORY,  -- DATEOFLEDGERENTRYMANDATORY  START = 79  LEN = 6
 			right('000' + cast(month(GETDATE()) as varchar),2) as ACCOUNTINGMONTHLOCAL,  -- ACCOUNTINGMONTHLOCAL  START = 85  LEN = 2
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
-			IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
+			IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when sum(B.SALES_TAX_AMT)*-1 < 0 then left(ltrim(cast(sum(B.SALES_TAX_AMT)*-1 as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(cast((abs(sum(B.SALES_TAX_AMT)*-100)) as bigint) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
 			SPACE(3) AS MMOD ,  -- FILLER4  START = 123  LEN = 3
@@ -514,7 +514,7 @@ SELECT
 			REPLACE(CONVERT(VARCHAR(10),GETDATE(),3),'/','') as DATEOFLEDGERENTRYMANDATORY,  -- DATEOFLEDGERENTRYMANDATORY  START = 79  LEN = 6
 			right('000' + cast(month(GETDATE()) as varchar),2) as ACCOUNTINGMONTHLOCAL,  -- ACCOUNTINGMONTHLOCAL  START = 85  LEN = 2
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
-			IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
+			IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when sum(B.BILLED_AMT - B.SALES_TAX_AMT)*-1 < 0 then left(ltrim(cast(sum(B.BILLED_AMT - B.SALES_TAX_AMT)*-1 as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(cast((abs(sum(B.BILLED_AMT - B.SALES_TAX_AMT)*-100)) as bigint) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
 			SPACE(3) AS MMOD ,  -- FILLER4  START = 123  LEN = 3
