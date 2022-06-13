@@ -14,9 +14,6 @@ GO
 
 
 
-
-
-
 /* 
 Used by CFF for GLIM Interface
 

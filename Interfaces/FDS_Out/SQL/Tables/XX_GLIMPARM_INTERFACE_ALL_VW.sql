@@ -15,8 +15,6 @@ GO
 
 
 
-
-
 /* 
 Used by CFF for GLIM Interface
 
@@ -104,7 +102,7 @@ FROM
       SUM(
         CAST(
           CAST(
-            AMOUNTLOCALCURRENCY AS DECIMAL(16, 2)
+            AMOUNTLOCALCURRENCY AS BIGINT(16, 2)
           )/ 100 AS DECIMAL(15, 2)
         )
       ) AS TOT, 
