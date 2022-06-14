@@ -1,16 +1,17 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 6/9/2022 2:29:22 PM ******/
+/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 6/14/2022 5:33:57 PM ******/
 DROP VIEW [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]
 GO
 
-/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 6/9/2022 2:29:22 PM ******/
+/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 6/14/2022 5:33:57 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER OFF
 GO
+
 
 
 
@@ -91,7 +92,7 @@ FROM
         112
       ) AS C, 
       SPACE(2) AS D, 
-      case when CAST(AMOUNTLOCALCURRENCY AS bigINT) < 0 then 0 else CAST(AMOUNTLOCALCURRENCY AS bigINT) end AS DEBITS, 
+      case when CAST(AMOUNTLOCALCURRENCY AS bigINT) < 0 then 0 else CAST(AMOUNTLOCALCURRENCY AS bigint) end AS DEBITS, 
       SPACE(2) AS F, 
       1 AS G, 
       SPACE(1) AS H, 
@@ -102,8 +103,7 @@ FROM
       SUM(
         CAST(
           CAST(
-            AMOUNTLOCALCURRENCY AS BIGINT(16, 2)
-          )/ 100 AS DECIMAL(15, 2)
+            AMOUNTLOCALCURRENCY AS decimal(16,2))/ 100 AS DECIMAL(15, 2)
         )
       ) AS TOT, 
       '         897' AS N 
