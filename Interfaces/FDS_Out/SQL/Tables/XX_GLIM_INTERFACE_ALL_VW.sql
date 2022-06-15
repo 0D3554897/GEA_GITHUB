@@ -65,7 +65,7 @@ from
 	DATEOFLEDGERENTRYMANDATORY,
 	ACCOUNTINGMONTHLOCAL,
 	FMONTH,
-	cast(AMOUNTLOCALCURRENCY as bigint) as AMOUNTLOCALCURRENCY,
+	AMOUNTLOCALCURRENCY,
 	ZERO,
 	MTYP,
 	MMOD,
@@ -200,7 +200,7 @@ from
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
 			--IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
 			-- this is the only difference between TEXT VIEW AND ALL VIEW, 1 OF 3
-
+IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
 		 case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(
           ltrim(
             cast(
@@ -225,7 +225,8 @@ from
             )
           ), 
           14
-         ) as AMOUNTLOCALCURRENCY, 
+         ) 
+		 ) as AMOUNTLOCALCURRENCY, 
 
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
@@ -336,7 +337,7 @@ from
 			on a.INVC_ID = b.INVC_ID    
 		where (a.invc_amt - A.CSP_AMT) <> 0 
 			AND A.STATUS_FL <> 'E'   
-			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID'))   
+			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID'))  
 		GROUP BY  A.INVC_ID,
 			A.PROJ_ID,
 			A.I_MKG_DIV,
@@ -381,6 +382,7 @@ from
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
 			--IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
 			-- DIFFERENCE BETWEEN TEXT VIEW AND ALL VIEW, 2 OF 3
+IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
 			     case when sum(B.SALES_TAX_AMT)*-1 < 0 then left(
           ltrim(
             cast(
@@ -401,8 +403,8 @@ from
             )
           ), 
           14
-      ) as AMOUNTLOCALCURRENCY,
-
+      ) 
+	  ) as AMOUNTLOCALCURRENCY,
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
 			SPACE(3) AS MMOD ,  -- FILLER4  START = 123  LEN = 3
@@ -513,8 +515,8 @@ from
 			on a.INVC_ID = b.INVC_ID   
 		where A.STATUS_FL <> 'E'    
 			AND b.sales_tax_amt <> 0     
-			/*and coalesce(b.acct_id,'0') not in ('48-79-08','49-79-08')*/   
-			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID')) 
+			/*and coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID')) */   
+			and (coalesce(b.acct_id,'0') not in  (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID'))  
 		group by a.INVC_ID ,
 			A.PROJ_ID,
 			A.I_MKG_DIV ,
@@ -576,8 +578,10 @@ from
 			REPLACE(CONVERT(VARCHAR(10),GETDATE(),3),'/','') as DATEOFLEDGERENTRYMANDATORY,  -- DATEOFLEDGERENTRYMANDATORY  START = 79  LEN = 6
 			right('000' + cast(month(GETDATE()) as varchar),2) as ACCOUNTINGMONTHLOCAL,  -- ACCOUNTINGMONTHLOCAL  START = 85  LEN = 2
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
-			---IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
+			--IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when sum(B.BILLED_AMT - B.SALES_TAX_AMT)*-1 < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
+
 			-- DIFFERENCE BETWEEN TEXT VIEW AND ALL VIEW, 3 OF 3
+IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
 			     case when sum(B.BILLED_AMT - B.SALES_TAX_AMT)*-1 < 0 then left(
           ltrim(
             cast(
@@ -598,7 +602,8 @@ from
             )
           ), 
           14
-      ) as AMOUNTLOCALCURRENCY, 
+      ) 
+)	  as AMOUNTLOCALCURRENCY, 
 
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
@@ -709,7 +714,7 @@ from
 			on a.INVC_ID = b.INVC_ID    
 		where A.STATUS_FL <> 'E'     
 			AND b.billed_amt <> 0       
-			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID'))  
+			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID')) 
 		group by   
 			a.INVC_ID,
 			A.PROJ_ID,
@@ -793,7 +798,7 @@ from
 	DATEOFLEDGERENTRYMANDATORY,
 	ACCOUNTINGMONTHLOCAL,
 	FMONTH,
-	cast(AMOUNTLOCALCURRENCY as bigint) as AMOUNTLOCALCURRENCY,
+	AMOUNTLOCALCURRENCY,
 	ZERO,
 	MTYP,
 	MMOD,
@@ -1065,7 +1070,7 @@ from
 			on a.INVC_ID = b.INVC_ID    
 		where (a.invc_amt - A.CSP_AMT) <> 0 
 			AND A.STATUS_FL <> 'E'   
-			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID'))   
+			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID'))  
 		GROUP BY  A.INVC_ID,
 			A.PROJ_ID,
 			A.I_MKG_DIV,
@@ -1243,8 +1248,8 @@ from
 			on a.INVC_ID = b.INVC_ID   
 		where A.STATUS_FL <> 'E'    
 			AND b.sales_tax_amt <> 0     
-			/*and coalesce(b.acct_id,'0') not in ('48-79-08','49-79-08')*/   
-			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID')) 
+			/*and coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID')) */   
+			and (coalesce(b.acct_id,'0') not in  (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID'))
 		group by a.INVC_ID ,
 			A.PROJ_ID,
 			A.I_MKG_DIV ,
@@ -1440,7 +1445,7 @@ from
 			on a.INVC_ID = b.INVC_ID    
 		where A.STATUS_FL <> 'E'     
 			AND b.billed_amt <> 0       
-			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID'))  
+			and (coalesce(b.acct_id,'0') not in (SELECT PARAMETER_VALUE FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE PARAMETER_NAME = 'CSP_ACCT_ID')) 
 		group by   
 			a.INVC_ID,
 			A.PROJ_ID,
@@ -1503,7 +1508,7 @@ group by
 	DATEOFLEDGERENTRYMANDATORY,
 	ACCOUNTINGMONTHLOCAL,
 	FMONTH,
-	cast(AMOUNTLOCALCURRENCY as bigint),
+	AMOUNTLOCALCURRENCY,
 	ZERO,
 	MTYP,
 	MMOD,
