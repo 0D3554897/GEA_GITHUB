@@ -13,8 +13,6 @@ SET QUOTED_IDENTIFIER OFF
 GO
 
 
-
-
 /* 
 Used by CFF for GLIM Interface
 
