@@ -1,18 +1,16 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  View [dbo].[XX_GLIM_INTERFACE_TXT_VW]    Script Date: 6/16/2022 4:42:14 PM ******/
+/****** Object:  View [dbo].[XX_GLIM_INTERFACE_TXT_VW]    Script Date: 6/23/2022 12:37:40 PM ******/
 DROP VIEW [dbo].[XX_GLIM_INTERFACE_TXT_VW]
 GO
 
-/****** Object:  View [dbo].[XX_GLIM_INTERFACE_TXT_VW]    Script Date: 6/16/2022 4:42:14 PM ******/
+/****** Object:  View [dbo].[XX_GLIM_INTERFACE_TXT_VW]    Script Date: 6/23/2022 12:37:40 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER OFF
 GO
-
-
 
 
 
@@ -52,7 +50,7 @@ select
 	DATEOFLEDGERENTRYMANDATORY,
 	ACCOUNTINGMONTHLOCAL,
 	FMONTH,
-	cast(AMOUNTLOCALCURRENCY as bigint) as AMOUNTLOCALCURRENCY,
+	AMOUNTLOCALCURRENCY,
 	ZERO,
 	MTYP,
 	MMOD,
@@ -199,7 +197,7 @@ from
 	DATEOFLEDGERENTRYMANDATORY,
 	ACCOUNTINGMONTHLOCAL,
 	FMONTH,
-	cast(AMOUNTLOCALCURRENCY as bigint) as AMOUNTLOCALCURRENCY,
+	AMOUNTLOCALCURRENCY,
 	ZERO,
 	MTYP,
 	MMOD,
@@ -332,9 +330,9 @@ from
 			REPLACE(CONVERT(VARCHAR(10),GETDATE(),3),'/','') as DATEOFLEDGERENTRYMANDATORY,  -- DATEOFLEDGERENTRYMANDATORY  START = 79  LEN = 6
 			right('000' + cast(month(GETDATE()) as varchar),2) as ACCOUNTINGMONTHLOCAL,  -- ACCOUNTINGMONTHLOCAL  START = 85  LEN = 2
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
-			--IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
-			-- this is the only difference between TEXT VIEW AND ALL VIEW, 1 OF 3
 
+			-- this is the only difference between TEXT VIEW AND ALL VIEW, 1 OF 3
+-- IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
 		 case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(
           ltrim(
             cast(
@@ -359,7 +357,9 @@ from
             )
           ), 
           14
-         ) as AMOUNTLOCALCURRENCY, 
+         )
+		 -- ) as AMOUNTLOCALCURRENCY, 
+		 as AMOUNTLOCALCURRENCY,
 
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
@@ -385,8 +385,8 @@ from
 			SPACE(6) AS FRV_DATE6 ,  --   START = 295  LEN = 6
 			SPACE(2) AS TAI ,  --   START = 301  LEN = 2
 			SPACE(21) AS HQ_CONV_ACCT ,  -- FILLER6  START = 303  LEN = 21
-			'F' AS ITYP ,  -- INPUTTYPE  START = 324  LEN = 1
-			SPACE(1) AS STAT_ID,  --   START = 325  LEN = 1
+			SPACE(1) AS ITYP ,  -- INPUTTYPE  START = 324  LEN = 1
+			'F' as STAT_ID,  --   START = 325  LEN = 1
 			SPACE(1) AS CHNG_ID,  --   START = 326  LEN = 1
 			SPACE(1) AS RECON_IND ,  --   START = 327  LEN = 1
 			SPACE(3) AS APPR_ACCID ,  --   START = 328  LEN = 3
@@ -406,7 +406,7 @@ from
 			SPACE(4) AS EXCH_MINOR ,  --   START = 386  LEN = 4
 			SPACE(1) AS XORG_IND ,  --   START = 390  LEN = 1
 			SPACE(12) AS PROD_ID ,  -- FILLER8A (LEN2) + FILLER8B (LEN31)  START = 391  LEN = 12
-			left(A.CUST_ADDR_DC + '       ',7) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
+			left(A.CUST_ADDR_DC + '       ',8) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
 			SPACE(4) AS FEATURE ,  --   START = 411  LEN = 4
 			SPACE(2) AS FILLER ,  --   START = 415  LEN = 2
 			SPACE(12) AS FROM_PROD_ID ,  --   START = 417  LEN = 12
@@ -445,7 +445,7 @@ from
 			SPACE(6) AS ORDER_NBR ,  -- FILLER10  START = 583  LEN = 6
 			left(A.PRIME_CONTR_ID + '                              ',15) as CONTRACT,  -- START = 589  LEN = 15
 			SPACE(12) AS SERV_PROD_ID ,  --   START = 604  LEN = 12
-			left(right(A.INVC_ID,12)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
+			left(right(A.INVC_ID,7)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
 			SPACE(5) AS ISIC_CODE ,  --   START = 628  LEN = 5
 			SPACE(9) AS AGREE_REF_NBR ,  --START = 633  LEN = 9
 			COALESCE(IMAPSSTG.DBO.XX_GET_COST_TYPE_CD_UF(ACCT_ID),SPACE(3)) AS UNIT_OWN,  -- BRANCHOFCOWNR  START = 642  LEN = 3
@@ -513,8 +513,9 @@ from
 			REPLACE(CONVERT(VARCHAR(10),GETDATE(),3),'/','') as DATEOFLEDGERENTRYMANDATORY,  -- DATEOFLEDGERENTRYMANDATORY  START = 79  LEN = 6
 			right('000' + cast(month(GETDATE()) as varchar),2) as ACCOUNTINGMONTHLOCAL,  -- ACCOUNTINGMONTHLOCAL  START = 85  LEN = 2
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
-			--IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
+
 			-- DIFFERENCE BETWEEN TEXT VIEW AND ALL VIEW, 2 OF 3
+-- IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
 			     case when sum(B.SALES_TAX_AMT)*-1 < 0 then left(
           ltrim(
             cast(
@@ -535,7 +536,9 @@ from
             )
           ), 
           14
-      ) as AMOUNTLOCALCURRENCY,
+      )
+		 -- ) as AMOUNTLOCALCURRENCY, 
+		 as AMOUNTLOCALCURRENCY,
 
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
@@ -562,7 +565,7 @@ from
 			SPACE(2) AS TAI ,  --   START = 301  LEN = 2
 			SPACE(21) AS HQ_CONV_ACCT ,  -- FILLER6  START = 303  LEN = 21
 			SPACE(1) AS ITYP ,  -- INPUTTYPE  START = 324  LEN = 1
-			'F' as INPUTTYPE,  --   START = 325  LEN = 1
+			'F' as STAT_ID,  --   START = 325  LEN = 1
 			SPACE(1) AS CHNG_ID,  --   START = 326  LEN = 1
 			SPACE(1) AS RECON_IND ,  --   START = 327  LEN = 1
 			SPACE(3) AS APPR_ACCID ,  --   START = 328  LEN = 3
@@ -582,7 +585,7 @@ from
 			SPACE(4) AS EXCH_MINOR ,  --   START = 386  LEN = 4
 			SPACE(1) AS XORG_IND ,  --   START = 390  LEN = 1
 			SPACE(12) AS PROD_ID ,  -- FILLER8A (LEN2) + FILLER8B (LEN31)  START = 391  LEN = 12
-			left(A.CUST_ADDR_DC + '       ',7) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
+			left(A.CUST_ADDR_DC + '       ',8) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
 			SPACE(4) AS FEATURE ,  --   START = 411  LEN = 4
 			SPACE(2) AS FILLER ,  --   START = 415  LEN = 2
 			SPACE(12) AS FROM_PROD_ID ,  --   START = 417  LEN = 12
@@ -622,7 +625,7 @@ from
 			--left(A.PRIME_CONTR_ID + '                              ',15) as CONTRACT,  -- START = 589  LEN = 15
 			SPACE(15) AS CONTRACT, -- START = 589  LEN = 15                                                          BLANK FOR TAX?
 			SPACE(12) AS SERV_PROD_ID ,  --   START = 604  LEN = 12
-			left(right(A.INVC_ID,12)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
+			left(right(A.INVC_ID,7)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
 			SPACE(5) AS ISIC_CODE ,  --   START = 628  LEN = 5
 			SPACE(9) AS AGREE_REF_NBR ,  --START = 633  LEN = 9
 			COALESCE(IMAPSSTG.DBO.XX_GET_COST_TYPE_CD_UF(ACCT_ID),SPACE(3)) AS UNIT_OWN,  -- BRANCHOFCOWNR  START = 642  LEN = 3
@@ -710,8 +713,9 @@ from
 			REPLACE(CONVERT(VARCHAR(10),GETDATE(),3),'/','') as DATEOFLEDGERENTRYMANDATORY,  -- DATEOFLEDGERENTRYMANDATORY  START = 79  LEN = 6
 			right('000' + cast(month(GETDATE()) as varchar),2) as ACCOUNTINGMONTHLOCAL,  -- ACCOUNTINGMONTHLOCAL  START = 85  LEN = 2
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
-			---IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
+
 			-- DIFFERENCE BETWEEN TEXT VIEW AND ALL VIEW, 3 OF 3
+-- IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
 			     case when sum(B.BILLED_AMT - B.SALES_TAX_AMT)*-1 < 0 then left(
           ltrim(
             cast(
@@ -732,7 +736,9 @@ from
             )
           ), 
           14
-      ) as AMOUNTLOCALCURRENCY, 
+      )
+		 -- ) as AMOUNTLOCALCURRENCY, 
+		 as AMOUNTLOCALCURRENCY,
 
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
@@ -759,7 +765,7 @@ from
 			SPACE(2) AS TAI ,  --   START = 301  LEN = 2
 			SPACE(21) AS HQ_CONV_ACCT ,  -- FILLER6  START = 303  LEN = 21
 			SPACE(1) AS ITYP ,  -- INPUTTYPE  START = 324  LEN = 1
-			'F' as INPUTTYPE,  --   START = 325  LEN = 1
+			'F' as STAT_ID,  --   START = 325  LEN = 1
 			SPACE(1) AS CHNG_ID,  --   START = 326  LEN = 1
 			SPACE(1) AS RECON_IND ,  --   START = 327  LEN = 1
 			SPACE(3) AS APPR_ACCID ,  --   START = 328  LEN = 3
@@ -779,7 +785,7 @@ from
 			SPACE(4) AS EXCH_MINOR ,  --   START = 386  LEN = 4
 			SPACE(1) AS XORG_IND ,  --   START = 390  LEN = 1
 			SPACE(12) AS PROD_ID ,  -- FILLER8A (LEN2) + FILLER8B (LEN31)  START = 391  LEN = 12
-			left(A.CUST_ADDR_DC + '       ',7) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
+			left(A.CUST_ADDR_DC + '       ',8) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
 			SPACE(4) AS FEATURE ,  --   START = 411  LEN = 4
 			SPACE(2) AS FILLER ,  --   START = 415  LEN = 2
 			SPACE(12) AS FROM_PROD_ID ,  --   START = 417  LEN = 12
@@ -818,7 +824,7 @@ from
 			SPACE(6) AS ORDER_NBR ,  -- FILLER10  START = 583  LEN = 6
 			left(A.PRIME_CONTR_ID + '                              ',15) as CONTRACT,  -- START = 589  LEN = 15
 			SPACE(12) AS SERV_PROD_ID ,  --   START = 604  LEN = 12
-			left(right(A.INVC_ID,12)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
+			left(right(A.INVC_ID,7)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
 			SPACE(5) AS ISIC_CODE ,  --   START = 628  LEN = 5
 			SPACE(9) AS AGREE_REF_NBR ,  --START = 633  LEN = 9
 			COALESCE(IMAPSSTG.DBO.XX_GET_COST_TYPE_CD_UF(ACCT_ID),SPACE(3)) AS UNIT_OWN,  -- START = 642  LEN = 3
@@ -927,7 +933,7 @@ from
 	DATEOFLEDGERENTRYMANDATORY,
 	ACCOUNTINGMONTHLOCAL,
 	FMONTH,
-	cast(AMOUNTLOCALCURRENCY as bigint) as AMOUNTLOCALCURRENCY,
+	AMOUNTLOCALCURRENCY,
 	ZERO,
 	MTYP,
 	MMOD,
@@ -1060,9 +1066,9 @@ from
 			REPLACE(CONVERT(VARCHAR(10),GETDATE(),3),'/','') as DATEOFLEDGERENTRYMANDATORY,  -- DATEOFLEDGERENTRYMANDATORY  START = 79  LEN = 6
 			right('000' + cast(month(GETDATE()) as varchar),2) as ACCOUNTINGMONTHLOCAL,  -- ACCOUNTINGMONTHLOCAL  START = 85  LEN = 2
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
-			--IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
+			
 			-- this is the only difference between TEXT VIEW AND ALL VIEW, 1 OF 3
-
+-- IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
 		 case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(
           ltrim(
             cast(
@@ -1087,7 +1093,9 @@ from
             )
           ), 
           14
-         ) as AMOUNTLOCALCURRENCY, 
+         )
+		 -- ) as AMOUNTLOCALCURRENCY, 
+		 as AMOUNTLOCALCURRENCY,
 
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
@@ -1113,8 +1121,8 @@ from
 			SPACE(6) AS FRV_DATE6 ,  --   START = 295  LEN = 6
 			SPACE(2) AS TAI ,  --   START = 301  LEN = 2
 			SPACE(21) AS HQ_CONV_ACCT ,  -- FILLER6  START = 303  LEN = 21
-			'F' AS ITYP ,  -- INPUTTYPE  START = 324  LEN = 1
-			SPACE(1) AS STAT_ID,  --   START = 325  LEN = 1
+			SPACE(1) AS ITYP ,  -- INPUTTYPE  START = 324  LEN = 1
+			'F' as STAT_ID,  --   START = 325  LEN = 1
 			SPACE(1) AS CHNG_ID,  --   START = 326  LEN = 1
 			SPACE(1) AS RECON_IND ,  --   START = 327  LEN = 1
 			SPACE(3) AS APPR_ACCID ,  --   START = 328  LEN = 3
@@ -1134,7 +1142,7 @@ from
 			SPACE(4) AS EXCH_MINOR ,  --   START = 386  LEN = 4
 			SPACE(1) AS XORG_IND ,  --   START = 390  LEN = 1
 			SPACE(12) AS PROD_ID ,  -- FILLER8A (LEN2) + FILLER8B (LEN31)  START = 391  LEN = 12
-			left(A.CUST_ADDR_DC + '       ',7) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
+			left(A.CUST_ADDR_DC + '       ',8) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
 			SPACE(4) AS FEATURE ,  --   START = 411  LEN = 4
 			SPACE(2) AS FILLER ,  --   START = 415  LEN = 2
 			SPACE(12) AS FROM_PROD_ID ,  --   START = 417  LEN = 12
@@ -1173,7 +1181,7 @@ from
 			SPACE(6) AS ORDER_NBR ,  -- FILLER10  START = 583  LEN = 6
 			left(A.PRIME_CONTR_ID + '                              ',15) as CONTRACT,  -- START = 589  LEN = 15
 			SPACE(12) AS SERV_PROD_ID ,  --   START = 604  LEN = 12
-			left(right(A.INVC_ID,12)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
+			left(right(A.INVC_ID,7)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
 			SPACE(5) AS ISIC_CODE ,  --   START = 628  LEN = 5
 			SPACE(9) AS AGREE_REF_NBR ,  --START = 633  LEN = 9
 			--COALESCE(IMAPSSTG.DBO.XX_GET_COST_TYPE_CD_UF(ACCT_ID),SPACE(3)) AS UNIT_OWN,  -- BRANCHOFCOWNR  START = 642  LEN = 3
@@ -1242,8 +1250,9 @@ from
 			REPLACE(CONVERT(VARCHAR(10),GETDATE(),3),'/','') as DATEOFLEDGERENTRYMANDATORY,  -- DATEOFLEDGERENTRYMANDATORY  START = 79  LEN = 6
 			right('000' + cast(month(GETDATE()) as varchar),2) as ACCOUNTINGMONTHLOCAL,  -- ACCOUNTINGMONTHLOCAL  START = 85  LEN = 2
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
-			--IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
+			
 			-- DIFFERENCE BETWEEN TEXT VIEW AND ALL VIEW, 2 OF 3
+-- IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
 			     case when sum(B.SALES_TAX_AMT)*-1 < 0 then left(
           ltrim(
             cast(
@@ -1264,7 +1273,9 @@ from
             )
           ), 
           14
-      ) as AMOUNTLOCALCURRENCY,
+      )
+		 -- ) as AMOUNTLOCALCURRENCY, 
+		 as AMOUNTLOCALCURRENCY,
 
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
@@ -1291,7 +1302,7 @@ from
 			SPACE(2) AS TAI ,  --   START = 301  LEN = 2
 			SPACE(21) AS HQ_CONV_ACCT ,  -- FILLER6  START = 303  LEN = 21
 			SPACE(1) AS ITYP ,  -- INPUTTYPE  START = 324  LEN = 1
-			'F' as INPUTTYPE,  --   START = 325  LEN = 1
+			'F' as STAT_ID,  --   START = 325  LEN = 1
 			SPACE(1) AS CHNG_ID,  --   START = 326  LEN = 1
 			SPACE(1) AS RECON_IND ,  --   START = 327  LEN = 1
 			SPACE(3) AS APPR_ACCID ,  --   START = 328  LEN = 3
@@ -1311,7 +1322,7 @@ from
 			SPACE(4) AS EXCH_MINOR ,  --   START = 386  LEN = 4
 			SPACE(1) AS XORG_IND ,  --   START = 390  LEN = 1
 			SPACE(12) AS PROD_ID ,  -- FILLER8A (LEN2) + FILLER8B (LEN31)  START = 391  LEN = 12
-			left(A.CUST_ADDR_DC + '       ',7) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
+			left(A.CUST_ADDR_DC + '       ',8) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
 			SPACE(4) AS FEATURE ,  --   START = 411  LEN = 4
 			SPACE(2) AS FILLER ,  --   START = 415  LEN = 2
 			SPACE(12) AS FROM_PROD_ID ,  --   START = 417  LEN = 12
@@ -1351,7 +1362,7 @@ from
 			--left(A.PRIME_CONTR_ID + '                              ',15) as CONTRACT,  -- START = 589  LEN = 15
 			SPACE(15) AS CONTRACT, -- START = 589  LEN = 15                                                          BLANK FOR TAX?
 			SPACE(12) AS SERV_PROD_ID ,  --   START = 604  LEN = 12
-			left(right(A.INVC_ID,12)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
+			left(right(A.INVC_ID,7)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
 			SPACE(5) AS ISIC_CODE ,  --   START = 628  LEN = 5
 			SPACE(9) AS AGREE_REF_NBR ,  --START = 633  LEN = 9
 			COALESCE(IMAPSSTG.DBO.XX_GET_COST_TYPE_CD_UF(ACCT_ID),SPACE(3)) AS UNIT_OWN,  -- BRANCHOFCOWNR  START = 642  LEN = 3
@@ -1439,8 +1450,8 @@ from
 			REPLACE(CONVERT(VARCHAR(10),GETDATE(),3),'/','') as DATEOFLEDGERENTRYMANDATORY,  -- DATEOFLEDGERENTRYMANDATORY  START = 79  LEN = 6
 			right('000' + cast(month(GETDATE()) as varchar),2) as ACCOUNTINGMONTHLOCAL,  -- ACCOUNTINGMONTHLOCAL  START = 85  LEN = 2
 			right('000' + cast(month(GETDATE()) as varchar),2) as FMONTH,  -- FILLER3  START = 87  LEN = 2
-			---IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(case when AVG(a.INVC_AMT) - AVG(a.CSP_AMT) < 0 then left(ltrim(cast(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint) as varchar(25))),1) else '0' end  + right('000000000000000' + ltrim(cast(abs(cast(AVG(A.INVC_AMT*100) as bigint)- cast(AVG(CSP_AMT*100) as bigint)) as varchar(25))),14)) as AMOUNTLOCALCURRENCY,  -- AMOUNTLOCALCURRENCY  START = 89  LEN = 15
 			-- DIFFERENCE BETWEEN TEXT VIEW AND ALL VIEW, 3 OF 3
+-- IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
 			     case when sum(B.BILLED_AMT - B.SALES_TAX_AMT)*-1 < 0 then left(
           ltrim(
             cast(
@@ -1461,7 +1472,9 @@ from
             )
           ), 
           14
-      ) as AMOUNTLOCALCURRENCY, 
+      ) 
+		 -- ) as AMOUNTLOCALCURRENCY, 
+		 as AMOUNTLOCALCURRENCY,
 
 			'000000000000000' as ZERO,  -- ZERO  START = 104  LEN = 15
 			SPACE(4) AS MTYP ,  --   START = 119  LEN = 4
@@ -1488,7 +1501,7 @@ from
 			SPACE(2) AS TAI ,  --   START = 301  LEN = 2
 			SPACE(21) AS HQ_CONV_ACCT ,  -- FILLER6  START = 303  LEN = 21
 			SPACE(1) AS ITYP ,  -- INPUTTYPE  START = 324  LEN = 1
-			'F' as INPUTTYPE,  --   START = 325  LEN = 1
+			'F' as STAT_ID,  --   START = 325  LEN = 1
 			SPACE(1) AS CHNG_ID,  --   START = 326  LEN = 1
 			SPACE(1) AS RECON_IND ,  --   START = 327  LEN = 1
 			SPACE(3) AS APPR_ACCID ,  --   START = 328  LEN = 3
@@ -1508,7 +1521,7 @@ from
 			SPACE(4) AS EXCH_MINOR ,  --   START = 386  LEN = 4
 			SPACE(1) AS XORG_IND ,  --   START = 390  LEN = 1
 			SPACE(12) AS PROD_ID ,  -- FILLER8A (LEN2) + FILLER8B (LEN31)  START = 391  LEN = 12
-			left(A.CUST_ADDR_DC + '       ',7) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
+			left(A.CUST_ADDR_DC + '       ',8) as CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT,  -- CUSTOMERNUMBERSECONDARYAUDITMUSTBEADIGIT + 1 FROM FILLER  START = 403  LEN = 8
 			SPACE(4) AS FEATURE ,  --   START = 411  LEN = 4
 			SPACE(2) AS FILLER ,  --   START = 415  LEN = 2
 			SPACE(12) AS FROM_PROD_ID ,  --   START = 417  LEN = 12
@@ -1547,7 +1560,7 @@ from
 			SPACE(6) AS ORDER_NBR ,  -- FILLER10  START = 583  LEN = 6
 			left(A.PRIME_CONTR_ID + '                              ',15) as CONTRACT,  -- START = 589  LEN = 15
 			SPACE(12) AS SERV_PROD_ID ,  --   START = 604  LEN = 12
-			left(right(A.INVC_ID,12)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
+			left(right(A.INVC_ID,7)+'                ',12) as OEM_PROD_ID,  --   START = 616  LEN = 12
 			SPACE(5) AS ISIC_CODE ,  --   START = 628  LEN = 5
 			SPACE(9) AS AGREE_REF_NBR ,  --START = 633  LEN = 9
 			COALESCE(IMAPSSTG.DBO.XX_GET_COST_TYPE_CD_UF(ACCT_ID),SPACE(3)) AS UNIT_OWN,  -- START = 642  LEN = 3
@@ -1635,7 +1648,7 @@ group by
 	DATEOFLEDGERENTRYMANDATORY,
 	ACCOUNTINGMONTHLOCAL,
 	FMONTH,
-	cast(AMOUNTLOCALCURRENCY as bigint),
+	AMOUNTLOCALCURRENCY,
 	ZERO,
 	MTYP,
 	MMOD,
