@@ -1,6 +1,6 @@
 USE [IMAPSStg]
 GO
-
+ 
 /****** Object:  View [dbo].[XX_CLS_999_FILE_TEXT_VW]    Script Date: 5/11/2022 6:50:37 PM ******/
 DROP VIEW [dbo].[XX_CLS_999_FILE_TEXT_VW]
 GO
