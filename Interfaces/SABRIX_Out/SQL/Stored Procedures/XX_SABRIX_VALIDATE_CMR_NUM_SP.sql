@@ -1,24 +1,16 @@
-USE IMAPSSTG
+USE [IMAPSStg]
+GO
+
+/****** Object:  StoredProcedure [dbo].[XX_SABRIX_VALIDATE_CMR_NUM_SP]    Script Date: 8/23/2022 12:08:49 PM ******/
 DROP PROCEDURE [dbo].[XX_SABRIX_VALIDATE_CMR_NUM_SP]
 GO
-SET ANSI_NULLS ON 
+
+/****** Object:  StoredProcedure [dbo].[XX_SABRIX_VALIDATE_CMR_NUM_SP]    Script Date: 8/23/2022 12:08:49 PM ******/
+SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
 
 
 CREATE PROCEDURE [dbo].[XX_SABRIX_VALIDATE_CMR_NUM_SP]
@@ -59,12 +51,189 @@ DECLARE @ERROR varchar(250),
 PRINT '  *~^'
 PRINT '*~^**************************************************************************************************************'
 PRINT '*~^                                                                                                             *'
-PRINT '*~^                        HERE IN XX_SABRIX_VALIDATE_CRM_NUM_SP.sql'
+PRINT '*~^                        HERE IN XX_SABRIX_VALIDATE_CMR_NUM_SP.sql'
 PRINT '*~^                                                                                                             *'
 PRINT '*~^**************************************************************************************************************'
 PRINT '  *~^'
 -- *~^
-SET @SP_NAME = 'XX_SABRIX_VALIDATE_CRM_NUM_SP'
+SET @SP_NAME = 'XX_SABRIX_VALIDATE_CMR_NUM_SP'
+
+-- FSSTIMAPS-69
+-- LOAD CMR TABLE WITH MISSING FEDERAL AND COMMERCIAL CUSTOMERS
+
+DECLARE @FCNT INTEGER, @CCNT INTEGER, @TCNT INTEGER
+
+PRINT 'DELETING RECORDS FROM NEW CMR STAGE TABLE'		
+
+DELETE FROM IMAPSSTG.DBO.XX_IMAPS_C360
+
+PRINT 'INSERT ANY MISSING FEDERAL CUSTOMERS FIRST'
+
+INSERT INTO IMAPSSTG.DBO.XX_IMAPS_C360
+SELECT 
+   I_CUST_ENTITY,
+   I_CO,
+   I_ENT,
+   N_ABBREV,
+   I_CUST_ADDR_TYPE,
+   ADDR1,
+   ADDR2,
+   ADDR3,
+   ADDR4,
+   N_CITY,
+   N_ST,
+   C_ZIP,
+   SCC_ST,
+   C_SCC_CNTY,
+   C_SCC_CITY,
+   I_MKTG_OFF,
+   A_LEVEL_1_VALUE,
+   PRIMARY_SVC_OFF,
+   C_ICC_TE,
+   C_ICC_TAX_CLASS,
+   C_ESTAB_SIC,
+   I_INDUS_DEPT,
+   I_INDUS_CLASS,
+   C_NAP,
+   I_TYPE_CUST_1,
+   F_GENRL_SVC_ADMIN,
+   F_OCL,
+   XMIT_DATE
+FROM C360..SAPR3.V_CI_USCMR_IMAPS
+WHERE I_CUST_ENTITY IN
+(SELECT SABRIX.CUST_ADDR_DC
+FROM 
+dbo.XX_SABRIX_INV_OUT_SUM AS SABRIX
+LEFT OUTER JOIN 
+dbo.XX_IMAPS_CMR_STG AS cmr
+ON 
+RIGHT('0000000'+CAST(I_CUST_ENTITY as varchar), 7)  = SABRIX.CUST_ADDR_DC
+WHERE 
+cmr.I_CUST_ENTITY IS NULL
+GROUP BY SABRIX.CUST_ADDR_DC)
+ 
+SELECT @FCNT = COUNT(*) FROM IMAPSSTG.DBO.XX_IMAPS_C360
+
+PRINT CAST(@FCNT AS VARCHAR(10)) + ' FEDERAL RECORDS INSERTED'
+
+INSERT INTO IMAPSSTG.DBO.XX_IMAPS_C360
+SELECT 
+   I_CUST_ENTITY,
+   I_CO,
+   I_ENT,
+   N_ABBREV,
+   I_CUST_ADDR_TYPE,
+   ADDR1,
+   ADDR2,
+   ADDR3,
+   ADDR4,
+   N_CITY,
+   N_ST,
+   C_ZIP,
+   SCC_ST,
+   C_SCC_CNTY,
+   C_SCC_CITY,
+   I_MKTG_OFF,
+   A_LEVEL_1_VALUE,
+   PRIMARY_SVC_OFF,
+   C_ICC_TE,
+   C_ICC_TAX_CLASS,
+   C_ESTAB_SIC,
+   I_INDUS_DEPT,
+   I_INDUS_CLASS,
+   C_NAP,
+   I_TYPE_CUST_1,
+   F_GENRL_SVC_ADMIN,
+   F_OCL,
+   XMIT_DATE
+FROM C360..SAPR3.V_CI_USCMR_IMAPS_NONFED
+WHERE I_CUST_ENTITY_INT IN
+(SELECT SABRIX.CUST_ADDR_DC
+FROM 
+dbo.XX_SABRIX_INV_OUT_SUM AS SABRIX
+LEFT OUTER JOIN 
+dbo.XX_IMAPS_CMR_STG AS cmr
+ON 
+RIGHT('0000000'+CAST(I_CUST_ENTITY as varchar), 7)  = SABRIX.CUST_ADDR_DC
+WHERE 
+cmr.I_CUST_ENTITY IS NULL
+GROUP BY SABRIX.CUST_ADDR_DC)
+
+SELECT @TCNT = COUNT(*) FROM IMAPSSTG.DBO.XX_IMAPS_C360
+
+SET @CCNT = @TCNT - @FCNT
+
+PRINT CAST(@CCNT AS VARCHAR(10)) + ' COMMERCIAL RECORDS INSERTED'
+
+IF @TCNT>0
+	BEGIN
+	INSERT INTO IMAPSSTG.DBO.XX_IMAPS_CMR_STG
+		(I_CUST_ENTITY,
+		I_CO,
+		I_ENT,
+		N_ABBREV,
+		I_CUST_ADDR_TYPE,
+		T_ADDR_LINE_1,
+		T_ADDR_LINE_2,
+		T_ADDR_LINE_3,
+		T_ADDR_LINE_4,
+		N_CITY,
+		N_ST,
+		C_ZIP,
+		C_SCC_ST,
+		C_SCC_CNTY,
+		C_SCC_CITY,
+		I_MKTG_OFF,
+		A_LEVEL_1_VALUE,
+		I_PRIMRY_SVC_OFF,
+		C_ICC_TE,
+		C_ICC_TAX_CLASS,
+		C_ESTAB_SIC,
+		I_INDUS_DEPT,
+		I_INDUS_CLASS,
+		C_NAP,
+		I_TYPE_CUST_1,
+		F_GENRL_SVC_ADMIN,
+		F_OCL)
+		SELECT --TOP 5 
+		   CAST(I_CUST_ENTITY AS INT),
+		   CAST(I_CO AS INT),
+		   CAST(I_ENT AS INT),
+		   LEFT(LTRIM(N_ABBREV),15),
+		   LEFT(LTRIM(I_CUST_ADDR_TYPE),1),
+		   ADDR_LINE_1,
+		   ADDR_LINE_2,
+		   ADDR_LINE_3,
+		   ADDR_LINE_4,
+		   LEFT(LTRIM(N_CITY),13),
+		   LEFT(LTRIM(N_ST),2),
+		   CASE
+				WHEN  ISNUMERIC(C_ZIP) = 0 THEN 0
+				ELSE  CAST(C_ZIP AS INT)
+		   END AS I_ZIP,
+		   C_SCC_ST,
+		   C_SCC_CNTY,
+		   C_SCC_CITY,
+		   LEFT(LTRIM(I_MKTG_OFF),3),
+		   A_LEVEL_1_VALUE,
+		   LEFT(LTRIM(I_PRIMRY_SVC_OFF),3),
+		   C_ICC_TE,
+		   C_ICC_TAX_CLASS,
+		   LEFT(LTRIM(C_ESTAB_SIC),4),
+		   LEFT(LTRIM(I_INDUS_DEPT),1),
+		   LEFT(LTRIM(I_INDUS_CLASS),1),
+		   C_NAP,
+		   LEFT(LTRIM(I_TYPE_CUST_1),1),
+		   F_GENRL_SVC_ADMIN,
+		   F_OCL
+		  -- XMIT_DATE
+		FROM  -- C360..SAPR3.V_CI_USCMR_IMAPS
+		IMAPSSTG.DBO.XX_IMAPS_C360
+		WHERE 1=1;
+		END
+
+PRINT 'CMR IS UP TO DATE'		
+
 
 --DR7649
 --fix strange C_CITY issue in CMR staging table
@@ -185,7 +354,11 @@ dbo.XX_SABRIX_INV_OUT_SUM A
 join imaps.deltek.cust_addr c 
  on a.cust_addr_dc = c.ADDR_DC and a.CUST_ID = c.cust_id
 WHERE 
-coalesce(ltrim(rtrim(country_cd)),'USA')='USA'
+C.MAIL_STATE_DC IS NOT NULL
+AND
+(--USA with bad zipcode
+--coalesce(ltrim(rtrim(country_cd)),'USA')='USA'
+ltrim(rtrim(country_cd))='USA'
 AND
 (coalesce(len(   (SELECT CAST(CAST((
         SELECT SUBSTRING(postal_cd, Number, 1)
@@ -195,6 +368,8 @@ AND
             LIKE '[0-9]' FOR XML Path(''))
     AS xml) AS varchar(MAX)))),0) not IN (0, 5,9)
     )
+)
+
 
     
 IF @@ERROR <> 0 GOTO ERROR
@@ -209,10 +384,12 @@ AND STATUS_RECORD_NUM IN (SELECT STATUS_RECORD_NUM FROM IMAPSSTG.DBO.XX_IMAPS_IN
 
 IF @@ERROR <> 0 GOTO ERROR
 
+
+
 PRINT '  *~^'
 PRINT '*~^**************************************************************************************************************'
 PRINT '*~^                                                                                                             *'
-PRINT '*~^                        END OF XX_SABRIX_VALIDATE_CRM_NUM_SP.sql'
+PRINT '*~^                        END OF XX_SABRIX_VALIDATE_CMR_NUM_SP.sql'
 PRINT '*~^                                                                                                             *'
 PRINT '*~^**************************************************************************************************************'
 PRINT '  *~^'
@@ -241,5 +418,5 @@ END
  
 
 GO
- 
+
 
