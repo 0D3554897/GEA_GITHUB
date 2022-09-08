@@ -1,17 +1,16 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  View [dbo].[XX_CLS_999_FILE_VW]    Script Date: 9/8/2022 11:59:27 AM ******/
+/****** Object:  View [dbo].[XX_CLS_999_FILE_VW]    Script Date: 5/11/2022 11:36:17 AM ******/
 DROP VIEW [dbo].[XX_CLS_999_FILE_VW]
 GO
 
-/****** Object:  View [dbo].[XX_CLS_999_FILE_VW]    Script Date: 09/07/22 1:29:02 PM ******/
+/****** Object:  View [dbo].[XX_CLS_999_FILE_VW]    Script Date: 5/11/2022 11:36:17 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER OFF
 GO
-
 
 
 /* 
@@ -99,9 +98,9 @@ Select
 , '0000' as File_Sequence_No
 , left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_TOLI')+REPLICATE(CHAR(160),1),1) as Type_of_Ledger_IndicatoR -- trailing to 1
 , DIVISION as Division
-, left(coalesce(CLS_MAJOR,' ') + REPLICATE(CHAR(160),3),3) as Major  -- to 3 trailing spaces FIXED
-, left(coalesce(CLS_MINOR,' ') + REPLICATE(CHAR(160),4),4) as Minor   -- to 4 trailing spaces FIXED
-, left(coalesce(CLS_SUB_MINOR,' ') + REPLICATE(CHAR(160),4),4)  as Sub_Minor  -- to 4 trailing spaces FIXED
+, left(coalesce(CLS_MAJOR,'') + REPLICATE(CHAR(160),3),3) as Major  -- to 3 trailing spaces FIXED
+, left(coalesce(CLS_MINOR,'') + REPLICATE(CHAR(160),4),4) as Minor   -- to 4 trailing spaces FIXED
+, left(coalesce(CLS_SUB_MINOR,'') + REPLICATE(CHAR(160),4),4)  as Sub_Minor  -- to 4 trailing spaces FIXED
 , left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_LERU_NUM') + REPLICATE(CHAR(160),6),6) as Ledger_Reporting_Unit  -- trailing to 6
 ,REPLICATE(CHAR(160),1) AS PCY_IND ,  --   START = 33  LEN = 1
 REPLICATE(CHAR(160),15) AS TASK ,  --   START = 34  LEN = 15
@@ -112,14 +111,14 @@ REPLICATE(CHAR(160),4) AS CONMIN ,  --   START = 55  LEN = 4
 REPLICATE(CHAR(160),2) AS BK  -- FILLER1  START = 59  LEN = 2
  ,left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_LEDGER_SOURCE_CD')+ REPLICATE(CHAR(160),3),3) as Ledger_Source -- trailingto 3 FIX 20181016
 , left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_ACCOUNTANT_ID')+ REPLICATE(CHAR(160),3),3)  as Accountant_ID   -- trailingto 3 FIX 20181016
-, left(Coalesce(VOUCHER_NUM,' ') + REPLICATE(CHAR(160),7),7) as Index_Number -- trailing spaces to 7
+, left(Coalesce(VOUCHER_NUM,'') + REPLICATE(CHAR(160),7),7) as Index_Number -- trailing spaces to 7
 , REPLICATE(CHAR(160),5)  as Pre_Index_Number  -- 5 blank spaces
 , REPLACE(CONVERT(VARCHAR(10), cast(clslog.LEDGER_ENTRY_DATE as date), 3),'/','')   as Date_Of_Ledger_Entry -- format DDMMYY FIXED
-, right( '00' + coalesce(ltrim(rtrim(MONTH_SENT)),''),2) as Accounting_Month_Local  --left zeros to 2
-, REPLICATE(CHAR(160),2) as Accounting_Month_Fiscal    -- Filler(2)
+, right( '00' + coalesce(MONTH_SENT,''),2) as Accounting_Month_Local  --left zeros to 2
+, REPLICATE(CHAR(160),3) as Accounting_Month_Fiscal    -- Filler(2)
 ,  right('000000000000000' + rtrim(ltrim(replace(imapsstg.dbo.xx_full_overpunch_uf(DOLLAR_AMT),'.',''))),15) as Amount_Local_Currency  --GetPIC(CLS_rs.getString("DOLLAR_AMT"), 13, 2) PENDING, REPLICATE(CHAR(160),15)  as Amount_US_Dollars --Filler(15)
 ,REPLICATE(CHAR(160),15) as Amount_US_Dollars
-, left(isnull(MACHINE_TYPE_CD,' ') + REPLICATE(CHAR(160),4), 4) as Machine_Type  --TSPC(CLS_rs.getString("MACHINE_TYPE_CD"), 4)
+, left(isnull(MACHINE_TYPE_CD,'') + REPLICATE(CHAR(160),4), 4) as Machine_Type  --TSPC(CLS_rs.getString("MACHINE_TYPE_CD"), 4)
 , REPLICATE(CHAR(160),3)  as Machine_Model --Filler(3)
 , REPLICATE(CHAR(160),12)  as Invoice_Number -- Filler(10)
 , left('IMAPS ' + right( '0000' + coalesce(clslog.FY_SENT,''),4) + right( '00' + coalesce(clslog.MONTH_SENT,''),2) + REPLICATE(CHAR(160),1) + coalesce(IMAPS_ACCT,'') + REPLICATE(CHAR(160),30),30)  as Description_1 --TSPC( "IMAPS " + Accounting_Year + Accounting_Month_Local + " " + IMAPS_ACCT , 30) trailing  spaces to 30 FIXED
@@ -135,13 +134,13 @@ REPLICATE(CHAR(160),3) AS FMAJ ,  --   START = 268  LEN = 3
 REPLICATE(CHAR(160),4) AS FMIN ,  --   START = 271  LEN = 4
  left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_TOLI') + REPLICATE(CHAR(160),1), 1)  as Reference_Type_Of_Ledger_Ind --trailing to 1 FIXED
 , division as Reference_Division
-, left(coalesce(CLS_MAJOR,' ') + REPLICATE(CHAR(160),3),3)  as Reference_Major -- to 3 trailing spaces FIXED
-, left(coalesce(CLS_MINOR,' ') + REPLICATE(CHAR(160),4),4)  as Reference_Minor -- to 4 trailing spaces  FIXED
-, left(coalesce(CLS_SUB_MINOR,' ') + REPLICATE(CHAR(160),4),4)  as Reference_Sub_Minor --to 4 trailing spaces  FIXED
+, left(coalesce(CLS_MAJOR,'') + REPLICATE(CHAR(160),3),3)  as Reference_Major -- to 3 trailing spaces FIXED
+, left(coalesce(CLS_MINOR,'') + REPLICATE(CHAR(160),4),4)  as Reference_Minor -- to 4 trailing spaces  FIXED
+, left(coalesce(CLS_SUB_MINOR,'') + REPLICATE(CHAR(160),4),4)  as Reference_Sub_Minor --to 4 trailing spaces  FIXED
 , left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_LERU_NUM') + REPLICATE(CHAR(160),6),6) as Reference_LERU -- trailing to 6
 ,REPLICATE(CHAR(160),6) AS FRV_DATE6 ,  --   START = 295  LEN = 6
 REPLICATE(CHAR(160),2) AS TAI ,  --   START = 301  LEN = 2
- left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_LEDGER_CD') + REPLICATE(CHAR(160),21),21)  as HQ_Conversion_LC --trailing to2
+ left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_LEDGER_CD') + REPLICATE(CHAR(160),2),2)  as HQ_Conversion_LC --trailing to2
 , left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_INPUT_TYPE_ID') + REPLICATE(CHAR(160),1),1)  as Input_Type_Identifier -- parameter INPUT_TYPE_ID trailing  to 1
 ,REPLICATE(CHAR(160),1) AS STAT_ID,  --  START =325  LEN = 1
 REPLICATE(CHAR(160),1) AS CHNG_ID,  --   START = 326  LEN = 1
@@ -157,18 +156,18 @@ REPLICATE(CHAR(160),1) AS YTD_IND ,  --   START = 355  LEN = 1
  left((select parameter_value from IMAPSSTG.dbo.XX_PROCESSING_PARAMETERS where parameter_name ='16_FULFILLMENT_CHANNEL_CD') + REPLICATE(CHAR(160),3), 3) as  Fulfillment_Channel --parameter 16_FULFILLMENT_CHANNEL_CD trailing 3
 ,REPLICATE(CHAR(160),7) AS PID ,  --   START = 359  LEN = 7
 REPLICATE(CHAR(160),2) AS REVAL_IND ,  -- FILLER7  START = 366  LEN = 2
-  left(coalesce(BUSINESS_AREA,' ') + REPLICATE(CHAR(160),4),4) as Marketing_Division -- trailing 2 FIXED
+  left(coalesce(BUSINESS_AREA,'') + REPLICATE(CHAR(160),4),4) as Marketing_Division -- trailing 2 FIXED
 ,REPLICATE(CHAR(160),2) AS SOC,  --   START = 372  LEN = 2
-  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,' ')) + REPLICATE(CHAR(160),12),12)  as Part_Number  -- trailing 12 FIXED
+  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,'')) + REPLICATE(CHAR(160),12),12)  as Part_Number  -- trailing 12 FIXED
 ,  REPLICATE(CHAR(160),4) as  Exchange_Minor -- Filler(4)
 ,  REPLICATE(CHAR(160),1)  as X_Org_Indicator -- Filler(1)
-,  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,' ')) + REPLICATE(CHAR(160),12),12)  as Product_ID  -- trailing 12 FIXED
-,  left(coalesce(ltrim(rtrim(CUSTOMER_NUM)),' ')+ REPLICATE(CHAR(160),8),8) as Customer_Number  -- trailing 7 FIXED
+,  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,'')) + REPLICATE(CHAR(160),12),12)  as Product_ID  -- trailing 12 FIXED
+,  left(coalesce(CUSTOMER_NUM,'')+ REPLICATE(CHAR(160),8),8) as Customer_Number  -- trailing 7 FIXED
 ,  REPLICATE(CHAR(160),4)  as Feature_Number  -- Filler(4)
 ,  REPLICATE(CHAR(160),2)  as Filler_1  -- Filler(1)
-,  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,' ')) + REPLICATE(CHAR(160),12),12) as From_Product_ID --if MACHINE_TYPE_CD is blank then PRODUCT_ID else MACHINE_TYPE_CDto trailing 12 FIXED
+,  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,'')) + REPLICATE(CHAR(160),12),12) as From_Product_ID --if MACHINE_TYPE_CD is blank then PRODUCT_ID else MACHINE_TYPE_CDto trailing 12 FIXED
 ,  REPLICATE(CHAR(160),15)  as Quantity  -- Filler(15)
-,  left(coalesce(MARKETING_AREA,' ')+ REPLICATE(CHAR(160),2),2) as Marketing_Area  -- trailing to 2 FIXED
+,  left(coalesce(MARKETING_AREA,'')+ REPLICATE(CHAR(160),2),2) as Marketing_Area  -- trailing to 2 FIXED
 ,REPLICATE(CHAR(160),12) AS MES_NBR_RPQ ,  --   START = 446  LEN = 12
 REPLICATE(CHAR(160),3) AS RECV_CTY ,  --   START = 458  LEN = 3
 REPLICATE(CHAR(160),2) AS CORP_USE1 ,  --   START = 461  LEN = 2
@@ -182,7 +181,7 @@ REPLICATE(CHAR(160),8) AS CORP_USE8 ,  --   START = 491  LEN = 8
 REPLICATE(CHAR(160),19) AS CORP_USE9_CORP_USE10,  --   START = 499  LEN = 19
 REPLICATE(CHAR(160),3) AS REV_TYPE ,  --   START = 518  LEN = 3
 REPLICATE(CHAR(160),3) AS REASON ,  --   START = 521  LEN = 3
-right(REPLICATE(CHAR(160),2) + COALESCE(IMAPSSTG.DBO.XX_GET_CONTRACT_TYPE_CD_UF(IMAPS_PROJ_ID),REPLICATE(CHAR(160),2)),2) AS CONTR_TYPE,  --   START = 524  LEN = 2
+COALESCE(IMAPSSTG.DBO.XX_GET_CONTRACT_TYPE_CD_UF(IMAPS_PROJ_ID),REPLICATE(CHAR(160),2)) AS CONTR_TYPE ,  --   START = 524  LEN = 2
 REPLICATE(CHAR(160),2) AS DOCU_TYPE ,  --   START = 526  LEN = 2
 REPLICATE(CHAR(160),3) AS OFF_CODE ,  --   START = 528  LEN = 3
 REPLICATE(CHAR(160),1) AS AGREE_TYPE ,  --   START = 531  LEN = 1
@@ -197,19 +196,19 @@ REPLICATE(CHAR(160),3) AS ACCT_GRP ,  --   START = 549  LEN = 3
 REPLICATE(CHAR(160),1) AS ACCT_TYPE ,  --   START = 552  LEN = 1
 REPLICATE(CHAR(160),2) AS ACCT_SEQ_NBR ,  --   START = 553  LEN = 2
 REPLICATE(CHAR(160),9) AS SERIAL_NBR ,  --   START = 555  LEN = 9
-  left(isnull(IGS_PROJ,'  ') + REPLICATE(CHAR(160),7),7) as IGS_Project_No  --trailing to 7
+  left(isnull(IGS_PROJ,'') + REPLICATE(CHAR(160),7),7) as IGS_Project_No  --trailing to 7
 ,REPLICATE(CHAR(160),12) AS DLVY_NOTE_NBR ,  --   START = 571  LEN = 12
 REPLICATE(CHAR(160),6) AS ORDER_NBR ,  -- FILLER10  START = 583  LEN = 6
-  left(isnull(CONTRACT_NUM,' ') + REPLICATE(CHAR(160),15),15) as Contract_Number  -- trailing to 15
-,  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,' ')) + REPLICATE(CHAR(160),12),12) as Service_Product_ID  -- FIXED
-,  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,' ')) + REPLICATE(CHAR(160),12),12) as OEM_Product_ID -- FIXED
+  left(isnull(CONTRACT_NUM,'') + REPLICATE(CHAR(160),15),15) as Contract_Number  -- trailing to 15
+,  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,'')) + REPLICATE(CHAR(160),12),12) as Service_Product_ID  -- FIXED
+,  left(coalesce(MACHINE_TYPE_CD, coalesce(PRODUCT_ID,'')) + REPLICATE(CHAR(160),12),12) as OEM_Product_ID -- FIXED
 ,REPLICATE(CHAR(160),5) AS ISIC_CODE ,  --   START = 628  LEN = 5
 REPLICATE(CHAR(160),9) AS AGREE_REF_NBR ,  --START = 633  LEN = 9
-  left(isnull(MARKETING_OFFICE,REPLICATE(CHAR(160),3)) + REPLICATE(CHAR(160),3),3) as Marketing_Branch_Office   --trailing to 3
+  left(isnull(MARKETING_OFFICE,'') + REPLICATE(CHAR(160),3),3) as Marketing_Branch_Office   --trailing to 3
 ,REPLICATE(CHAR(160),3) AS UNIT_BIL ,  --   START = 645  LEN = 3
 REPLICATE(CHAR(160),3) AS UNIT_USER ,  --   START = 648  LEN = 3
 REPLICATE(CHAR(160),8) AS CUST_NBR_USER,  --   START = 651  LEN = 8
-left(coalesce(ltrim(rtrim(CUSTOMER_NUM)),' ') + REPLICATE(CHAR(160),8),8) AS CUST_NBR_BIL ,  --   START = 659  LEN = 8
+left(CUSTOMER_NUM + REPLICATE(CHAR(160),8),8) AS CUST_NBR_BIL ,  --   START = 659  LEN = 8
 REPLICATE(CHAR(160),8) AS CUST_NBR_OWNER ,  --   START = 667  LEN = 8
 REPLICATE(CHAR(160),8) AS CUST_NBR_PAY ,  --   START = 675  LEN = 8
 REPLICATE(CHAR(160),7) as INV_NBR,  --   START = 683  LEN = 7
@@ -220,11 +219,11 @@ REPLICATE(CHAR(160),10) AS PER_START ,  --   START = 720  LEN = 10
 REPLICATE(CHAR(160),10) AS PER_END ,  --   START = 730  LEN = 10
 REPLICATE(CHAR(160),3) AS ACCT_BRANCH ,  --   START = 740  LEN = 3
 REPLICATE(CHAR(160),4) AS ACCT_DEPT ,  --   START = 743  LEN = 4
-left(isnull(CONSOLIDATED_REV_BRANCH_OFFICE,REPLICATE(CHAR(160),3)) + REPLICATE(CHAR(160),3),3) as Consolidated_Revenue_BO  -- trailing to 3
+left(isnull(CONSOLIDATED_REV_BRANCH_OFFICE,'') + REPLICATE(CHAR(160),3),3) as Consolidated_Revenue_BO  -- trailing to 3
 ,REPLICATE(CHAR(160),250) AS COUNTRY_EXT   -- FILLER17  START = 750  LEN = 250
 from IMAPSSTG.dbo.XX_CLS_DOWN, 
 (select top 1 * from IMAPSSTG.dbo.XX_CLS_DOWN_LOG order by status_record_num desc) clslog
 
-
 GO
+
 
