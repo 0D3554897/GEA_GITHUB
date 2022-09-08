@@ -1,0 +1,13 @@
+{
+  "settingsInheritedFrom": "whitesource-config/whitesource-config@master",
+  "scanSettings": {
+    "baseBranches": []
+  },
+  "checkRunSettings": {
+    "displayMode": "diff",
+    "vulnerableCheckRunConclusionLevel": "failure"
+  },
+  "issueSettings": {
+    "minSeverityLevel": "HIGH" // can be MEDIUM, LOW or NONE
+  }
+}
