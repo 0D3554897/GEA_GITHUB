@@ -12,8 +12,6 @@ GO
 SET QUOTED_IDENTIFIER OFF
 GO
 
-
-
 CREATE FUNCTION [dbo].[XX_GET_OEM_EXP_VALUES_BY_DIV_UF](@in_imaps_acct varchar(8), @in_div varchar(2), @in_which varchar(3))  
 RETURNS varchar(50) AS  
 BEGIN
