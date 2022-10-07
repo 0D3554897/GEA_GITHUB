@@ -1,11 +1,11 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[XX_GET_OEM_REV_VALUES_BY_DIV_UF]    Script Date: 9/16/2022 10:00:42 AM ******/
-DROP FUNCTION [dbo].[XX_GET_OEM_REV_VALUES_BY_DIV_UF]
+/****** Object:  UserDefinedFunction [dbo].[XX_GET_REV_PROJ_FROM_PROJ_UF]    Script Date: 9/16/2022 10:00:42 AM ******/
+DROP FUNCTION [dbo].[XX_GET_REV_PROJ_FROM_PROJ_UF]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[XX_GET_OEM_REV_VALUES_BY_DIV_UF]    Script Date: 9/16/2022 10:00:42 AM ******/
+/****** Object:  UserDefinedFunction [dbo].[XX_GET_REV_PROJ_FROM_PROJ_UF]    Script Date: 9/16/2022 10:00:42 AM ******/
 SET ANSI_NULLS OFF
 GO
 
@@ -13,18 +13,18 @@ SET QUOTED_IDENTIFIER OFF
 GO
 
 
-CREATE FUNCTION [dbo].[XX_GET_OEM_REV_VALUES_BY_DIV_UF](@in_proj_id varchar(50))  
+CREATE FUNCTION [dbo].[XX_GET_REV_PROJ_FROM_PROJ_UF](@in_proj_id varchar(50))  
 RETURNS varchar(50) AS  
 BEGIN
 /************************************************************************************************  
-Name:       	[XX_GET_OEM_REV_VALUES_BY_DIV_UF]
+Name:       	[XX_GET_REV_PROJ_FROM_PROJ_UF]
 Author:     	GA
 Created:    	09/2022 
 
 FSSTIMAPS-73 - Get Revenue Project from any Project
 
-Usage: SELECT XX_GET_OEM_REV_VALUES_BY_DIV_UF('ABCD.1234.ABCD.1234.ABCD') or
-SELECT XX_GET_OEM_REV_VALUES_BY_DIV_UF(IMAPS_PROJ_ID) FROM TABLE
+Usage: SELECT XX_GET_REV_PROJ_FROM_PROJ_UF('ABCD.1234.ABCD.1234.ABCD') or
+SELECT XX_GET_REV_PROJ_FROM_PROJ_UF(IMAPS_PROJ_ID) FROM TABLE
 
 Returns: Revenue Level project. If none, returns project.
 
