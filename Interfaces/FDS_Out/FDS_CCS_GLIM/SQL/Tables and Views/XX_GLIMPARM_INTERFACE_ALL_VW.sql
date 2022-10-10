@@ -1,11 +1,11 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 9/27/2022 10:48:39 AM ******/
+/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 10/10/2022 10:28:23 AM ******/
 DROP VIEW [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]
 GO
 
-/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 9/27/2022 10:48:39 AM ******/
+/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 10/10/2022 10:28:23 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,10 +14,18 @@ GO
 
 
 
-
-
 /* 
 Used by CFF for GLIM Interface
+
+USAGE: SELECT * FROM IMAPSSTG.DBO.XX_GLIMPARM_INTERFACE_ALL_VW
+
+FINGERPRINT: NOT REQUIRED AT THIS TIME
+
+SELECT IMAPSSTG.DBO.XX_VW_FINGERPRINT('XX_GLIMPARM_INTERFACE_ALL_VW')
+
+UPDATE IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS 
+SET PARAMETER_VALUE = 
+WHERE PARAMETER_NAME = 'XX_GLIMPARM_INTERFACE_ALL_VW'
 
 the following diagnosis query will reveal the invoices that are causing the imbalance if zero <> 0:
 
@@ -67,6 +75,7 @@ SELECT
     ), 
     16
   ) AS DEBITS, 
+
   F AS FILLER_03, 
   RIGHT(
     '         ' + CAST(
@@ -100,19 +109,21 @@ FROM
       SPACE(1) AS J, 
       'N' AS K, 
       SPACE(13) AS L, 
+	  -- THIS IS A NUMBER
       SUM(
         CAST(
           CAST(
             AMOUNTLOCALCURRENCY AS decimal(16,2))/ 100 AS DECIMAL(15, 2)
         )
       ) AS TOT, 
+
       '         897' AS N 
       /*THEN EXTRA FOR MAKING THE COUNT RIGHT */
       , 
       INVOICENUMBER
     from 
       (
-        SELECT ROW_NUMBER() OVER(ORDER BY major) AS ID,* from IMAPSSTG.DBO.XX_GLIM_INTERFACE_ALL_VW
+        SELECT ROW_NUMBER() OVER(ORDER BY major) AS ID,* from IMAPSSTG.DBO.XX_GLIM_INTERFACE_TXT_VW
            ) PARM 
       JOIN (
         SELECT 
