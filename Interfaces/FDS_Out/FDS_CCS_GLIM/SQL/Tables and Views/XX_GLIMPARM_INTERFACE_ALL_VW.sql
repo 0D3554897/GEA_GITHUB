@@ -1,16 +1,17 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 10/10/2022 10:28:23 AM ******/
+/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 10/12/2022 10:20:45 AM ******/
 DROP VIEW [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]
 GO
 
-/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 10/10/2022 10:28:23 AM ******/
+/****** Object:  View [dbo].[XX_GLIMPARM_INTERFACE_ALL_VW]    Script Date: 10/12/2022 10:20:45 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER OFF
 GO
+
 
 
 
@@ -101,7 +102,7 @@ FROM
         112
       ) AS C, 
       SPACE(2) AS D, 
-      case when CAST(AMOUNTLOCALCURRENCY AS bigINT) < 0 then 0 else CAST(AMOUNTLOCALCURRENCY AS bigint) end AS DEBITS, 
+      case when CAST(IMAPSSTG.DBO.XX_UN_OVERPUNCH_UF(AMOUNTLOCALCURRENCY) AS bigINT) < 0 then 0 else CAST(IMAPSSTG.DBO.XX_UN_OVERPUNCH_UF(AMOUNTLOCALCURRENCY) AS bigint) end AS DEBITS, 
       SPACE(2) AS F, 
       1 AS G, 
       SPACE(1) AS H, 
@@ -113,7 +114,7 @@ FROM
       SUM(
         CAST(
           CAST(
-            AMOUNTLOCALCURRENCY AS decimal(16,2))/ 100 AS DECIMAL(15, 2)
+            IMAPSSTG.DBO.XX_UN_OVERPUNCH_UF(AMOUNTLOCALCURRENCY) AS decimal(16,2))/ 100 AS DECIMAL(15, 2)
         )
       ) AS TOT, 
 
@@ -123,7 +124,7 @@ FROM
       INVOICENUMBER
     from 
       (
-        SELECT ROW_NUMBER() OVER(ORDER BY major) AS ID,* from IMAPSSTG.DBO.XX_GLIM_INTERFACE_TXT_VW
+        SELECT ROW_NUMBER() OVER(ORDER BY major) AS ID,* from IMAPSSTG.DBO.XX_GLIM_INTERFACE_ALL_VW
            ) PARM 
       JOIN (
         SELECT 
