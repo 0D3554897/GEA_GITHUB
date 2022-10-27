@@ -1,16 +1,17 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  StoredProcedure [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP]    Script Date: 9/12/2022 10:30:54 AM ******/
+/****** Object:  StoredProcedure [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP]    Script Date: 10/27/2022 12:23:24 PM ******/
 DROP PROCEDURE [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP]
 GO
 
-/****** Object:  StoredProcedure [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP]    Script Date: 9/12/2022 10:30:54 AM ******/
+/****** Object:  StoredProcedure [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP]    Script Date: 10/27/2022 12:23:24 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 CREATE PROCEDURE [dbo].[XX_CLS_DOWN_LOAD_STAGE_SP] ( 
@@ -1480,7 +1481,7 @@ WHERE  1=1
 			DESCRIPTION2, CONSOLIDATED_REV_BRANCH_OFFICE, INDUSTRY, ENTERPRISE_NUM_CD, Y.DIVISION
 
 
-	PRINT 'TIME:' + CAST(CAST(GETDATE() AS TIME) AS VARCHAR(5)) + ' ## STEP 23(E) CREATE REVERSING ENTRY FOR SW'
+	PRINT 'TIME:' + CAST(CAST(GETDATE() AS TIME) AS VARCHAR(5)) + ' ## STEP 23(E) CREATE REVERSING ENTRYFOR SW'
 	SET @IMAPS_error_number = 204 -- Attempt to %1 %2 failed.
 	SET @error_msg_placeholder1 = 'INSERT SW REVENUE REVERSALS INTO'
 	SET @error_msg_placeholder2 = 'XX_CLS_DOWN_YTD'		
