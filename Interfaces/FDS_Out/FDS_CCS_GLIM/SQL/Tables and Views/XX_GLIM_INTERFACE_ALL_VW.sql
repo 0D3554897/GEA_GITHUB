@@ -1,16 +1,18 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  View [dbo].[XX_GLIM_INTERFACE_ALL_VW]    Script Date: 9/7/2022 2:18:52 PM ******/
+/****** Object:  View [dbo].[XX_GLIM_INTERFACE_ALL_VW]    Script Date: 10/12/2022 10:17:08 AM ******/
 DROP VIEW [dbo].[XX_GLIM_INTERFACE_ALL_VW]
 GO
 
-/****** Object:  View [dbo].[XX_GLIM_INTERFACE_ALL_VW]    Script Date: 9/7/2022 2:18:52 PM ******/
+/****** Object:  View [dbo].[XX_GLIM_INTERFACE_ALL_VW]    Script Date: 10/12/2022 10:17:08 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER OFF
 GO
+
+
 
 
 

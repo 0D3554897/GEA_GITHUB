@@ -1,11 +1,7 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  StoredProcedure [dbo].[XX_FDS_CREATE_FLAT_FILES_SP]    Script Date: 3/3/2022 10:05:15 AM ******/
-DROP PROCEDURE [dbo].[XX_FDS_CREATE_FLAT_FILES_SP]
-GO
-
-/****** Object:  StoredProcedure [dbo].[XX_FDS_CREATE_FLAT_FILES_SP]    Script Date: 3/3/2022 10:05:15 AM ******/
+/****** Object:  StoredProcedure [dbo].[XX_FDS_CREATE_FLAT_FILES_SP]    Script Date: 10/6/2022 12:18:33 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,7 +10,8 @@ GO
 
 
 
-CREATE PROCEDURE [dbo].[XX_FDS_CREATE_FLAT_FILES_SP]
+
+CREATE OR ALTER PROCEDURE [dbo].[XX_FDS_CREATE_FLAT_FILES_SP]
 (
 @in_STATUS_REC_NUM integer
 )
@@ -428,7 +425,7 @@ EXEC @ret_code = MASTER.DBO.XP_CMDSHELL @CMD
 IF @ret_code <> 0 GOTO ErrorProcessing
 
 PRINT 'NOW RENAMING CFF OTHER OUTPUT'
-SET @CMD = 'REN ' +REPLACE(@FDS_OUTPUT_PATH,@QUOTE,'') + 'GLIM\GLIM.TXT ' + @GLIM_OUT_FILE_1
+SET @CMD = 'REN ' +REPLACE(@FDS_OUTPUT_PATH,@QUOTE,'') + 'GLIM\GLIM.EBC ' + @GLIM_OUT_FILE_1
 PRINT 'Command is :' + @CMD
 EXEC @ret_code = MASTER.DBO.XP_CMDSHELL @CMD
 IF @ret_code <> 0 GOTO ErrorProcessing
@@ -607,5 +604,4 @@ END
  
 
 GO
-
 
