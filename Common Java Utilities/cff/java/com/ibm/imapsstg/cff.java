@@ -120,15 +120,21 @@ public class cff {
 	
 	private static String[] propKeys = {
 		// from credentials files	
+		//ftp no longer used
 		"ftp.host","ftp.user","ftp.pw",
 		"db.driver","db.url","db.user","db.pw",
+		//mail no longer used
 		"mail.host","mail.user","mail.pw","mail.addressee",
 		//from properties file
+		//log, prod now on command line
 		"log.filename","prod.debug",
 		//"ftp.remote.filename","ftp.asc_file","ftp.ebc_file","ftp.archive.dir",  - now supplied as command line option
-		"file.delimiter","file.enclosure","file.linestoskip","file.lfatend",
+		"file.delimiter","file.enclosure","file.linestoskip","file.lfatend","file.swapchars",
 		"sql.query","sql.to_ebcdic","sql.ebcdic_columns",
 	};
+	 // create an array of optional properties.  no harm done if not there
+	private static String optionProps[] = new String[]{"ftp.host","ftp.user","ftp.pw","mail.host","mail.user","mail.pw","mail.addressee","log.filename","prod.debug","file.swapchars" };
+	private static List<String> optProps = Arrays.asList(optionProps);
 	
 	private static HashMap props = new HashMap();	
 	private static boolean    readDB     = false;
@@ -150,7 +156,6 @@ public class cff {
 	private static String EBCDIC_FileName = "D:\\apps_to_compile\\cff\\PACKED.TXT";
 	private static java.io.PrintWriter ASCII_FILEOBJ;
 	private static BigDecimal packVal = new BigDecimal("000000000.00");
-	
 	
 
 
@@ -282,13 +287,24 @@ public class cff {
 			if(dbg>3) logger.debug(key+ " is being processed.");
 			//if(dbg>0) logger.debug(key + " yields substrings " +sev_char + " : " +seven_key +" and " + ele_char + " : " +eleven_key );
 			if (!p.containsKey(key)) {	
+			// optional keys first
+				if(optProps.contains(key)) {
+					props.put(key, p.getProperty(key, "NoValue"));
+					if(dbg>0) logger.debug("optional property " +key+ " doesn't exist.");
+				} else {
+			//then required keys
 				if(dbg>0) logger.debug(key+ " doesn't exist.");
 				throw new Exception("Could not locate required property " + key);
+				}
 			}else{
 				//if(dbg>0) logger.debug("p.key exists as " +key);
 				props.put(key, p.getProperty(key, "NoValue"));
 				String keyVal = props.get(key).toString();
-				if(dbg>3) logger.debug("Existing property " +key+ " is set to " +keyVal);				
+				if(key == "db.pw"){ 
+					if(dbg>3) logger.debug("Existing property " +key+ " is set to password" );
+				}else{
+					if(dbg>3) logger.debug("Existing property " +key+ " is set to " +keyVal);
+				}	
 			}
 		}
 		if(dbg>1) logger.debug("Loading Properties Complete");
@@ -576,9 +592,42 @@ public class cff {
 				ebcVal = "";
 				negInd = 0;
 				dataVal = value.toString();
+				//if a char swap is needed, let's do it here
+				String swapChars = props.get("file.swapchars").toString();
+				if(swapChars == "NoValue") {
+					//do nothing
+				}else{
+					//swap chars
+					char newChar = ' ';
+					String linea = "";
+					if(dbg>3) logger.debug("Original Value " + dataVal);
+					if(dbg>3) logger.debug("Swapping Characters " + swapChars);
+					String[] swapPair = swapChars.split(",");
+					String fStr = swapPair[0]; 
+					String tStr = swapPair[1];
+					int swapFrom = Integer.valueOf(fStr);
+					int swapTo = Integer.valueOf(tStr);
+					for (int i = 0; i < dataVal.length(); i++) {
+						char oneChar = dataVal.charAt(i);
+						int oneInt = (int) oneChar;
+						//if(dbg>3) logger.debug("The ASCII value of " + oneChar + " is: " + oneInt);	
+						if(oneInt == swapFrom) {
+							newChar = (char)swapTo;
+							if(dbg>3) logger.debug("The ASCII value of " + oneChar + " is: " + oneInt + " and is replaced by " + newChar + " whose ASCII value is " + swapTo);
+						}else{
+							if(dbg>3) logger.debug("The original ASCII value of " + oneChar + " is: " + oneInt + " and will be kept.");
+							newChar = (char)oneInt;
+						}
+						linea = linea + newChar;
+						if(dbg>3) logger.debug("The new line is " + linea);
+					}
+					dataVal = linea;
+					if(dbg>2) logger.debug("Swapping Result: " + dataVal);
+				}
+				
 				//zero filled negative numbers might come in with minus sign in middle; 
 				//but if two dashes come in a row, that's not a number, so leave those alone
-				//no longer needed, we take care of it in SQL view
+				//no longer needed, we take care of i+ t in SQL view
 				/************************************************************************************
 				negVal = dataVal.indexOf("--");
 				if (negVal == -1) {
@@ -713,7 +762,7 @@ public class cff {
 	/* END readDB */
 
 
-private static final Logger logger = LogManager.getLogger(cff.class);
+	private static final Logger logger = LogManager.getLogger(cff.class);
 
 	public static void main(String[] args) {
 		
