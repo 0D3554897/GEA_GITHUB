@@ -1,30 +1,39 @@
-USE IMAPSSTG
+USE [IMAPSStg]
+GO
+
+/****** Object:  View [dbo].[XX_SABRIX_INTERFACE_DTL_VW]    Script Date: 12/7/2022 2:27:57 PM ******/
 DROP VIEW [dbo].[XX_SABRIX_INTERFACE_DTL_VW]
 GO
-SET ANSI_NULLS ON 
+
+/****** Object:  View [dbo].[XX_SABRIX_INTERFACE_DTL_VW]    Script Date: 12/7/2022 2:27:57 PM ******/
+SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
- 
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 
 
 /* 
 Used by CFF for Sabrix Interface
+
+usage: select * from imapsstg.dbo.XX_SABRIX_INTERFACE_DTL_VW
+PADDED SPACES:
+
+-- PREFERRED FILLER CHARACTER IS VALUE 32 (ASCII SPACE DECIMAL CHARACTER).  SQL SERVER HAS QUIRKS WHEN PADDING WITH SPACES. GENERALLY UNSUPPORTED 
+
+-- IF FILE FAILS WHEN USING 32, FALLBACK VALUE IS 158. MUST ALSO MODIFY SABRIX16_DTL.PROPERTIES
+     FILE TO INCLUDE PARAMETER: file.swapchars=158,32 
+	 PUT IT IN THE #FILE SECTION
+
+-- FOR FILLER CHARACTER, NO CHANGE NECESSARY TO THE VIEW.  JUST CHANGE PROC PARAMETERS TABLE:
+
+-- TO SEE WHICH FILLER CHARACTER IS CURRENTLY USED: SELECT PARAMETER_VALUE AS INT FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE INTERFACE_NAME_CD = 'UTIL' AND PARAMETER_NAME = 'PAD_CHAR'
+
+-- TO UPDATE FILLER CHARACTER TO BE USED:  UPDATE IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS SET PARAMETER_VALUE = '158' WHERE PARAMETER_NAME = 'PAD_CHAR'
+
+
 
 Len of field to be sent to packed decimal should be equal to first digit.  
 For example, '00000000000' (LEN=11) would be sent to a DEC(11,2) packed decimal field
@@ -152,15 +161,15 @@ Select * from (
 	0 as alpha_source,
 	-- c.mail_state_dc as state_abbr,   <--- SABRIX doesn't like nulls
 	coalesce(c.mail_state_dc, ' ') as state_abbr,
-	coalesce(LEFT(c.CITY_NAME + '                       ',20),SPACE(20)) as city_name,
-	coalesce(LEFT(postal_cd,5),SPACE(5)) as postcode,
+	coalesce(LEFT(c.CITY_NAME + '                       ',20),REPLICATE(CHAR(IMAPSSTG.DBO.XX_GET_PAD_UF()),20)) as city_name,
+	coalesce(LEFT(postal_cd,5),REPLICATE(CHAR(IMAPSSTG.DBO.XX_GET_PAD_UF()),5)) as postcode,
 	-- 4 digits only and fill nulls with 4 blanks
 	coalesce((SELECT CAST(CAST((
 			SELECT SUBSTRING(RIGHT(postal_cd,4), Number, 1)
 			FROM master..spt_values
 			WHERE Type='p' AND Number <= LEN(RIGHT(postal_cd,4)) AND
 				SUBSTRING(RIGHT(postal_cd,4), Number, 1) LIKE '[0-9]' FOR XML Path(''))
-		AS xml) AS varchar(MAX))),space(4)) as geocode 
+		AS xml) AS varchar(MAX))),REPLICATE(CHAR(IMAPSSTG.DBO.XX_GET_PAD_UF()),4)) as geocode 
 
 	from imapsstg.dbo.XX_SABRIX_INV_OUT_SUM a 
 	join imapsstg.dbo.XX_SABRIX_INV_OUT_DTL b on a.INVC_ID = b.invc_id 
@@ -239,16 +248,16 @@ Select * from (
 	'    ' as adj_num,
 	'2' as fds_rev_type,
 	0 as alpha_source,
-	coalesce(c.mail_state_dc,SPACE(2)) as state_abbr,
-	coalesce(LEFT(c.CITY_NAME + '                       ',20),space(20)) as city_name,
-	coalesce(LEFT(postal_cd,5),space(5)) as postcode,
+	coalesce(c.mail_state_dc,REPLICATE(CHAR(IMAPSSTG.DBO.XX_GET_PAD_UF()),2)) as state_abbr,
+	coalesce(LEFT(c.CITY_NAME + '                       ',20),REPLICATE(CHAR(IMAPSSTG.DBO.XX_GET_PAD_UF()),20)) as city_name,
+	coalesce(LEFT(postal_cd + '00000',5),REPLICATE(CHAR(IMAPSSTG.DBO.XX_GET_PAD_UF()),5)) as postcode,
 	-- 4 digits only, and fill nulls with 4 blanks
 	coalesce((SELECT CAST(CAST((
 			SELECT SUBSTRING(RIGHT(postal_cd,4), Number, 1)
 			FROM master..spt_values
 			WHERE Type='p' AND Number <= LEN(RIGHT(postal_cd,4)) AND
 				SUBSTRING(RIGHT(postal_cd,4), Number, 1) LIKE '[0-9]' FOR XML Path(''))
-		AS xml) AS varchar(MAX))),space(4)) as geocode 
+		AS xml) AS varchar(MAX))),REPLICATE(CHAR(IMAPSSTG.DBO.XX_GET_PAD_UF()),4)) as geocode 
 
 	from imapsstg.dbo.XX_SABRIX_INV_OUT_SUM a 
 	join imapsstg.dbo.XX_SABRIX_INV_OUT_DTL b on a.INVC_ID = b.invc_id 
@@ -264,7 +273,7 @@ Select * from (
 	AND coalesce(ltrim(rtrim(C.country_cd)),'USA') = 'USA')
 )vw
 where state_code in
-('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '53', '54', '61')
+('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '53', '54', '61', '99')
 
 -- AND (A.INVC_AMT - A.CSP_AMT) <> 0 
 -- AND b.BILLED_AMT - B.SALES_TAX_AMT <> 0
@@ -289,5 +298,5 @@ where state_code in
  
 
 GO
- 
+
 
