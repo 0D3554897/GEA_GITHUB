@@ -1,11 +1,11 @@
 USE [IMAPSStg]
 GO
 
-/****** Object:  View [dbo].[XX_GLIM_INTERFACE_ALL_VW]    Script Date: 12/6/2022 1:59:40 PM ******/
+/****** Object:  View [dbo].[XX_GLIM_INTERFACE_ALL_VW]    Script Date: 11/23/2022 2:19:09 PM ******/
 DROP VIEW [dbo].[XX_GLIM_INTERFACE_ALL_VW]
 GO
 
-/****** Object:  View [dbo].[XX_GLIM_INTERFACE_ALL_VW]    Script Date: 12/6/2022 1:59:40 PM ******/
+/****** Object:  View [dbo].[XX_GLIM_INTERFACE_ALL_VW]    Script Date: 11/23/2022 2:19:09 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,26 +13,10 @@ SET QUOTED_IDENTIFIER OFF
 GO
 
 
-
 /* 
 Used by CFF for GLIM Interface
 
 select * from imapsstg.dbo.XX_GLIM_INTERFACE_ALL_VW order by invoicenumber, major
-
-PADDED SPACES:
-
--- PREFERRED FILLER CHARACTER IS VALUE 32 (ASCII SPACE DECIMAL CHARACTER).  SQL SERVER HAS QUIRKS WHEN PADDING WITH SPACES. GENERALLY UNSUPPORTED 
-
--- IF FILE FAILS WHEN USING 32, FALLBACK VALUE IS 158. MUST ALSO MODIFY GLIM.PROPERTIES
-     FILE TO INCLUDE PARAMETER: file.swapchars=158,32 
-	 PUT IT IN THE #FILE SECTION
-
--- FOR FILLER CHARACTER, NO CHANGE NECESSARY TO THE VIEW.  JUST CHANGE PROC PARAMETERS TABLE:
-
--- TO SEE WHICH FILLER CHARACTER IS CURRENTLY USED: SELECT PARAMETER_VALUE AS INT FROM IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS WHERE INTERFACE_NAME_CD = 'UTIL' AND PARAMETER_NAME = 'PAD_CHAR'
-
--- TO UPDATE FILLER CHARACTER TO BE USED:  UPDATE IMAPSSTG.DBO.XX_PROCESSING_PARAMETERS SET PARAMETER_VALUE = '158' WHERE PARAMETER_NAME = 'PAD_CHAR'
-
 */
 
 CREATE VIEW [dbo].[XX_GLIM_INTERFACE_ALL_VW]
@@ -544,7 +528,7 @@ IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
                   abs(
                     sum(B.SALES_TAX_AMT)*-100
                   )
-                ) as int
+                ) AS BIGINT
               ) as varchar(25)
             )
           ), 
@@ -743,7 +727,7 @@ IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
                   abs(
                     sum(B.BILLED_AMT - B.SALES_TAX_AMT)*-100
                   )
-                ) as int
+                ) AS BIGINT
               ) as varchar(25)
             )
           ), 
@@ -1278,7 +1262,7 @@ IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
                   abs(
                     sum(B.SALES_TAX_AMT)*-100
                   )
-                ) as int
+                ) AS BIGINT
               ) as varchar(25)
             )
           ), 
@@ -1476,7 +1460,7 @@ IMAPSSTG.DBO.XX_NEG_OVERPUNCH_UF(
                   abs(
                     sum(B.BILLED_AMT - B.SALES_TAX_AMT)*-100
                   )
-                ) as int
+                ) AS BIGINT
               ) as varchar(25)
             )
           ), 
